@@ -1908,10 +1908,13 @@ endmethod.</source>
 * All of this will be inserted automatically, when imported.
       loop at isource_new into xsource_new.
         check xsource_new is not initial.
-        if xsource_new+0(2) = &apos;*&quot;&apos;.
-          delete isource_new index sy-tabix.
-          continue.
-        endif.
+        try.
+          if xsource_new+0(2) = &apos;*&quot;&apos;.
+            delete isource_new index sy-tabix.
+            continue.
+          endif.
+        catch CX_SY_RANGE_OUT_OF_BOUNDS.
+        endtry.
         translate xsource_new to upper case.
         shift xsource_new left deleting leading space.
         search xsource_new for &apos;FUNCTION&apos;.
