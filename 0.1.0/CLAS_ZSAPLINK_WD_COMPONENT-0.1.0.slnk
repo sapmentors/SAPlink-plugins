@@ -1,0 +1,2308 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<CLAS CLSNAME="ZSAPLINK_WD_COMPONENT" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Web Dynpro ABAP Component" UUID="1099664D11805749BF5C3C52132D9137" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="700" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
+ <publicSection>class ZSAPLINK_WD_COMPONENT definition
+  public
+  inheriting from ZSAPLINK
+  final
+  create public .
+
+*&quot;* public components of class ZSAPLINK_WD_COMPONENT
+*&quot;* do not include other source files here!!!
+public section.
+  type-pools WDYN .
+  type-pools WDYWB .
+
+  methods CHECKEXISTS
+    redefinition .
+  methods CREATEIXMLDOCFROMOBJECT
+    redefinition .
+  methods CREATEOBJECTFROMIXMLDOC
+    redefinition .</publicSection>
+ <protectedSection>*&quot;* protected components of class ZSAPLINK_WD_COMPONENT
+*&quot;* do not include other source files here!!!
+protected section.
+
+  methods DELETEOBJECT
+    redefinition .
+  methods GETOBJECTTYPE
+    redefinition .</protectedSection>
+ <privateSection>*&quot;* private components of class ZSAPLINK_WD_COMPONENT
+*&quot;* do not include other source files here!!!
+private section.
+
+  methods CONTROLLER_TO_XML
+    importing
+      !CONTROLLER type ref to IF_WDY_MD_CONTROLLER
+      !XML_NODE type ref to IF_IXML_ELEMENT .
+  methods XML_TO_CONTROLLER
+    importing
+      !XML_NODE type ref to IF_IXML_ELEMENT
+    returning
+      value(CONTROLLER) type ref to IF_WDY_MD_CONTROLLER
+    raising
+      CX_WDY_MD_ENQUEUE_FAILURE
+      CX_WDY_MD_ALREADY_EXISTING .
+  methods XML_TO_VIEW
+    importing
+      !XML_NODE type ref to IF_IXML_ELEMENT
+    raising
+      CX_WDY_MD_ENQUEUE_FAILURE .
+  methods GET_COMPONENT
+    returning
+      value(COMPONENT) type ref to IF_WDY_MD_COMPONENT
+    raising
+      CX_WDY_MD_NOT_EXISTING
+      CX_WDY_MD_PERMISSION_FAILURE .
+  methods VIEW_TO_XML
+    importing
+      !VIEW type ref to IF_WDY_MD_ABSTRACT_VIEW
+      !XML_NODE type ref to IF_IXML_ELEMENT
+    exporting
+      !VIEW_NODE type ref to IF_IXML_ELEMENT .</privateSection>
+ <localImplementation>*&quot;* local class implementation for public class
+*&quot;* use this source file for the implementation part of
+*&quot;* local helper classes</localImplementation>
+ <localTypes>*&quot;* use this source file for any type declarations (class
+*&quot;* definitions, interfaces or data types) you need for method
+*&quot;* implementation or private method&apos;s signature</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <typeUsage CLSNAME="ZSAPLINK_WD_COMPONENT" TYPEGROUP="WDYN" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <typeUsage CLSNAME="ZSAPLINK_WD_COMPONENT" TYPEGROUP="WDYWB" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <forwardDeclaration>WDYN</forwardDeclaration>
+ <forwardDeclaration>WDYWB</forwardDeclaration>
+ <inheritance CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1" AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515">
+  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS"/>
+  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT"/>
+  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC"/>
+  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT"/>
+  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE"/>
+ </inheritance>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method CHECKEXISTS.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+
+  DATA: component TYPE REF TO if_wdy_md_component.
+  exists = abap_true.
+  TRY.
+      component = me-&gt;get_component( ).
+    CATCH cx_wdy_md_not_existing.
+      CLEAR exists.
+    CATCH cx_wdy_md_permission_failure.
+      CLEAR exists.
+  ENDTRY.
+
+
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="CONTROLLER_TO_XML" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="CONTROLLER_TO_XML" SCONAME="CONTROLLER" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro: Controller" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_WDY_MD_CONTROLLER"/>
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="CONTROLLER_TO_XML" SCONAME="XML_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>method CONTROLLER_TO_XML.
+  DATA definition TYPE wdy_controller.
+  DATA rc TYPE i.
+  DATA controller_definition_node    TYPE REF TO if_ixml_element.
+  DATA wdy_controllert_node          TYPE REF TO if_ixml_element.
+  DATA wdy_ctlr_compo_node           TYPE REF TO if_ixml_element.
+  DATA wdy_ctlr_compot_node          TYPE REF TO if_ixml_element.
+  DATA wdy_ctlr_param_node           TYPE REF TO if_ixml_element.
+  DATA wdy_ctlr_paramt_node          TYPE REF TO if_ixml_element.
+  DATA wdy_ctlr_usage_node           TYPE REF TO if_ixml_element.
+  DATA wdy_ctx_node_node             TYPE REF TO if_ixml_element.
+  DATA wdy_ctx_attrib_node           TYPE REF TO if_ixml_element.
+  data wdy_ctx_mapping_node          type ref to if_ixml_element.
+
+
+
+  controller-&gt;if_wdy_md_object~get_definition(
+     IMPORTING
+       definition = definition ).
+
+* Create parent node
+  DATA _objtype TYPE string.
+  _objtype = definition-controller_name.
+
+* Controller Definition
+  controller_definition_node = xmldoc-&gt;create_element( &apos;controller_definition&apos; ).
+  setattributesfromstructure( node = controller_definition_node structure = definition ).
+  rc = xml_node-&gt;append_child( controller_definition_node ).
+
+* copy wdy_controllert
+  DATA wdy_controllert_table TYPE STANDARD TABLE OF wdy_controllert.
+  FIELD-SYMBOLS: &lt;wdy_controllert&gt; TYPE wdy_controllert.
+  SELECT * FROM wdy_controllert INTO TABLE wdy_controllert_table
+    WHERE component_name = definition-component_name
+      AND controller_name  = definition-controller_name.
+  LOOP AT wdy_controllert_table ASSIGNING &lt;wdy_controllert&gt;.
+    wdy_controllert_node = xmldoc-&gt;create_element( &apos;wdy_controllert&apos; ).
+    setattributesfromstructure( node = wdy_controllert_node structure = &lt;wdy_controllert&gt; ).
+    rc = controller_definition_node-&gt;append_child( wdy_controllert_node ).
+  ENDLOOP.
+
+* copy components
+  DATA it_wdy_ctlr_compo TYPE STANDARD TABLE OF wdy_ctlr_compo.
+  FIELD-SYMBOLS: &lt;wdy_ctlr_compo&gt; TYPE wdy_ctlr_compo.
+  SELECT * FROM wdy_ctlr_compo INTO TABLE it_wdy_ctlr_compo
+    WHERE component_name   = definition-component_name
+      AND controller_name  = definition-controller_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_ctlr_compo ASSIGNING &lt;wdy_ctlr_compo&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_ctlr_compo&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_ctlr_compo TRANSPORTING NO FIELDS
+              WITH KEY cmpname = &lt;wdy_ctlr_compo&gt;-cmpname
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_ctlr_compo&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ctlr_compo_node = xmldoc-&gt;create_element( &apos;wdy_ctlr_compo&apos; ).
+          setattributesfromstructure( node = wdy_ctlr_compo_node structure = &lt;wdy_ctlr_compo&gt; ).
+          rc = controller_definition_node-&gt;append_child( wdy_ctlr_compo_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_ctlr_compo ASSIGNING &lt;wdy_ctlr_compo&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_ctlr_compo&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ctlr_compo_node = xmldoc-&gt;create_element( &apos;wdy_ctlr_compo&apos; ).
+          setattributesfromstructure( node = wdy_ctlr_compo_node structure = &lt;wdy_ctlr_compo&gt; ).
+          rc = controller_definition_node-&gt;append_child( wdy_ctlr_compo_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+* copy wdy_ctlr_compot
+  DATA wdy_ctlr_compot_table TYPE STANDARD TABLE OF wdy_ctlr_compot.
+  FIELD-SYMBOLS: &lt;wdy_ctlr_compot&gt; TYPE wdy_ctlr_compot.
+  SELECT * FROM wdy_ctlr_compot INTO TABLE wdy_ctlr_compot_table
+    WHERE component_name = definition-component_name
+      AND controller_name  = definition-controller_name.
+  LOOP AT wdy_ctlr_compot_table ASSIGNING &lt;wdy_ctlr_compot&gt;.
+    wdy_ctlr_compot_node = xmldoc-&gt;create_element( &apos;wdy_ctlr_compot&apos; ).
+    setattributesfromstructure( node = wdy_ctlr_compot_node structure = &lt;wdy_ctlr_compot&gt; ).
+    rc = controller_definition_node-&gt;append_child( wdy_ctlr_compot_node ).
+  ENDLOOP.
+
+* copy parameters
+  DATA it_wdy_ctlr_param TYPE STANDARD TABLE OF wdy_ctlr_param.
+  FIELD-SYMBOLS: &lt;wdy_ctlr_param&gt; TYPE wdy_ctlr_param.
+  SELECT * FROM wdy_ctlr_param INTO TABLE it_wdy_ctlr_param
+    WHERE component_name   = definition-component_name
+      AND controller_name  = definition-controller_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_ctlr_param ASSIGNING &lt;wdy_ctlr_param&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_ctlr_param&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_ctlr_param TRANSPORTING NO FIELDS
+              WITH KEY cmpname = &lt;wdy_ctlr_param&gt;-cmpname
+                       parameter_name = &lt;wdy_ctlr_param&gt;-parameter_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_ctlr_param&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ctlr_param_node = xmldoc-&gt;create_element( &apos;wdy_ctlr_param&apos; ).
+          setattributesfromstructure( node = wdy_ctlr_param_node structure = &lt;wdy_ctlr_param&gt; ).
+          rc = controller_definition_node-&gt;append_child( wdy_ctlr_param_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_ctlr_param ASSIGNING &lt;wdy_ctlr_param&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_ctlr_param&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ctlr_param_node = xmldoc-&gt;create_element( &apos;wdy_ctlr_param&apos; ).
+          setattributesfromstructure( node = wdy_ctlr_param_node structure = &lt;wdy_ctlr_param&gt; ).
+          rc = controller_definition_node-&gt;append_child( wdy_ctlr_param_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+* copy wdy_ctlr_paramt
+  DATA wdy_ctlr_paramt_table TYPE STANDARD TABLE OF wdy_ctlr_paramt.
+  FIELD-SYMBOLS: &lt;wdy_ctlr_paramt&gt; TYPE wdy_ctlr_paramt.
+  SELECT * FROM wdy_ctlr_paramt INTO TABLE wdy_ctlr_paramt_table
+    WHERE component_name = definition-component_name
+      AND controller_name  = definition-controller_name.
+  LOOP AT wdy_ctlr_paramt_table ASSIGNING &lt;wdy_ctlr_paramt&gt;.
+    wdy_ctlr_paramt_node = xmldoc-&gt;create_element( &apos;wdy_ctlr_paramt&apos; ).
+    setattributesfromstructure( node = wdy_ctlr_paramt_node structure = &lt;wdy_ctlr_paramt&gt; ).
+    rc = controller_definition_node-&gt;append_child( wdy_ctlr_paramt_node ).
+  ENDLOOP.
+
+* copy controller usages
+  DATA it_wdy_ctlr_usage TYPE STANDARD TABLE OF wdy_ctlr_usage.
+  FIELD-SYMBOLS: &lt;wdy_ctlr_usage&gt; TYPE wdy_ctlr_usage.
+  SELECT * FROM wdy_ctlr_usage INTO TABLE it_wdy_ctlr_usage
+    WHERE component_name   = definition-component_name
+      AND controller_name  = definition-controller_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_ctlr_usage ASSIGNING &lt;wdy_ctlr_usage&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_ctlr_usage&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_ctlr_usage TRANSPORTING NO FIELDS
+              WITH KEY ctlr_usage_name = &lt;wdy_ctlr_usage&gt;-ctlr_usage_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_ctlr_usage&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ctlr_usage_node = xmldoc-&gt;create_element( &apos;wdy_ctlr_usage&apos; ).
+          setattributesfromstructure( node = wdy_ctlr_usage_node structure = &lt;wdy_ctlr_usage&gt; ).
+          rc = controller_definition_node-&gt;append_child( wdy_ctlr_usage_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_ctlr_usage ASSIGNING &lt;wdy_ctlr_usage&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_ctlr_usage&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ctlr_usage_node = xmldoc-&gt;create_element( &apos;wdy_ctlr_usage&apos; ).
+          setattributesfromstructure( node = wdy_ctlr_usage_node structure = &lt;wdy_ctlr_usage&gt; ).
+          rc = controller_definition_node-&gt;append_child( wdy_ctlr_usage_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+* copy context nodes
+  DATA it_wdy_ctx_node TYPE STANDARD TABLE OF wdy_ctx_node.
+  FIELD-SYMBOLS: &lt;wdy_ctx_node&gt; TYPE wdy_ctx_node.
+  SELECT * FROM wdy_ctx_node INTO TABLE it_wdy_ctx_node
+    WHERE component_name   = definition-component_name
+      AND controller_name  = definition-controller_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_ctx_node ASSIGNING &lt;wdy_ctx_node&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_ctx_node&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_ctx_node TRANSPORTING NO FIELDS
+              WITH KEY node_name = &lt;wdy_ctx_node&gt;-node_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_ctx_node&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ctx_node_node = xmldoc-&gt;create_element( &apos;wdy_ctx_node&apos; ).
+          setattributesfromstructure( node = wdy_ctx_node_node structure = &lt;wdy_ctx_node&gt; ).
+          rc = controller_definition_node-&gt;append_child( wdy_ctx_node_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_ctx_node ASSIGNING &lt;wdy_ctx_node&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_ctx_node&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ctx_node_node = xmldoc-&gt;create_element( &apos;wdy_ctx_node&apos; ).
+          setattributesfromstructure( node = wdy_ctx_node_node structure = &lt;wdy_ctx_node&gt; ).
+          rc = controller_definition_node-&gt;append_child( wdy_ctx_node_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+* copy context attributes
+  DATA it_wdy_ctx_attrib TYPE STANDARD TABLE OF wdy_ctx_attrib.
+  FIELD-SYMBOLS: &lt;wdy_ctx_attrib&gt; TYPE wdy_ctx_attrib.
+  SELECT * FROM wdy_ctx_attrib INTO TABLE it_wdy_ctx_attrib
+    WHERE component_name   = definition-component_name
+      AND controller_name  = definition-controller_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_ctx_attrib ASSIGNING &lt;wdy_ctx_attrib&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_ctx_attrib&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_ctx_attrib TRANSPORTING NO FIELDS
+              WITH KEY node_name = &lt;wdy_ctx_attrib&gt;-node_name
+                       attribute_name = &lt;wdy_ctx_attrib&gt;-attribute_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_ctx_attrib&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ctx_attrib_node = xmldoc-&gt;create_element( &apos;wdy_ctx_attrib&apos; ).
+          setattributesfromstructure( node = wdy_ctx_attrib_node structure = &lt;wdy_ctx_attrib&gt; ).
+          rc = controller_definition_node-&gt;append_child( wdy_ctx_attrib_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_ctx_attrib ASSIGNING &lt;wdy_ctx_attrib&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_ctx_attrib&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ctx_attrib_node = xmldoc-&gt;create_element( &apos;wdy_ctx_attrib&apos; ).
+          setattributesfromstructure( node = wdy_ctx_attrib_node structure = &lt;wdy_ctx_attrib&gt; ).
+          rc = controller_definition_node-&gt;append_child( wdy_ctx_attrib_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+* copy context mapping
+  data it_wdy_ctx_mapping type standard table of wdy_ctx_mapping.
+  field-symbols: &lt;wdy_ctx_mapping&gt; type wdy_ctx_mapping.
+  select * from wdy_ctx_mapping into table it_wdy_ctx_mapping
+    where component_name   = definition-component_name
+      and controller_name  = definition-controller_name.
+  if sy-subrc = 0.
+    case definition-version.
+      when &apos;I&apos;.
+        loop at it_wdy_ctx_mapping assigning &lt;wdy_ctx_mapping&gt; where version &lt;&gt; &apos;D&apos;.
+          if &lt;wdy_ctx_mapping&gt;-version = &apos;A&apos;.
+            read table it_wdy_ctx_mapping transporting no fields
+              with key ctlr_usage_name = &lt;wdy_ctx_mapping&gt;-ctlr_usage_name
+                       ctx_mapp_name = &lt;wdy_ctx_mapping&gt;-ctx_mapp_name
+                       version = &apos;I&apos;.
+            if sy-subrc = 0.
+              continue.
+            endif.
+          endif.
+          &lt;wdy_ctx_mapping&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+         wdy_ctx_mapping_node = xmldoc-&gt;create_element( &apos;wdy_ctx_mapping&apos; ).
+          setattributesfromstructure( node = wdy_ctx_mapping_node structure = &lt;wdy_ctx_mapping&gt; ).
+          rc = controller_definition_node-&gt;append_child( wdy_ctx_mapping_node ).
+        endloop.
+      when &apos;A&apos;.
+        loop at it_wdy_ctx_mapping assigning &lt;wdy_ctx_mapping&gt; where version = &apos;A&apos;.
+          &lt;wdy_ctx_mapping&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+         wdy_ctx_mapping_node = xmldoc-&gt;create_element( &apos;wdy_ctx_mapping&apos; ).
+          setattributesfromstructure( node = wdy_ctx_mapping_node structure = &lt;wdy_ctx_mapping&gt; ).
+          rc = controller_definition_node-&gt;append_child( wdy_ctx_mapping_node ).
+        endloop.
+    endcase.
+  endif.
+
+
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method CREATEIXMLDOCFROMOBJECT.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+
+*xml nodes
+  DATA rootnode   TYPE REF TO if_ixml_element.
+  DATA wdy_componentt_node   TYPE REF TO if_ixml_element.
+  DATA wdy_compo_usage_node  TYPE REF TO if_ixml_element.
+  DATA wdy_ext_ctlr_use_node TYPE REF TO if_ixml_element.
+  DATA wdy_ext_ctx_map_node  TYPE REF TO if_ixml_element.
+  DATA wdy_intf_implem_node  TYPE REF TO if_ixml_element.
+  DATA view_node             TYPE REF TO if_ixml_element.
+  DATA rc         TYPE sysubrc.
+
+  DATA: component TYPE REF TO if_wdy_md_component.
+  TRY.
+      component = me-&gt;get_component( ).
+    CATCH cx_wdy_md_not_existing.
+      RAISE EXCEPTION TYPE zcx_saplink EXPORTING textid = zcx_saplink=&gt;not_found.
+      RETURN.
+    CATCH cx_wdy_md_permission_failure.
+      RAISE EXCEPTION TYPE zcx_saplink EXPORTING textid = zcx_saplink=&gt;not_found.
+      RETURN.
+  ENDTRY.
+
+  DATA definition TYPE wdy_component.
+
+  component-&gt;if_wdy_md_object~get_definition(
+     IMPORTING
+       definition = definition ).
+
+* Create parent node
+  DATA _objtype TYPE string.
+  _objtype = getobjecttype( ).
+  rootnode = xmldoc-&gt;create_element( _objtype ).
+  setattributesfromstructure( node = rootnode structure = definition ).
+
+* copy wdy_componentt
+  DATA wdy_componentt_table TYPE STANDARD TABLE OF wdy_componentt.
+  FIELD-SYMBOLS: &lt;wdy_componentt&gt; TYPE wdy_componentt.
+  SELECT * FROM wdy_componentt INTO TABLE wdy_componentt_table
+    WHERE component_name = definition-component_name.
+  LOOP AT wdy_componentt_table ASSIGNING &lt;wdy_componentt&gt;.
+    wdy_componentt_node = xmldoc-&gt;create_element( &apos;wdy_componentt&apos; ).
+    setattributesfromstructure( node = wdy_componentt_node structure = &lt;wdy_componentt&gt; ).
+    rc = rootnode-&gt;append_child( wdy_componentt_node ).
+  ENDLOOP.
+
+
+* copy component usages
+  DATA it_wdy_compo_usage TYPE STANDARD TABLE OF wdy_compo_usage.
+  FIELD-SYMBOLS: &lt;wdy_compo_usage&gt; TYPE wdy_compo_usage.
+  SELECT * FROM wdy_compo_usage INTO TABLE it_wdy_compo_usage
+    WHERE component_name   = definition-component_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_compo_usage ASSIGNING &lt;wdy_compo_usage&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_compo_usage&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_compo_usage TRANSPORTING NO FIELDS
+              WITH KEY compo_usage_name = &lt;wdy_compo_usage&gt;-compo_usage_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_compo_usage&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+
+          wdy_compo_usage_node = xmldoc-&gt;create_element( &apos;wdy_compo_usage&apos; ).
+          setattributesfromstructure( node = wdy_compo_usage_node structure = &lt;wdy_compo_usage&gt; ).
+          rc = rootnode-&gt;append_child( wdy_compo_usage_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_compo_usage ASSIGNING &lt;wdy_compo_usage&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_compo_usage&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_compo_usage_node = xmldoc-&gt;create_element( &apos;wdy_compo_usage&apos; ).
+          setattributesfromstructure( node = wdy_compo_usage_node structure = &lt;wdy_compo_usage&gt; ).
+          rc = rootnode-&gt;append_child( wdy_compo_usage_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+* copy external controller usages
+  DATA it_wdy_ext_ctlr_use TYPE STANDARD TABLE OF wdy_ext_ctlr_use.
+  FIELD-SYMBOLS: &lt;wdy_ext_ctlr_use&gt; TYPE wdy_ext_ctlr_use.
+  SELECT * FROM wdy_ext_ctlr_use INTO TABLE it_wdy_ext_ctlr_use
+    WHERE component_name   = definition-component_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_ext_ctlr_use ASSIGNING &lt;wdy_ext_ctlr_use&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_ext_ctlr_use&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_ext_ctlr_use TRANSPORTING NO FIELDS
+              WITH KEY component_name = &lt;wdy_ext_ctlr_use&gt;-component_usage
+                       ctlr_usage_name = &lt;wdy_ext_ctlr_use&gt;-ctlr_usage_name
+                       comp_ctlr_usage = &lt;wdy_ext_ctlr_use&gt;-comp_ctlr_usage
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_ext_ctlr_use&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ext_ctlr_use_node = xmldoc-&gt;create_element( &apos;wdy_ext_ctlr_use&apos; ).
+          setattributesfromstructure( node = wdy_ext_ctlr_use_node structure = &lt;wdy_ext_ctlr_use&gt; ).
+          rc = rootnode-&gt;append_child( wdy_ext_ctlr_use_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_ext_ctlr_use ASSIGNING &lt;wdy_ext_ctlr_use&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_ext_ctlr_use&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ext_ctlr_use_node = xmldoc-&gt;create_element( &apos;wdy_ext_ctlr_use&apos; ).
+          setattributesfromstructure( node = wdy_ext_ctlr_use_node structure = &lt;wdy_ext_ctlr_use&gt; ).
+          rc = rootnode-&gt;append_child( wdy_ext_ctlr_use_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+* copy external context mappings
+  DATA it_wdy_ext_ctx_map TYPE STANDARD TABLE OF wdy_ext_ctx_map.
+  FIELD-SYMBOLS: &lt;wdy_ext_ctx_map&gt; TYPE wdy_ext_ctx_map.
+  SELECT * FROM wdy_ext_ctx_map INTO TABLE it_wdy_ext_ctx_map
+    WHERE component_name   = definition-component_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_ext_ctx_map ASSIGNING &lt;wdy_ext_ctx_map&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_ext_ctx_map&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_ext_ctx_map TRANSPORTING NO FIELDS
+              WITH KEY ctx_mapping_name = &lt;wdy_ext_ctx_map&gt;-ctx_mapping_name
+                       ctlr_usage_name = &lt;wdy_ext_ctx_map&gt;-ctlr_usage_name
+                       comp_ctlr_usage = &lt;wdy_ext_ctx_map&gt;-comp_ctlr_usage
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_ext_ctx_map&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ext_ctx_map_node = xmldoc-&gt;create_element( &apos;wdy_ext_ctx_map&apos; ).
+          setattributesfromstructure( node = wdy_ext_ctx_map_node structure = &lt;wdy_ext_ctx_map&gt; ).
+          rc = rootnode-&gt;append_child( wdy_ext_ctx_map_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_ext_ctx_map ASSIGNING &lt;wdy_ext_ctx_map&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_ext_ctx_map&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ext_ctx_map_node = xmldoc-&gt;create_element( &apos;wdy_ext_ctx_map&apos; ).
+          setattributesfromstructure( node = wdy_ext_ctx_map_node structure = &lt;wdy_ext_ctx_map&gt; ).
+          rc = rootnode-&gt;append_child( wdy_ext_ctx_map_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+* copy interface implementations
+  DATA it_wdy_intf_implem TYPE STANDARD TABLE OF wdy_intf_implem.
+  FIELD-SYMBOLS: &lt;wdy_intf_implem&gt; TYPE wdy_intf_implem.
+  SELECT * FROM wdy_intf_implem INTO TABLE it_wdy_intf_implem
+    WHERE component_name = definition-component_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_intf_implem ASSIGNING &lt;wdy_intf_implem&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_intf_implem&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_intf_implem TRANSPORTING NO FIELDS
+              WITH KEY interface_name = &lt;wdy_intf_implem&gt;-interface_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_intf_implem&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_intf_implem_node = xmldoc-&gt;create_element( &apos;wdy_intf_implem&apos; ).
+          setattributesfromstructure( node = wdy_intf_implem_node structure = &lt;wdy_intf_implem&gt; ).
+          rc = rootnode-&gt;append_child( wdy_intf_implem_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_intf_implem ASSIGNING &lt;wdy_intf_implem&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_intf_implem&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_intf_implem_node = xmldoc-&gt;create_element( &apos;wdy_intf_implem&apos; ).
+          setattributesfromstructure( node = wdy_intf_implem_node structure = &lt;wdy_intf_implem&gt; ).
+          rc = rootnode-&gt;append_child( wdy_intf_implem_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+  DATA: map TYPE REF TO if_object_map,
+         iter TYPE REF TO if_object_collection_iterator,
+         obj_name TYPE wdy_md_object_name,
+         view TYPE REF TO if_wdy_md_abstract_view,
+         controller TYPE REF TO if_wdy_md_controller.
+
+  IF cl_wdy_md_component=&gt;is_component_interface_def( definition-component_name ) = &apos; &apos;.
+*   copy views
+    map ?= component-&gt;get_views( ).
+    iter = map-&gt;get_values_iterator( ).
+    WHILE iter-&gt;has_next( ) = &apos;X&apos;.
+      TRY.
+        view ?= iter-&gt;get_next( ).
+        IF definition-version = if_wdy_md_object=&gt;co_version_active AND
+           view-&gt;if_wdy_md_object~get_state( ) = if_wdy_md_object=&gt;co_state_pseudo_active.
+          CONTINUE.
+        ENDIF.
+        me-&gt;view_to_xml(
+          EXPORTING
+            view = view
+            xml_node = rootnode
+          IMPORTING
+            view_node = view_node ).
+
+        controller = view-&gt;get_view_controller( ).
+        IF definition-version = if_wdy_md_object=&gt;co_version_active AND
+           controller-&gt;if_wdy_md_object~get_state( ) = if_wdy_md_object=&gt;co_state_pseudo_active.
+          CONTINUE.
+        ENDIF.
+
+        me-&gt;controller_to_xml(
+           EXPORTING
+              controller = controller
+              xml_node   = view_node ).
+
+
+      ENDTRY.
+    ENDWHILE.
+
+*   copy &quot;window-views&quot;
+    map ?= component-&gt;get_windows( ).
+    iter = map-&gt;get_values_iterator( ).
+    WHILE iter-&gt;has_next( ) = &apos;X&apos;.
+      TRY.
+        view ?= iter-&gt;get_next( ).
+          me-&gt;view_to_xml(
+            EXPORTING
+              view = view
+              xml_node = rootnode
+            IMPORTING
+              view_node = view_node ).
+
+      controller = view-&gt;get_view_controller( ).
+      IF definition-version = if_wdy_md_object=&gt;co_version_active AND
+         controller-&gt;if_wdy_md_object~get_state( ) = if_wdy_md_object=&gt;co_state_pseudo_active.
+        CONTINUE.
+      ENDIF.
+
+          me-&gt;controller_to_xml(
+             EXPORTING
+                controller = controller
+                xml_node   = view_node ).
+        CATCH cx_wdy_md_already_existing.
+      ENDTRY.
+    ENDWHILE.
+
+  ELSE.
+*   copy interface views
+    DATA component_interface TYPE REF TO if_wdy_md_component_interface.
+    component_interface ?= component-&gt;get_component_interface( ).
+    map ?= component_interface-&gt;get_interface_views( ).
+    iter = map-&gt;get_values_iterator( ).
+    WHILE iter-&gt;has_next( ) = &apos;X&apos;.
+      TRY.
+          view ?= iter-&gt;get_next( ).
+          IF definition-version = if_wdy_md_object=&gt;co_version_active AND
+             view-&gt;if_wdy_md_object~get_state( ) = if_wdy_md_object=&gt;co_state_pseudo_active.
+            CONTINUE.
+          ENDIF.
+          me-&gt;view_to_xml(
+            EXPORTING
+              view = view
+              xml_node = rootnode
+            IMPORTING
+              view_node = view_node ).
+
+          controller = view-&gt;get_view_controller( ).
+          IF definition-version = if_wdy_md_object=&gt;co_version_active AND
+             controller-&gt;if_wdy_md_object~get_state( ) = if_wdy_md_object=&gt;co_state_pseudo_active.
+            CONTINUE.
+          ENDIF.
+          me-&gt;controller_to_xml(
+             EXPORTING
+              controller = controller
+              xml_node   = view_node ).
+        CATCH cx_wdy_md_already_existing.
+      ENDTRY.
+    ENDWHILE.
+  ENDIF.
+
+* copy controllers of component
+  map ?= component-&gt;get_controllers( ).
+  iter = map-&gt;get_values_iterator( ).
+  WHILE iter-&gt;has_next( ) = &apos;X&apos;.
+    TRY.
+        controller ?= iter-&gt;get_next( ).
+        IF controller-&gt;get_type( ) = wdyn_ctlr_type_cmp_config.
+          CONTINUE.
+        ENDIF.
+        IF definition-version = if_wdy_md_object=&gt;co_version_active AND
+           controller-&gt;if_wdy_md_object~get_state( ) = if_wdy_md_object=&gt;co_state_pseudo_active.
+          CONTINUE.
+        ENDIF.
+        me-&gt;controller_to_xml(
+           EXPORTING
+            controller = controller
+            xml_node   = rootnode ).
+
+      CATCH cx_wdy_md_already_existing.
+    ENDTRY.
+  ENDWHILE.
+
+
+*\--------------------------------------------------------------------/
+  rc = xmldoc-&gt;append_child( rootnode ).
+  ixmldocument = xmldoc.
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method CREATEOBJECTFROMIXMLDOC.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+
+*xml nodes
+  DATA rootnode   TYPE REF TO if_ixml_element.
+  DATA wdy_componentt_node   TYPE REF TO if_ixml_element.
+  DATA wdy_compo_usage_node  TYPE REF TO if_ixml_element.
+  DATA wdy_ext_ctlr_use_node TYPE REF TO if_ixml_element.
+  DATA wdy_ext_ctx_map_node  TYPE REF TO if_ixml_element.
+  DATA wdy_intf_implem_node  TYPE REF TO if_ixml_element.
+  DATA view_node             TYPE REF TO if_ixml_element.
+  DATA node        TYPE REF TO if_ixml_element.
+  DATA filter      TYPE REF TO if_ixml_node_filter.
+  DATA iterator    TYPE REF TO if_ixml_node_iterator.
+  DATA node2       TYPE REF TO if_ixml_element.
+  DATA filter2     TYPE REF TO if_ixml_node_filter.
+  DATA iterator2   TYPE REF TO if_ixml_node_iterator.
+  DATA rc          TYPE sysubrc.
+  DATA _devclass   TYPE devclass.
+  DATA checkexists TYPE flag.
+  DATA _objtype    TYPE string.
+  DATA definition  TYPE wdy_component.
+
+  DATA: component TYPE REF TO if_wdy_md_component.
+
+  _devclass = devclass.
+  _objtype = getobjecttype( ).
+
+  xmldoc = ixmldocument.
+  rootnode = xmldoc-&gt;find_from_name( _objtype ).
+
+  CALL METHOD getstructurefromattributes
+    EXPORTING
+      node            = rootnode
+      preserveversion = abap_true
+    CHANGING
+      structure       = definition.
+
+  objname = definition-component_name.
+
+  checkexists = checkexists( ).
+  IF checkexists IS NOT INITIAL.
+    IF overwrite IS INITIAL.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING textid = zcx_saplink=&gt;existing.
+    ELSE.
+*     delete object for new install
+      deleteobject( ).
+    ENDIF.
+  ENDIF.
+
+  CALL METHOD cl_wdy_md_component=&gt;create_complete
+    EXPORTING
+      name      = definition-component_name
+    IMPORTING
+      component = component.
+
+* copy relevant parts of wdy_component (concerning assistance class and configuration properties)
+  DATA copy_def TYPE wdy_component.
+  CALL METHOD component-&gt;if_wdy_md_object~get_definition
+    IMPORTING
+      definition = copy_def.
+  copy_def-config_props = definition-config_props.
+  copy_def-assistance_class = definition-assistance_class.
+  MODIFY wdy_component FROM copy_def.
+
+* copy wdy_componentt
+  DATA wdy_componentt_table TYPE STANDARD TABLE OF wdy_componentt.
+  DATA wdy_componentt TYPE wdy_componentt.
+  FREE: filter, iterator, node.
+  filter = xmldoc-&gt;create_filter_name( &apos;wdy_componentt&apos; ).
+  iterator = xmldoc-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_componentt.
+    APPEND wdy_componentt TO wdy_componentt_table.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  MODIFY wdy_componentt FROM TABLE wdy_componentt_table.
+
+* copy component usages
+  DATA it_wdy_compo_usage TYPE STANDARD TABLE OF wdy_compo_usage.
+  DATA wdy_compo_usage TYPE wdy_compo_usage.
+  FREE: filter, iterator, node.
+  filter = xmldoc-&gt;create_filter_name( &apos;wdy_compo_usage&apos; ).
+  iterator = xmldoc-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_compo_usage.
+    APPEND wdy_compo_usage TO it_wdy_compo_usage.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_compo_usage FROM TABLE it_wdy_compo_usage.
+
+* copy external controller usages
+  DATA it_wdy_ext_ctlr_use TYPE STANDARD TABLE OF wdy_ext_ctlr_use.
+  DATA wdy_ext_ctlr_use TYPE wdy_ext_ctlr_use.
+  FREE: filter, iterator, node.
+  filter = xmldoc-&gt;create_filter_name( &apos;wdy_ext_ctlr_use&apos; ).
+  iterator = xmldoc-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ext_ctlr_use.
+    APPEND wdy_ext_ctlr_use TO it_wdy_ext_ctlr_use.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_ext_ctlr_use FROM TABLE it_wdy_ext_ctlr_use.
+
+* copy external context mappings
+  DATA it_wdy_ext_ctx_map TYPE STANDARD TABLE OF wdy_ext_ctx_map.
+  DATA wdy_ext_ctx_map TYPE wdy_ext_ctx_map.
+  FREE: filter, iterator, node.
+  filter = xmldoc-&gt;create_filter_name( &apos;wdy_ext_ctx_map&apos; ).
+  iterator = xmldoc-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ext_ctx_map.
+    APPEND wdy_ext_ctx_map TO it_wdy_ext_ctx_map.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_ext_ctx_map FROM TABLE it_wdy_ext_ctx_map.
+
+* copy interface implementations
+  DATA it_wdy_intf_implem TYPE STANDARD TABLE OF wdy_intf_implem.
+  DATA wdy_intf_implem TYPE wdy_intf_implem.
+  FREE: filter, iterator, node.
+  filter = xmldoc-&gt;create_filter_name( &apos;wdy_intf_implem&apos; ).
+  iterator = xmldoc-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_intf_implem.
+    APPEND wdy_intf_implem TO it_wdy_intf_implem.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_intf_implem FROM TABLE it_wdy_intf_implem.
+
+  TRY.
+*   copy views
+      FREE: filter, iterator, node.
+      filter = xmldoc-&gt;create_filter_name( &apos;view_definition&apos; ).
+      iterator = xmldoc-&gt;create_iterator_filtered( filter ).
+      node ?= iterator-&gt;get_next( ).
+      WHILE node IS NOT INITIAL.
+        me-&gt;xml_to_view(
+          EXPORTING
+            xml_node = node ).
+        node ?= iterator-&gt;get_next( ).
+      ENDWHILE.
+
+      DATA controller TYPE REF TO if_wdy_md_controller.
+      IF cl_wdy_md_component=&gt;is_component_interface_def( definition-component_name ) = &apos; &apos;.
+        controller = component-&gt;get_controller( wdyn_component_controller_name ).
+        controller-&gt;delete( ).
+        controller-&gt;save_to_database( ).
+      ENDIF.
+
+* copy controllers of component
+      FREE: filter, iterator, node.
+      filter = xmldoc-&gt;create_filter_name( &apos;controller_definition&apos; ).
+      iterator = xmldoc-&gt;create_iterator_filtered( filter ).
+      node ?= iterator-&gt;get_next( ).
+      WHILE node IS NOT INITIAL.
+        TRY.
+            controller = me-&gt;xml_to_controller(
+                xml_node = node ).
+            node ?= iterator-&gt;get_next( ).
+          CATCH cx_wdy_md_already_existing.
+            node ?= iterator-&gt;get_next( ).
+        ENDTRY.
+      ENDWHILE.
+
+    CATCH cx_wdy_md_enqueue_failure.
+    CATCH cx_wdy_md_already_existing.
+
+  ENDTRY.
+*
+*  DATA: trobjtype  TYPE trobjtype,
+*        trobj_name TYPE trobj_name.
+*  trobjtype  = l_object.
+*  trobj_name = l_obj_name.
+*  CALL FUNCTION &apos;RS_INSERT_INTO_WORKING_AREA&apos;
+*    EXPORTING
+*      object            = trobjtype
+*      obj_name          = trobj_name
+*    EXCEPTIONS
+*      wrong_object_name = 1.
+
+  component-&gt;unlock( ).
+  component-&gt;reload( ).
+
+  name = objname.
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method DELETEOBJECT.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+  DATA: component TYPE REF TO if_wdy_md_component.
+  TRY.
+      component = me-&gt;get_component( ).
+    CATCH cx_wdy_md_not_existing.
+      RAISE EXCEPTION TYPE zcx_saplink EXPORTING textid = zcx_saplink=&gt;not_found.
+      RETURN.
+    CATCH cx_wdy_md_permission_failure.
+      RAISE EXCEPTION TYPE zcx_saplink EXPORTING textid = zcx_saplink=&gt;not_found.
+      RETURN.
+  ENDTRY.
+
+  component-&gt;if_wdy_md_lockable_object~lock( ).
+  component-&gt;if_wdy_md_object~delete( ).
+  component-&gt;if_wdy_md_lockable_object~save_to_database( ).
+  component-&gt;if_wdy_md_lockable_object~unlock( ).
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method GETOBJECTTYPE.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+
+  objecttype = wdyn_r3tr_component.  &quot;Web Dynpro Component
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="GET_COMPONENT" VERSION="1" LANGU="E" DESCRIPT="Get Component Object" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="GET_COMPONENT" SCONAME="COMPONENT" VERSION="1" LANGU="E" DESCRIPT="Component" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_WDY_MD_COMPONENT"/>
+  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="GET_COMPONENT" SCONAME="CX_WDY_MD_NOT_EXISTING" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro : Objekt existiert nicht" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410"/>
+  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="GET_COMPONENT" SCONAME="CX_WDY_MD_PERMISSION_FAILURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410"/>
+  <source>method GET_COMPONENT.
+
+  DATA: component_name TYPE wdy_component_name.
+  component_name = objname.
+  TRANSLATE component_name TO UPPER CASE.
+
+  DATA: tr_objtype     TYPE trobjtype,
+         inactive_vers  TYPE char1,
+         working_item   TYPE char1,
+         l_obj_key      TYPE e071-obj_name.
+  DATA: version TYPE r3state.
+
+  CALL FUNCTION &apos;RS_WORKING_AREA_INIT&apos;.
+
+  tr_objtype = wdyn_limu_component_definition.
+  l_obj_key = component_name.
+  TRANSLATE l_obj_key TO UPPER CASE.                      &quot;#EC SYNTCHAR
+  CALL FUNCTION &apos;RS_OBJECT_IN_WORKING_AREA&apos;
+    EXPORTING
+      object                        = tr_objtype
+      obj_name                      = l_obj_key
+*     GLOBAL_CHECK                  = &apos; &apos;
+      mode                          = &apos;S&apos; &quot;Display
+    IMPORTING
+      object_is_work_item           = working_item
+      object_inactive_version       = inactive_vers.
+
+
+  IF working_item IS INITIAL.
+    version = wdywb_version_active.
+  ELSE.
+    version = wdywb_version_inactive.
+  ENDIF.
+
+  TRY.
+      CALL METHOD cl_wdy_md_component=&gt;get_object_by_key
+        EXPORTING
+          name      = component_name
+          version   = version
+        RECEIVING
+          component = component.
+    CATCH cx_wdy_md_not_existing.
+      IF version = wdywb_version_active.
+        version     = wdywb_version_inactive.
+      ELSE.
+        version      = wdywb_version_active.
+      ENDIF.
+      TRY.
+        CALL METHOD cl_wdy_md_component=&gt;get_object_by_key
+          EXPORTING
+            name      = component_name
+            version   = version
+          RECEIVING
+            component = component.
+      ENDTRY.
+  ENDTRY.
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="VIEW_TO_XML" VERSION="1" LANGU="E" DESCRIPT="Convert View Information to XML" EXPOSURE="0" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="VIEW_TO_XML" SCONAME="VIEW" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_WDY_MD_ABSTRACT_VIEW"/>
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="VIEW_TO_XML" SCONAME="XML_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="VIEW_TO_XML" SCONAME="VIEW_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>method VIEW_TO_XML.
+  DATA definition TYPE wdy_view.
+  DATA rc TYPE i.
+  DATA view_definition_node    TYPE REF TO if_ixml_element.
+  DATA view_window_node        TYPE REF TO if_ixml_element.
+  DATA wdy_viewt_node          TYPE REF TO if_ixml_element.
+  DATA wdy_iobound_plug_node   TYPE REF TO if_ixml_element.
+  DATA wdy_iobound_plgt_node   TYPE REF TO if_ixml_element.
+  DATA wdy_ui_element_node     TYPE REF TO if_ixml_element.
+  DATA wdy_ui_property_node    TYPE REF TO if_ixml_element.
+  DATA wdy_view_cntr_node      TYPE REF TO if_ixml_element.
+  DATA wdy_view_cntrt_node     TYPE REF TO if_ixml_element.
+  DATA wdy_plug_param_node     TYPE REF TO if_ixml_element.
+  DATA wdy_ui_ctx_bind_node    TYPE REF TO if_ixml_element.
+  DATA wdy_ui_ddic_bind_node   TYPE REF TO if_ixml_element.
+  DATA wdy_ui_evt_bind_node    TYPE REF TO if_ixml_element.
+  DATA wdy_nav_link_node       TYPE REF TO if_ixml_element.
+  DATA wdy_nav_targref_node    TYPE REF TO if_ixml_element.
+  DATA wdy_vsh_node_node       TYPE REF TO if_ixml_element.
+  DATA wdy_vsh_pholder_node    TYPE REF TO if_ixml_element.
+  DATA wdy_vs_property_node    TYPE REF TO if_ixml_element.
+
+
+  view-&gt;if_wdy_md_object~get_definition(
+     IMPORTING
+       definition = definition ).
+
+* Create parent node
+  DATA _objtype TYPE string.
+  _objtype = definition-view_name.
+
+* View Definition
+  view_definition_node = xmldoc-&gt;create_element( &apos;view_definition&apos; ).
+  setattributesfromstructure( node = view_definition_node structure = definition ).
+  rc = xml_node-&gt;append_child( view_definition_node ).
+  view_node = view_definition_node.
+
+* View Window
+  TRY.
+      DATA window TYPE REF TO if_wdy_md_window.
+      window ?= view.
+      DATA title TYPE wdy_md_translatable_text.
+      title = window-&gt;get_title( ).
+      view_window_node = xmldoc-&gt;create_element( &apos;view_window&apos; ).
+      rc = view_window_node-&gt;set_attribute( name = &apos;title&apos; value = title ).
+*   data def_root_node type ref to if_wdy_md_vset_hierarchy_node.
+*   def_root_node ?= window-&gt;get_root_node( definition-def_root_node ).
+      rc = view_definition_node-&gt;append_child( view_window_node ).
+    CATCH cx_sy_move_cast_error.
+  ENDTRY.
+
+* copy wdy_viewt
+  DATA wdy_viewt_table TYPE STANDARD TABLE OF wdy_viewt.
+  FIELD-SYMBOLS: &lt;wdy_viewt&gt; TYPE wdy_viewt.
+  SELECT * FROM wdy_viewt INTO TABLE wdy_viewt_table
+    WHERE component_name = definition-component_name
+      AND view_name  = definition-view_name.
+  LOOP AT wdy_viewt_table ASSIGNING &lt;wdy_viewt&gt;.
+    wdy_viewt_node = xmldoc-&gt;create_element( &apos;wdy_viewt&apos; ).
+    setattributesfromstructure( node = wdy_viewt_node structure = &lt;wdy_viewt&gt; ).
+    rc = view_definition_node-&gt;append_child( wdy_viewt_node ).
+  ENDLOOP.
+
+* copy wdy_iobound_plug.
+  DATA it_wdy_iobound_plug TYPE STANDARD TABLE OF wdy_iobound_plug.
+  DATA it_wdy_iobound_plug_copy TYPE STANDARD TABLE OF wdy_iobound_plug.
+  FIELD-SYMBOLS: &lt;wdy_iobound_plug&gt; TYPE wdy_iobound_plug.
+  SELECT * FROM wdy_iobound_plug INTO TABLE it_wdy_iobound_plug
+    WHERE component_name = definition-component_name
+      AND view_name  = definition-view_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_iobound_plug ASSIGNING &lt;wdy_iobound_plug&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_iobound_plug&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_iobound_plug TRANSPORTING NO FIELDS
+              WITH KEY plug_name = &lt;wdy_iobound_plug&gt;-plug_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_iobound_plug&gt;-version   = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_iobound_plug_node = xmldoc-&gt;create_element( &apos;wdy_iobound_plug&apos; ).
+          setattributesfromstructure( node = wdy_iobound_plug_node structure = &lt;wdy_iobound_plug&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_iobound_plug_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_iobound_plug ASSIGNING &lt;wdy_iobound_plug&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_iobound_plug&gt;-version   = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_iobound_plug_node = xmldoc-&gt;create_element( &apos;wdy_iobound_plug&apos; ).
+          setattributesfromstructure( node = wdy_iobound_plug_node structure = &lt;wdy_iobound_plug&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_iobound_plug_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+* copy wdy_iobound_plgt
+  DATA it_wdy_iobound_plgt TYPE STANDARD TABLE OF wdy_iobound_plgt.
+  FIELD-SYMBOLS: &lt;plgt&gt; TYPE wdy_iobound_plgt.
+  SELECT * FROM wdy_iobound_plgt INTO TABLE it_wdy_iobound_plgt
+    WHERE component_name = definition-component_name
+      AND view_name = definition-view_name.
+  IF sy-subrc = 0.
+    LOOP AT it_wdy_iobound_plgt ASSIGNING &lt;plgt&gt;.
+      wdy_iobound_plgt_node = xmldoc-&gt;create_element( &apos;wdy_iobound_plgt&apos; ).
+      setattributesfromstructure( node = wdy_iobound_plgt_node structure = &lt;plgt&gt; ).
+      rc = view_definition_node-&gt;append_child( wdy_iobound_plgt_node ).
+    ENDLOOP.
+  ENDIF.
+
+* copy WDY_UI_ELEMENT.
+  DATA it_wdy_ui_element TYPE STANDARD TABLE OF wdy_ui_element.
+  FIELD-SYMBOLS: &lt;wdy_ui_element&gt; TYPE wdy_ui_element.
+  SELECT * FROM wdy_ui_element INTO TABLE it_wdy_ui_element
+    WHERE component_name = definition-component_name
+      AND view_name  = definition-view_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_ui_element ASSIGNING &lt;wdy_ui_element&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_ui_element&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_ui_element TRANSPORTING NO FIELDS
+              WITH KEY element_name = &lt;wdy_ui_element&gt;-element_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_ui_element&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ui_element_node = xmldoc-&gt;create_element( &apos;wdy_ui_element&apos; ).
+          setattributesfromstructure( node = wdy_ui_element_node structure = &lt;wdy_ui_element&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_ui_element_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_ui_element ASSIGNING &lt;wdy_ui_element&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_ui_element&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ui_element_node = xmldoc-&gt;create_element( &apos;wdy_ui_element&apos; ).
+          setattributesfromstructure( node = wdy_ui_element_node structure = &lt;wdy_ui_element&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_ui_element_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+* copy WDY_UI_PROPERTY.
+  DATA text TYPE string.
+  DATA text_id TYPE wdy_md_translatable_text.
+  DATA text_repository TYPE REF TO if_wdy_md_text_repository.
+  text_repository = view-&gt;if_wdy_md_lockable_object~get_text_repository( ).
+  DATA it_wdy_ui_property TYPE STANDARD TABLE OF wdy_ui_property.
+
+  FIELD-SYMBOLS: &lt;wdy_ui_property&gt; TYPE wdy_ui_property.
+  SELECT * FROM wdy_ui_property INTO TABLE it_wdy_ui_property
+    WHERE component_name = definition-component_name
+      AND view_name  = definition-view_name.
+  IF sy-subrc = 0.
+    DATA str TYPE string.
+    DATA header TYPE sotr_head.
+    DATA concept TYPE sotr_head-concept.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_ui_property ASSIGNING &lt;wdy_ui_property&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_ui_property&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_ui_property TRANSPORTING NO FIELDS
+              WITH KEY element_name  = &lt;wdy_ui_property&gt;-element_name
+                       property_name = &lt;wdy_ui_property&gt;-property_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_ui_property&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ui_property_node = xmldoc-&gt;create_element( &apos;wdy_ui_property&apos; ).
+          setattributesfromstructure( node = wdy_ui_property_node structure = &lt;wdy_ui_property&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_ui_property_node ).
+          TRY.
+              str = &lt;wdy_ui_property&gt;-property_value.
+              text = text_repository-&gt;get_text( str ).
+              rc = wdy_ui_property_node-&gt;set_attribute( name = &apos;PropText&apos; value = text ).
+            CATCH cx_root.
+          ENDTRY.
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_ui_property ASSIGNING &lt;wdy_ui_property&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_ui_property&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ui_property_node = xmldoc-&gt;create_element( &apos;wdy_ui_property&apos; ).
+          setattributesfromstructure( node = wdy_ui_property_node structure = &lt;wdy_ui_property&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_ui_property_node ).
+          TRY.
+              str = &lt;wdy_ui_property&gt;-property_value.
+              text = text_repository-&gt;get_text( str ).
+              rc = wdy_ui_property_node-&gt;set_attribute( name = &apos;PropText&apos; value = text ).
+            CATCH cx_root.
+          ENDTRY.
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+* copy WDY_VIEW_CNTR.
+  DATA it_wdy_view_cntr TYPE STANDARD TABLE OF wdy_view_cntr.
+  FIELD-SYMBOLS: &lt;wdy_view_cntr&gt; TYPE wdy_view_cntr.
+  SELECT * FROM wdy_view_cntr INTO TABLE it_wdy_view_cntr
+    WHERE component_name = definition-component_name
+      AND view_name  = definition-view_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_view_cntr ASSIGNING &lt;wdy_view_cntr&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_view_cntr&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_view_cntr TRANSPORTING NO FIELDS
+              WITH KEY container_name  = &lt;wdy_view_cntr&gt;-container_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_view_cntr&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_view_cntr_node = xmldoc-&gt;create_element( &apos;wdy_view_cntr&apos; ).
+          setattributesfromstructure( node = wdy_view_cntr_node structure = &lt;wdy_view_cntr&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_view_cntr_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_view_cntr ASSIGNING &lt;wdy_view_cntr&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_view_cntr&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_view_cntr_node = xmldoc-&gt;create_element( &apos;wdy_view_cntr&apos; ).
+          setattributesfromstructure( node = wdy_view_cntr_node structure = &lt;wdy_view_cntr&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_view_cntr_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+
+* copy wdy_view_cntrt
+  DATA wdy_view_cntrt_table TYPE STANDARD TABLE OF wdy_view_cntrt.
+  FIELD-SYMBOLS: &lt;wdy_view_cntrt&gt; TYPE wdy_view_cntrt.
+  SELECT * FROM wdy_view_cntrt INTO TABLE wdy_view_cntrt_table
+    WHERE component_name = definition-component_name
+      AND view_name  = definition-view_name.
+  LOOP AT wdy_view_cntrt_table ASSIGNING &lt;wdy_view_cntrt&gt;.
+    wdy_view_cntrt_node = xmldoc-&gt;create_element( &apos;wdy_view_cntrt&apos; ).
+    setattributesfromstructure( node = wdy_view_cntrt_node structure = &lt;wdy_view_cntrt&gt; ).
+    rc = view_definition_node-&gt;append_child( wdy_view_cntrt_node ).
+  ENDLOOP.
+
+*  copy WDY_PLUG_PARAM.
+  DATA it_wdy_plug_param TYPE STANDARD TABLE OF wdy_plug_param.
+  FIELD-SYMBOLS: &lt;wdy_plug_param&gt; TYPE wdy_plug_param.
+  SELECT * FROM wdy_plug_param INTO TABLE it_wdy_plug_param
+    WHERE component_name = definition-component_name
+      AND view_name  = definition-view_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_plug_param ASSIGNING &lt;wdy_plug_param&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_plug_param&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_plug_param TRANSPORTING NO FIELDS
+              WITH KEY plug_name = &lt;wdy_plug_param&gt;-plug_name
+                       parameter_name = &lt;wdy_plug_param&gt;-parameter_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_plug_param&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_plug_param_node = xmldoc-&gt;create_element( &apos;wdy_plug_param&apos; ).
+          setattributesfromstructure( node = wdy_plug_param_node structure = &lt;wdy_plug_param&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_plug_param_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_plug_param ASSIGNING &lt;wdy_plug_param&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_plug_param&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_plug_param_node = xmldoc-&gt;create_element( &apos;wdy_plug_param&apos; ).
+          setattributesfromstructure( node = wdy_plug_param_node structure = &lt;wdy_plug_param&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_plug_param_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+*  copy WDY_UI_CTX_BIND.
+  DATA it_wdy_ui_ctx_bind TYPE STANDARD TABLE OF wdy_ui_ctx_bind.
+  FIELD-SYMBOLS: &lt;wdy_ui_ctx_bind&gt; TYPE wdy_ui_ctx_bind.
+  SELECT * FROM wdy_ui_ctx_bind INTO TABLE it_wdy_ui_ctx_bind
+    WHERE component_name = definition-component_name
+      AND view_name  = definition-view_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_ui_ctx_bind ASSIGNING &lt;wdy_ui_ctx_bind&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_ui_ctx_bind&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_ui_ctx_bind TRANSPORTING NO FIELDS
+              WITH KEY binding_name = &lt;wdy_ui_ctx_bind&gt;-binding_name
+                       element_name = &lt;wdy_ui_ctx_bind&gt;-element_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_ui_ctx_bind&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ui_ctx_bind_node = xmldoc-&gt;create_element( &apos;wdy_ui_ctx_bind&apos; ).
+          setattributesfromstructure( node = wdy_ui_ctx_bind_node structure = &lt;wdy_ui_ctx_bind&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_ui_ctx_bind_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_ui_ctx_bind ASSIGNING &lt;wdy_ui_ctx_bind&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_ui_ctx_bind&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ui_ctx_bind_node = xmldoc-&gt;create_element( &apos;wdy_ui_ctx_bind&apos; ).
+          setattributesfromstructure( node = wdy_ui_ctx_bind_node structure = &lt;wdy_ui_ctx_bind&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_ui_ctx_bind_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+*  copy WDY_UI_DDIC_BIND.
+  DATA it_wdy_ui_ddic_bind TYPE STANDARD TABLE OF wdy_ui_ddic_bind.
+  FIELD-SYMBOLS: &lt;wdy_ui_ddic_bind&gt; TYPE wdy_ui_ddic_bind.
+  SELECT * FROM wdy_ui_ddic_bind INTO TABLE it_wdy_ui_ddic_bind
+    WHERE component_name = definition-component_name
+      AND view_name  = definition-view_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_ui_ddic_bind ASSIGNING &lt;wdy_ui_ddic_bind&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_ui_ddic_bind&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_ui_ddic_bind TRANSPORTING NO FIELDS
+              WITH KEY binding_name = &lt;wdy_ui_ddic_bind&gt;-binding_name
+                       element_name = &lt;wdy_ui_ddic_bind&gt;-element_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_ui_ddic_bind&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ui_ddic_bind_node = xmldoc-&gt;create_element( &apos;wdy_ui_ddic_bind&apos; ).
+          setattributesfromstructure( node = wdy_ui_ddic_bind_node structure = &lt;wdy_ui_ddic_bind&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_ui_ddic_bind_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_ui_ddic_bind ASSIGNING &lt;wdy_ui_ddic_bind&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_ui_ddic_bind&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ui_ddic_bind_node = xmldoc-&gt;create_element( &apos;wdy_ui_ddic_bind&apos; ).
+          setattributesfromstructure( node = wdy_ui_ddic_bind_node structure = &lt;wdy_ui_ddic_bind&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_ui_ddic_bind_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+*  copy WDY_UI_EVT_BIND.
+  DATA it_wdy_ui_evt_bind TYPE STANDARD TABLE OF wdy_ui_evt_bind.
+  FIELD-SYMBOLS: &lt;wdy_ui_evt_bind&gt; TYPE wdy_ui_evt_bind.
+  SELECT * FROM wdy_ui_evt_bind INTO TABLE it_wdy_ui_evt_bind
+    WHERE component_name = definition-component_name
+      AND view_name  = definition-view_name.
+  IF sy-subrc = 0.
+    CASE definition-version.
+      WHEN &apos;I&apos;.
+        LOOP AT it_wdy_ui_evt_bind ASSIGNING &lt;wdy_ui_evt_bind&gt; WHERE version &lt;&gt; &apos;D&apos;.
+          IF &lt;wdy_ui_evt_bind&gt;-version = &apos;A&apos;.
+            READ TABLE it_wdy_ui_evt_bind TRANSPORTING NO FIELDS
+              WITH KEY binding_name = &lt;wdy_ui_evt_bind&gt;-binding_name
+                       element_name = &lt;wdy_ui_evt_bind&gt;-element_name
+                       version = &apos;I&apos;.
+            IF sy-subrc = 0.
+              CONTINUE.
+            ENDIF.
+          ENDIF.
+          &lt;wdy_ui_evt_bind&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ui_evt_bind_node = xmldoc-&gt;create_element( &apos;wdy_ui_evt_bind&apos; ).
+          setattributesfromstructure( node = wdy_ui_evt_bind_node structure = &lt;wdy_ui_evt_bind&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_ui_evt_bind_node ).
+        ENDLOOP.
+      WHEN &apos;A&apos;.
+        LOOP AT it_wdy_ui_evt_bind ASSIGNING &lt;wdy_ui_evt_bind&gt; WHERE version = &apos;A&apos;.
+          &lt;wdy_ui_evt_bind&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+          wdy_ui_evt_bind_node = xmldoc-&gt;create_element( &apos;wdy_ui_evt_bind&apos; ).
+          setattributesfromstructure( node = wdy_ui_evt_bind_node structure = &lt;wdy_ui_evt_bind&gt; ).
+          rc = view_definition_node-&gt;append_child( wdy_ui_evt_bind_node ).
+        ENDLOOP.
+    ENDCASE.
+  ENDIF.
+
+  IF definition-type = &apos;CL_WDY_MD_WINDOW&apos;.                  &quot;#EC NOTEXT
+*   copy WDY_NAV_LINK.
+    DATA it_wdy_nav_link TYPE STANDARD TABLE OF wdy_nav_link.
+    FIELD-SYMBOLS: &lt;wdy_nav_link&gt; TYPE wdy_nav_link.
+    SELECT * FROM wdy_nav_link INTO TABLE it_wdy_nav_link
+      WHERE component_name = definition-component_name
+        AND window_name  = definition-view_name.
+    IF sy-subrc = 0.
+      CASE definition-version.
+        WHEN &apos;I&apos;.
+          LOOP AT it_wdy_nav_link ASSIGNING &lt;wdy_nav_link&gt; WHERE version &lt;&gt; &apos;D&apos;.
+            IF &lt;wdy_nav_link&gt;-version = &apos;A&apos;.
+              READ TABLE it_wdy_nav_link TRANSPORTING NO FIELDS
+                WITH KEY nav_link_name = &lt;wdy_nav_link&gt;-nav_link_name
+                         version = &apos;I&apos;.
+              IF sy-subrc = 0.
+                CONTINUE.
+              ENDIF.
+            ENDIF.
+            &lt;wdy_nav_link&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+            wdy_nav_link_node = xmldoc-&gt;create_element( &apos;wdy_nav_link&apos; ).
+            setattributesfromstructure( node = wdy_nav_link_node structure = &lt;wdy_nav_link&gt; ).
+            rc = view_definition_node-&gt;append_child( wdy_nav_link_node ).
+          ENDLOOP.
+        WHEN &apos;A&apos;.
+          LOOP AT it_wdy_nav_link ASSIGNING &lt;wdy_nav_link&gt; WHERE version = &apos;A&apos;.
+            &lt;wdy_nav_link&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+            wdy_nav_link_node = xmldoc-&gt;create_element( &apos;wdy_nav_link&apos; ).
+            setattributesfromstructure( node = wdy_nav_link_node structure = &lt;wdy_nav_link&gt; ).
+            rc = view_definition_node-&gt;append_child( wdy_nav_link_node ).
+          ENDLOOP.
+      ENDCASE.
+    ENDIF.
+
+*   copy WDY_NAV_TARGREF.
+    DATA it_wdy_nav_targref TYPE STANDARD TABLE OF wdy_nav_targref.
+    FIELD-SYMBOLS: &lt;wdy_nav_targref&gt; TYPE wdy_nav_targref.
+    SELECT * FROM wdy_nav_targref INTO TABLE it_wdy_nav_targref
+      WHERE component_name = definition-component_name
+        AND window_name  = definition-view_name.
+    IF sy-subrc = 0.
+      CASE definition-version.
+        WHEN &apos;I&apos;.
+          LOOP AT it_wdy_nav_targref ASSIGNING &lt;wdy_nav_targref&gt; WHERE version &lt;&gt; &apos;D&apos;.
+            IF &lt;wdy_nav_targref&gt;-version = &apos;A&apos;.
+              READ TABLE it_wdy_nav_targref TRANSPORTING NO FIELDS
+                WITH KEY nav_link_name = &lt;wdy_nav_targref&gt;-nav_link_name
+                         nav_targref_name = &lt;wdy_nav_targref&gt;-nav_targref_name
+                         version = &apos;I&apos;.
+              IF sy-subrc = 0.
+                CONTINUE.
+              ENDIF.
+            ENDIF.
+            &lt;wdy_nav_targref&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+            wdy_nav_targref_node = xmldoc-&gt;create_element( &apos;wdy_nav_targref&apos; ).
+            setattributesfromstructure( node = wdy_nav_targref_node structure = &lt;wdy_nav_targref&gt; ).
+            rc = view_definition_node-&gt;append_child( wdy_nav_targref_node ).
+          ENDLOOP.
+        WHEN &apos;A&apos;.
+          LOOP AT it_wdy_nav_targref ASSIGNING &lt;wdy_nav_targref&gt; WHERE version = &apos;A&apos;.
+            &lt;wdy_nav_targref&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+            wdy_nav_targref_node = xmldoc-&gt;create_element( &apos;wdy_nav_targref&apos; ).
+            setattributesfromstructure( node = wdy_nav_targref_node structure = &lt;wdy_nav_targref&gt; ).
+            rc = view_definition_node-&gt;append_child( wdy_nav_targref_node ).
+          ENDLOOP.
+      ENDCASE.
+    ENDIF.
+
+*   copy WDY_VSH_NODE.
+    DATA it_wdy_vsh_node TYPE STANDARD TABLE OF wdy_vsh_node.
+    FIELD-SYMBOLS: &lt;wdy_vsh_node&gt; TYPE wdy_vsh_node.
+    SELECT * FROM wdy_vsh_node INTO TABLE it_wdy_vsh_node
+      WHERE component_name = definition-component_name
+        AND window_name  = definition-view_name.
+    IF sy-subrc = 0.
+      CASE definition-version.
+        WHEN &apos;I&apos;.
+          LOOP AT it_wdy_vsh_node ASSIGNING &lt;wdy_vsh_node&gt; WHERE version &lt;&gt; &apos;D&apos;.
+            IF &lt;wdy_vsh_node&gt;-version = &apos;A&apos;.
+              READ TABLE it_wdy_vsh_node TRANSPORTING NO FIELDS
+                WITH KEY vsh_node_name = &lt;wdy_vsh_node&gt;-vsh_node_name
+                         version = &apos;I&apos;.
+              IF sy-subrc = 0.
+                CONTINUE.
+              ENDIF.
+            ENDIF.
+            &lt;wdy_vsh_node&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+            wdy_vsh_node_node = xmldoc-&gt;create_element( &apos;wdy_vsh_node&apos; ).
+            setattributesfromstructure( node = wdy_vsh_node_node structure = &lt;wdy_vsh_node&gt; ).
+            rc = view_definition_node-&gt;append_child( wdy_vsh_node_node ).
+          ENDLOOP.
+        WHEN &apos;A&apos;.
+          LOOP AT it_wdy_vsh_node ASSIGNING &lt;wdy_vsh_node&gt; WHERE version = &apos;A&apos;.
+            &lt;wdy_vsh_node&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+            wdy_vsh_node_node = xmldoc-&gt;create_element( &apos;wdy_vsh_node&apos; ).
+            setattributesfromstructure( node = wdy_vsh_node_node structure = &lt;wdy_vsh_node&gt; ).
+            rc = view_definition_node-&gt;append_child( wdy_vsh_node_node ).
+          ENDLOOP.
+      ENDCASE.
+    ENDIF.
+
+*   copy WDY_VSH_PHOLDER.
+    DATA it_wdy_vsh_pholder TYPE STANDARD TABLE OF wdy_vsh_pholder.
+    FIELD-SYMBOLS: &lt;wdy_vsh_pholder&gt; TYPE wdy_vsh_pholder.
+    SELECT * FROM wdy_vsh_pholder INTO TABLE it_wdy_vsh_pholder
+      WHERE component_name = definition-component_name
+        AND window_name  = definition-view_name.
+    IF sy-subrc = 0.
+      CASE definition-version.
+        WHEN &apos;I&apos;.
+          LOOP AT it_wdy_vsh_pholder ASSIGNING &lt;wdy_vsh_pholder&gt; WHERE version &lt;&gt; &apos;D&apos;.
+            IF &lt;wdy_vsh_pholder&gt;-version = &apos;A&apos;.
+              READ TABLE it_wdy_vsh_pholder TRANSPORTING NO FIELDS
+                WITH KEY vsh_node_name = &lt;wdy_vsh_pholder&gt;-vsh_node_name
+                         vsh_pholder_name = &lt;wdy_vsh_pholder&gt;-vsh_pholder_name
+                         version = &apos;I&apos;.
+              IF sy-subrc = 0.
+                CONTINUE.
+              ENDIF.
+            ENDIF.
+            &lt;wdy_vsh_pholder&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+            wdy_vsh_pholder_node = xmldoc-&gt;create_element( &apos;wdy_vsh_pholder&apos; ).
+            setattributesfromstructure( node = wdy_vsh_pholder_node structure = &lt;wdy_vsh_pholder&gt; ).
+            rc = view_definition_node-&gt;append_child( wdy_vsh_pholder_node ).
+          ENDLOOP.
+        WHEN &apos;A&apos;.
+          LOOP AT it_wdy_vsh_pholder ASSIGNING &lt;wdy_vsh_pholder&gt; WHERE version = &apos;A&apos;.
+            &lt;wdy_vsh_pholder&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+            wdy_vsh_pholder_node = xmldoc-&gt;create_element( &apos;wdy_vsh_pholder&apos; ).
+            setattributesfromstructure( node = wdy_vsh_pholder_node structure = &lt;wdy_vsh_pholder&gt; ).
+            rc = view_definition_node-&gt;append_child( wdy_vsh_pholder_node ).
+          ENDLOOP.
+      ENDCASE.
+    ENDIF.
+
+*   copy WDY_VS_PROPERTY.
+    DATA it_wdy_vs_property TYPE STANDARD TABLE OF wdy_vs_property.
+    FIELD-SYMBOLS: &lt;wdy_vs_property&gt; TYPE wdy_vs_property.
+    SELECT * FROM wdy_vs_property INTO TABLE it_wdy_vs_property
+      WHERE component_name = definition-component_name
+        AND window_name  = definition-view_name.
+    IF sy-subrc = 0.
+      CASE definition-version.
+        WHEN &apos;I&apos;.
+          LOOP AT it_wdy_vs_property ASSIGNING &lt;wdy_vs_property&gt; WHERE version &lt;&gt; &apos;D&apos;.
+            IF &lt;wdy_vs_property&gt;-version = &apos;A&apos;.
+              READ TABLE it_wdy_vs_property TRANSPORTING NO FIELDS
+                WITH KEY vsh_node_name = &lt;wdy_vs_property&gt;-vsh_node_name
+                         vs_prop_def_name = &lt;wdy_vs_property&gt;-vs_prop_def_name
+                         version = &apos;I&apos;.
+              IF sy-subrc = 0.
+                CONTINUE.
+              ENDIF.
+            ENDIF.
+            &lt;wdy_vs_property&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+            wdy_vs_property_node = xmldoc-&gt;create_element( &apos;wdy_vs_property&apos; ).
+            setattributesfromstructure( node = wdy_vs_property_node structure = &lt;wdy_vs_property&gt; ).
+            rc = view_definition_node-&gt;append_child( wdy_vs_property_node ).
+          ENDLOOP.
+        WHEN &apos;A&apos;.
+          LOOP AT it_wdy_vs_property ASSIGNING &lt;wdy_vs_property&gt; WHERE version = &apos;A&apos;.
+            &lt;wdy_vs_property&gt;-version = if_wdy_md_object=&gt;co_version_inactive.
+            wdy_vs_property_node = xmldoc-&gt;create_element( &apos;wdy_vs_property&apos; ).
+            setattributesfromstructure( node = wdy_vs_property_node structure = &lt;wdy_vs_property&gt; ).
+            rc = view_definition_node-&gt;append_child( wdy_vs_property_node ).
+          ENDLOOP.
+      ENDCASE.
+    ENDIF.
+
+  ENDIF.
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" SCONAME="XML_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" SCONAME="CONTROLLER" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro: Controller" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_WDY_MD_CONTROLLER"/>
+  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" SCONAME="CX_WDY_MD_ENQUEUE_FAILURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410"/>
+  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" SCONAME="CX_WDY_MD_ALREADY_EXISTING" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro : Objekt existiert bereits" MTDTYPE="0" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410"/>
+  <source>method XML_TO_CONTROLLER.
+*xml nodes
+  DATA definition TYPE wdy_controller.
+  DATA rc TYPE i.
+  DATA node        TYPE REF TO if_ixml_element.
+  DATA filter      TYPE REF TO if_ixml_node_filter.
+  DATA iterator    TYPE REF TO if_ixml_node_iterator.
+
+
+  CALL METHOD getstructurefromattributes
+    EXPORTING
+      node            = xml_node
+      preserveversion = abap_true
+    CHANGING
+      structure       = definition.
+
+  DATA: controller_key TYPE wdy_controller_key,
+*         controller TYPE REF TO if_wdy_md_controller,
+         context_node TYPE REF TO if_wdy_md_context_node.
+
+  controller_key-component_name = definition-component_name.
+  controller_key-controller_name = definition-controller_name.
+
+  CALL METHOD cl_wdy_md_controller=&gt;create
+    EXPORTING
+      component_name             = controller_key-component_name
+      controller_name            = controller_key-controller_name
+      suppress_access_permission = &apos;X&apos;
+    RECEIVING
+      controller                 = controller.
+
+  controller-&gt;set_type( definition-controller_type ).
+  controller-&gt;save_to_database( ).
+  TRANSLATE controller_key TO UPPER CASE.                &quot;#EC TRANSLANG
+
+  IF NOT definition-context IS INITIAL.
+    UPDATE wdy_controller
+      SET context = &apos;CONTEXT&apos;
+      WHERE component_name  = controller_key-component_name
+        AND controller_name = controller_key-controller_name
+        AND version         = if_wdy_md_object=&gt;co_version_inactive.
+    definition-context = &apos;CONTEXT&apos;.
+  ENDIF.
+
+* copy wdy_controllert
+  DATA wdy_controllert_table TYPE STANDARD TABLE OF wdy_controllert.
+  DATA wdy_controllert TYPE wdy_controllert.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_controllert&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_controllert.
+    APPEND wdy_controllert TO wdy_controllert_table.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_controllert FROM TABLE wdy_controllert_table.
+
+* copy components
+  DATA it_wdy_ctlr_compo TYPE STANDARD TABLE OF wdy_ctlr_compo.
+  DATA wdy_ctlr_compo TYPE wdy_ctlr_compo.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ctlr_compo&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ctlr_compo.
+    APPEND wdy_ctlr_compo TO it_wdy_ctlr_compo.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_ctlr_compo FROM TABLE it_wdy_ctlr_compo.
+
+* copy wdy_ctlr_compot
+  DATA wdy_ctlr_compot_table TYPE STANDARD TABLE OF wdy_ctlr_compot.
+  DATA wdy_ctlr_compot TYPE wdy_ctlr_compot.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ctlr_compot&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ctlr_compot.
+    APPEND wdy_ctlr_compot TO wdy_ctlr_compot_table.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_ctlr_compot FROM TABLE wdy_ctlr_compot_table.
+
+* copy parameters
+  DATA it_wdy_ctlr_param TYPE STANDARD TABLE OF wdy_ctlr_param.
+  DATA wdy_ctlr_param TYPE wdy_ctlr_param.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ctlr_param&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ctlr_param.
+    APPEND wdy_ctlr_param TO it_wdy_ctlr_param.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_ctlr_param FROM TABLE it_wdy_ctlr_param.
+
+* copy wdy_ctlr_paramt
+  DATA wdy_ctlr_paramt_table TYPE STANDARD TABLE OF wdy_ctlr_paramt.
+  DATA wdy_ctlr_paramt TYPE wdy_ctlr_paramt.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ctlr_paramt&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ctlr_paramt.
+    APPEND wdy_ctlr_paramt TO wdy_ctlr_paramt_table.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_ctlr_paramt FROM TABLE wdy_ctlr_paramt_table.
+
+* copy controller usages
+  DATA it_wdy_ctlr_usage TYPE STANDARD TABLE OF wdy_ctlr_usage.
+  DATA wdy_ctlr_usage TYPE wdy_ctlr_usage.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ctlr_usage&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ctlr_usage.
+    APPEND wdy_ctlr_usage TO it_wdy_ctlr_usage.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_ctlr_usage FROM TABLE it_wdy_ctlr_usage.
+
+* copy context nodes
+  DATA it_wdy_ctx_node TYPE STANDARD TABLE OF wdy_ctx_node.
+  DATA wdy_ctx_node TYPE wdy_ctx_node.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ctx_node&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ctx_node.
+    APPEND wdy_ctx_node TO it_wdy_ctx_node.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_ctx_node FROM TABLE it_wdy_ctx_node.
+
+* copy context attributes
+  DATA it_wdy_ctx_attrib TYPE STANDARD TABLE OF wdy_ctx_attrib.
+  DATA wdy_ctx_attrib TYPE wdy_ctx_attrib.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ctx_attrib&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ctx_attrib.
+    APPEND wdy_ctx_attrib TO it_wdy_ctx_attrib.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_ctx_attrib FROM TABLE it_wdy_ctx_attrib.
+
+* copy context mapping
+  DATA it_wdy_ctx_mapping TYPE STANDARD TABLE OF wdy_ctx_mapping.
+  DATA wdy_ctx_mapping TYPE wdy_ctx_mapping.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ctx_mapping&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ctx_mapping.
+    APPEND wdy_ctx_mapping TO it_wdy_ctx_mapping.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_ctx_mapping FROM TABLE it_wdy_ctx_mapping.
+
+* if the controller is a configuration
+  IF definition-controller_type = wdyn_ctlr_type_custom AND
+     cl_wdy_md_component=&gt;get_config_controller_name( definition-component_name ) = definition-controller_name.
+    DATA component TYPE REF TO cl_wdy_md_component.
+    component ?= controller-&gt;if_wdy_md_object~get_parent( ).
+    component-&gt;if_wdy_md_component~set_configuration_controller( controller ).
+    component-&gt;save_to_db_definition_only( ).
+  ENDIF.
+
+* unlock
+  controller-&gt;unlock( ).
+  controller-&gt;reload( ).
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_VIEW" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_VIEW" SCONAME="XML_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_VIEW" SCONAME="CX_WDY_MD_ENQUEUE_FAILURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410"/>
+  <source>method XML_TO_VIEW.
+*xml nodes
+  DATA definition TYPE wdy_view.
+  DATA rc TYPE i.
+  DATA node        TYPE REF TO if_ixml_element.
+  DATA filter      TYPE REF TO if_ixml_node_filter.
+  DATA iterator    TYPE REF TO if_ixml_node_iterator.
+
+
+  CALL METHOD getstructurefromattributes
+    EXPORTING
+      node            = xml_node
+      preserveversion = abap_true
+    CHANGING
+      structure       = definition.
+
+  DATA: view     TYPE REF TO if_wdy_md_view,
+        abstract_view TYPE REF TO if_wdy_md_abstract_view,
+        view_key TYPE wdy_md_view_key,
+        window   TYPE REF TO cl_wdy_md_window. &quot;if_wdy_md_window.
+  view_key-component_name = definition-component_name.
+  view_key-view_name = definition-view_name.
+
+
+
+  CALL METHOD cl_wdy_md_abstract_view=&gt;create
+    EXPORTING
+      component_name             = view_key-component_name
+      view_name                  = view_key-view_name
+      suppress_access_permission = &apos;X&apos;
+      type                       = definition-type
+    RECEIVING
+      view                       = abstract_view.
+
+  abstract_view-&gt;set_type( definition-view_type ).
+  abstract_view-&gt;set_lifespan( definition-lifespan ).
+
+  TRY.
+      view ?= abstract_view.
+      view-&gt;create_root_container( ).
+    CATCH cx_sy_move_cast_error.
+  ENDTRY.
+
+
+  TRY.
+      DATA def_root_node TYPE REF TO if_wdy_md_vset_hierarchy_node.
+      DATA title TYPE wdy_md_translatable_text.
+      window ?= abstract_view.
+      title = definition-title.
+      IF definition-def_root_node IS NOT INITIAL.
+        def_root_node = window-&gt;find_viewset_hierarchy_node( name = definition-def_root_node ).
+        IF def_root_node IS INITIAL.
+          def_root_node = window-&gt;if_wdy_md_window~create_root_node( name = definition-def_root_node
+                                                                      type = &apos;CL_WDY_MD_VIEW_USAGE&apos; ).
+        ENDIF.
+        window-&gt;if_wdy_md_window~set_default_root_node( def_root_node ).
+      ENDIF.
+
+      IF NOT title IS INITIAL.
+        window-&gt;if_wdy_md_window~set_title( title = title ).
+      ENDIF.
+    CATCH cx_sy_move_cast_error.
+  ENDTRY.
+
+  abstract_view-&gt;save_to_database( ).
+  TRANSLATE view_key TO UPPER CASE.                      &quot;#EC TRANSLANG
+
+* copy wdy_viewt
+  DATA wdy_viewt_table TYPE STANDARD TABLE OF wdy_viewt.
+  DATA wdy_viewt TYPE wdy_viewt.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_viewt&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_viewt.
+    APPEND wdy_viewt TO wdy_viewt_table.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_viewt FROM TABLE wdy_viewt_table.
+
+* copy wdy_iobound_plug.
+  DATA it_wdy_iobound_plug TYPE STANDARD TABLE OF wdy_iobound_plug.
+  DATA wdy_iobound_plug TYPE wdy_iobound_plug.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_iobound_plug&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_iobound_plug.
+    APPEND wdy_iobound_plug TO it_wdy_iobound_plug.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  MODIFY wdy_iobound_plug FROM TABLE it_wdy_iobound_plug.
+
+* copy wdy_iobound_plgt
+  DATA it_wdy_iobound_plgt TYPE STANDARD TABLE OF wdy_iobound_plgt.
+  DATA plgt TYPE wdy_iobound_plgt.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_iobound_plgt&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = plgt.
+    APPEND plgt TO it_wdy_iobound_plgt.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  MODIFY wdy_iobound_plgt FROM TABLE it_wdy_iobound_plgt.
+
+
+* copy WDY_UI_ELEMENT.
+  DATA it_wdy_ui_element TYPE STANDARD TABLE OF wdy_ui_element.
+  DATA wdy_ui_element TYPE wdy_ui_element.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ui_element&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ui_element.
+    APPEND wdy_ui_element TO it_wdy_ui_element.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  MODIFY wdy_ui_element FROM TABLE it_wdy_ui_element.
+
+* copy WDY_UI_PROPERTY.
+  DATA text_repository_of_copy TYPE REF TO if_wdy_md_text_repository.
+  DATA text TYPE string.
+  DATA text_id TYPE wdy_md_translatable_text.
+  DATA str TYPE string.
+  DATA header TYPE sotr_head.
+  DATA concept TYPE sotr_head-concept.
+  text_repository_of_copy ?= abstract_view-&gt;if_wdy_md_lockable_object~get_text_repository( ).
+  DATA it_wdy_ui_property TYPE STANDARD TABLE OF wdy_ui_property.
+  DATA wdy_ui_property TYPE wdy_ui_property.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ui_property&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ui_property.
+    TRY.
+        str = wdy_ui_property-property_value.
+        text = text_repository_of_copy-&gt;get_text( str ).
+        IF NOT text IS INITIAL.
+*               check if the guid corresponds to an otr alias, in that case DO NOT create a new one
+          concept = str.
+          CALL FUNCTION &apos;SOTR_GET_CONCEPT&apos;
+            EXPORTING
+              concept = concept
+            IMPORTING
+              header  = header.
+          IF header-alias_name IS INITIAL.
+            wdy_ui_property-property_value = text_repository_of_copy-&gt;create_text( text ).
+          ENDIF.
+        ENDIF.
+      CATCH cx_wb_text_not_existing.
+        CLEAR str.
+        str = node-&gt;get_attribute( name = &apos;PropText&apos; ).
+        IF str IS NOT INITIAL.
+          wdy_ui_property-property_value = text_repository_of_copy-&gt;create_text( str ).
+        ENDIF.
+      CATCH cx_wb_text_create_exception.
+        CLEAR wdy_ui_property-property_value.
+    ENDTRY.
+    APPEND wdy_ui_property TO it_wdy_ui_property.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  MODIFY wdy_ui_property FROM TABLE it_wdy_ui_property.
+
+* copy WDY_VIEW_CNTR.
+  DATA it_wdy_view_cntr TYPE STANDARD TABLE OF wdy_view_cntr.
+  DATA wdy_view_cntr TYPE wdy_view_cntr.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_view_cntr&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_view_cntr.
+    APPEND wdy_view_cntr TO it_wdy_view_cntr.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  MODIFY wdy_view_cntr FROM TABLE it_wdy_view_cntr.
+
+* copy wdy_view_cntrt
+  DATA wdy_view_cntrt_table TYPE STANDARD TABLE OF wdy_view_cntrt.
+  DATA wdy_view_cntrt TYPE wdy_view_cntrt.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_view_cntrt&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_view_cntrt.
+    APPEND wdy_view_cntrt TO wdy_view_cntrt_table.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  INSERT wdy_view_cntrt FROM TABLE wdy_view_cntrt_table.
+
+*  copy WDY_PLUG_PARAM.
+  DATA it_wdy_plug_param TYPE STANDARD TABLE OF wdy_plug_param.
+  DATA wdy_plug_param TYPE wdy_plug_param.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_plug_param&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_plug_param.
+    APPEND wdy_plug_param TO it_wdy_plug_param.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  MODIFY wdy_plug_param FROM TABLE it_wdy_plug_param.
+
+*  copy WDY_UI_CTX_BIND.
+  DATA it_wdy_ui_ctx_bind TYPE STANDARD TABLE OF wdy_ui_ctx_bind.
+  DATA wdy_ui_ctx_bind TYPE wdy_ui_ctx_bind.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ui_ctx_bind&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ui_ctx_bind.
+    APPEND wdy_ui_ctx_bind TO it_wdy_ui_ctx_bind.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  MODIFY wdy_ui_ctx_bind FROM TABLE it_wdy_ui_ctx_bind.
+
+*  copy WDY_UI_DDIC_BIND.
+  DATA it_wdy_ui_ddic_bind TYPE STANDARD TABLE OF wdy_ui_ddic_bind.
+  DATA wdy_ui_ddic_bind TYPE wdy_ui_ddic_bind.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ui_ddic_bind&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ui_ddic_bind.
+    APPEND wdy_ui_ddic_bind TO it_wdy_ui_ddic_bind.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  MODIFY wdy_ui_ddic_bind FROM TABLE it_wdy_ui_ddic_bind.
+
+*  copy WDY_UI_EVT_BIND.
+  DATA it_wdy_ui_evt_bind TYPE STANDARD TABLE OF wdy_ui_evt_bind.
+  DATA wdy_ui_evt_bind TYPE wdy_ui_evt_bind.
+  FREE: filter, iterator, node.
+  filter = xml_node-&gt;create_filter_name( &apos;wdy_ui_evt_bind&apos; ).
+  iterator = xml_node-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+  WHILE node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node            = node
+        preserveversion = abap_true
+      CHANGING
+        structure       = wdy_ui_evt_bind.
+    APPEND wdy_ui_evt_bind TO it_wdy_ui_evt_bind.
+    node ?= iterator-&gt;get_next( ).
+  ENDWHILE.
+  MODIFY wdy_ui_evt_bind FROM TABLE it_wdy_ui_evt_bind.
+
+  IF definition-type = &apos;CL_WDY_MD_WINDOW&apos;.                  &quot;#EC NOTEXT
+*   copy WDY_NAV_LINK.
+    DATA it_wdy_nav_link TYPE STANDARD TABLE OF wdy_nav_link.
+    DATA wdy_nav_link TYPE wdy_nav_link.
+    FREE: filter, iterator, node.
+    filter = xml_node-&gt;create_filter_name( &apos;wdy_nav_link&apos; ).
+    iterator = xml_node-&gt;create_iterator_filtered( filter ).
+    node ?= iterator-&gt;get_next( ).
+    WHILE node IS NOT INITIAL.
+      CALL METHOD getstructurefromattributes
+        EXPORTING
+          node            = node
+          preserveversion = abap_true
+        CHANGING
+          structure       = wdy_nav_link.
+      APPEND wdy_nav_link TO it_wdy_nav_link.
+      node ?= iterator-&gt;get_next( ).
+    ENDWHILE.
+    MODIFY wdy_nav_link FROM TABLE it_wdy_nav_link.
+
+*   copy WDY_NAV_TARGREF.
+    DATA it_wdy_nav_targref TYPE STANDARD TABLE OF wdy_nav_targref.
+    DATA wdy_nav_targref TYPE wdy_nav_targref.
+    FREE: filter, iterator, node.
+    filter = xml_node-&gt;create_filter_name( &apos;wdy_nav_targref&apos; ).
+    iterator = xml_node-&gt;create_iterator_filtered( filter ).
+    node ?= iterator-&gt;get_next( ).
+    WHILE node IS NOT INITIAL.
+      CALL METHOD getstructurefromattributes
+        EXPORTING
+          node            = node
+          preserveversion = abap_true
+        CHANGING
+          structure       = wdy_nav_targref.
+      APPEND wdy_nav_targref TO it_wdy_nav_targref.
+      node ?= iterator-&gt;get_next( ).
+    ENDWHILE.
+    MODIFY wdy_nav_targref FROM TABLE it_wdy_nav_targref.
+
+*   copy WDY_VSH_NODE.
+    DATA it_wdy_vsh_node TYPE STANDARD TABLE OF wdy_vsh_node.
+    DATA wdy_vsh_node TYPE wdy_vsh_node.
+    FREE: filter, iterator, node.
+    filter = xml_node-&gt;create_filter_name( &apos;wdy_vsh_node&apos; ).
+    iterator = xml_node-&gt;create_iterator_filtered( filter ).
+    node ?= iterator-&gt;get_next( ).
+    WHILE node IS NOT INITIAL.
+      CALL METHOD getstructurefromattributes
+        EXPORTING
+          node            = node
+          preserveversion = abap_true
+        CHANGING
+          structure       = wdy_vsh_node.
+      APPEND wdy_vsh_node TO it_wdy_vsh_node.
+      node ?= iterator-&gt;get_next( ).
+    ENDWHILE.
+    MODIFY wdy_vsh_node FROM TABLE it_wdy_vsh_node.
+
+*   copy WDY_VSH_PHOLDER.
+    DATA it_wdy_vsh_pholder TYPE STANDARD TABLE OF wdy_vsh_pholder.
+    DATA wdy_vsh_pholder TYPE wdy_vsh_pholder.
+    FREE: filter, iterator, node.
+    filter = xml_node-&gt;create_filter_name( &apos;wdy_vsh_pholder&apos; ).
+    iterator = xml_node-&gt;create_iterator_filtered( filter ).
+    node ?= iterator-&gt;get_next( ).
+    WHILE node IS NOT INITIAL.
+      CALL METHOD getstructurefromattributes
+        EXPORTING
+          node            = node
+          preserveversion = abap_true
+        CHANGING
+          structure       = wdy_vsh_pholder.
+      APPEND wdy_vsh_pholder TO it_wdy_vsh_pholder.
+      node ?= iterator-&gt;get_next( ).
+    ENDWHILE.
+    MODIFY wdy_vsh_pholder FROM TABLE it_wdy_vsh_pholder.
+
+*   copy WDY_VS_PROPERTY.
+    DATA it_wdy_vs_property TYPE STANDARD TABLE OF wdy_vs_property.
+    DATA wdy_vs_property TYPE wdy_vs_property.
+    FREE: filter, iterator, node.
+    filter = xml_node-&gt;create_filter_name( &apos;wdy_vs_property&apos; ).
+    iterator = xml_node-&gt;create_iterator_filtered( filter ).
+    node ?= iterator-&gt;get_next( ).
+    WHILE node IS NOT INITIAL.
+      CALL METHOD getstructurefromattributes
+        EXPORTING
+          node            = node
+          preserveversion = abap_true
+        CHANGING
+          structure       = wdy_vs_property.
+      APPEND wdy_vs_property TO it_wdy_vs_property.
+      node ?= iterator-&gt;get_next( ).
+    ENDWHILE.
+    MODIFY wdy_vs_property FROM TABLE it_wdy_vs_property.
+
+  ENDIF.
+
+  abstract_view-&gt;unlock( ).
+  abstract_view-&gt;reload( ).
+
+  TRY.
+* copy controllers of component
+      DATA  controller TYPE REF TO if_wdy_md_controller.
+      FREE: filter, iterator, node.
+      filter = xml_node-&gt;create_filter_name( &apos;controller_definition&apos; ).
+      iterator = xml_node-&gt;create_iterator_filtered( filter ).
+      node ?= iterator-&gt;get_next( ).
+      WHILE node IS NOT INITIAL.
+        TRY.
+            controller = me-&gt;xml_to_controller(
+                xml_node = node ).
+            node ?= iterator-&gt;get_next( ).
+            abstract_view-&gt;set_view_controller( controller ).
+          CATCH cx_wdy_md_already_existing.
+            node ?= iterator-&gt;get_next( ).
+        ENDTRY.
+      ENDWHILE.
+      abstract_view-&gt;if_wdy_md_lockable_object~save_to_database( ).
+    CATCH cx_wdy_md_already_existing.
+  ENDTRY.
+
+endmethod.</source>
+ </method>
+</CLAS>
