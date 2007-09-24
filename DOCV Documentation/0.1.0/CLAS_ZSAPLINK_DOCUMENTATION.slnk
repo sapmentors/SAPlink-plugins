@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<CLAS CLSNAME="ZSAPLINK_DOCUMENTATION" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Documentation" UUID="D337FA9004AE78469B570F1DFC6880C5" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20070923" CHANGEDBY="BCUSER" CHANGEDON="00000000" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="700" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
+ <publicSection>class ZSAPLINK_DOCUMENTATION definition
+  public
+  inheriting from ZSAPLINK
+  final
+  create public .
+
+*&quot;* public components of class ZSAPLINK_DOCUMENTATION
+*&quot;* do not include other source files here!!!
+public section.
+
+  methods CHECKEXISTS
+    redefinition .
+  methods CREATEIXMLDOCFROMOBJECT
+    redefinition .
+  methods CREATEOBJECTFROMIXMLDOC
+    redefinition .</publicSection>
+ <protectedSection>*&quot;* protected components of class ZSAPLINK_TABLES
+*&quot;* do not include other source files here!!!
+protected section.
+
+  methods DELETEOBJECT
+    redefinition .
+  methods GETOBJECTTYPE
+    redefinition .</protectedSection>
+ <privateSection>*&quot;* private components of class ZSAPLINK_TABLES
+*&quot;* do not include other source files here!!!
+private section.</privateSection>
+ <localImplementation>*&quot;* local class implementation for public class
+*&quot;* use this source file for the implementation part of
+*&quot;* local helper classes</localImplementation>
+ <localTypes>*&quot;* use this source file for any type declarations (class
+*&quot;* definitions, interfaces or data types) you need for method
+*&quot;* implementation or private method&apos;s signature</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <inheritance CLSNAME="ZSAPLINK_DOCUMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1" AUTHOR="BCUSER" CREATEDON="20070923" CHANGEDON="00000000">
+  <redefinition CLSNAME="ZSAPLINK_DOCUMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS"/>
+  <redefinition CLSNAME="ZSAPLINK_DOCUMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT"/>
+  <redefinition CLSNAME="ZSAPLINK_DOCUMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC"/>
+  <redefinition CLSNAME="ZSAPLINK_DOCUMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT"/>
+  <redefinition CLSNAME="ZSAPLINK_DOCUMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE"/>
+ </inheritance>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+METHOD checkexists.
+
+*      Plugin created by:
+*      Rich Heilman
+*      rich.heilman.jr@gmail.com
+  DATA xdokhl TYPE dokhl.
+  DATA xdoc_object(62) TYPE c.
+  DATA xdocu_id TYPE dokhl-id.
+  DATA xdocu_obj TYPE dokhl-object.
+
+  xdoc_object = objname.
+  xdocu_id  = xdoc_object(2).
+  xdocu_obj = xdoc_object+2(60).
+
+  CLEAR xdokhl.
+  SELECT SINGLE * INTO xdokhl FROM dokhl
+             WHERE id = xdocu_id
+               AND object = xdocu_obj.
+  IF sy-subrc =  0.
+    exists = &apos;X&apos;.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+METHOD createixmldocfromobject.
+
+*      Plugin created by:
+*      Rich Heilman
+*      rich.heilman.jr@gmail.com
+
+  DATA root_node     TYPE REF TO if_ixml_element.
+  DATA txtlines_node TYPE REF TO if_ixml_element.
+  DATA rc            TYPE sysubrc.
+  DATA _objtype      TYPE string.
+
+  DATA: BEGIN OF xdokhl,
+        objname(62) TYPE c,
+        id          TYPE dokhl-id,
+        object      TYPE dokhl-object,
+        typ         TYPE dokhl-typ,
+        dokversion  TYPE dokhl-dokversion,
+        END OF xdokhl.
+
+  DATA ilines TYPE TABLE OF tline.
+  DATA xlines LIKE LINE OF ilines.
+
+  DATA _docuname TYPE e071-obj_name.
+  DATA xdocu_id  TYPE dokhl-id.
+  DATA xdocu_obj TYPE dokhl-object.
+
+  _docuname = objname.
+
+* Separate id and object from combined object name
+  xdocu_id  = _docuname(2).
+  xdocu_obj = _docuname+2(60).
+
+* Check against database
+  CLEAR xdokhl.
+  SELECT SINGLE id object typ dokversion
+        INTO (xdokhl-id, xdokhl-object, xdokhl-typ, xdokhl-dokversion)
+           FROM dokhl
+             WHERE id = xdocu_id
+                AND object = xdocu_obj.
+  IF sy-subrc &lt;&gt; 0.
+    RAISE EXCEPTION TYPE zcx_saplink
+     EXPORTING textid = zcx_saplink=&gt;error_message
+               msg    = `Documentation object not found, use full ` &amp;
+                        `object name including ID and Object(example DTZTEST`.
+  ENDIF.
+
+ xdokhl-objname = _docuname.
+
+* Create parent node
+  _objtype  = getobjecttype( ).
+  root_node = xmldoc-&gt;create_element( _objtype ).
+  me-&gt;setattributesfromstructure( node = root_node structure = xdokhl  ).
+
+* Read the documentation text
+  CALL FUNCTION &apos;DOCU_READ&apos;
+    EXPORTING
+      id      = xdokhl-id
+      langu   = sy-langu
+      object  = xdokhl-object
+      typ     = xdokhl-typ
+      version = xdokhl-dokversion
+    TABLES
+      line    = ilines.
+
+* Write records to XML node
+  LOOP AT ilines INTO xlines.
+    txtlines_node = xmldoc-&gt;create_element( `TextLines` ).
+    me-&gt;setattributesfromstructure( node = txtlines_node structure = xlines ).
+    rc = root_node-&gt;append_child( txtlines_node ).
+  ENDLOOP.
+
+* Add node
+  rc = xmldoc-&gt;append_child( root_node ).
+  ixmldocument = xmldoc.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+METHOD createobjectfromixmldoc.
+
+*      Plugin created by:
+*      Rich Heilman
+*      rich.heilman.jr@gmail.com
+
+  DATA root_node        TYPE REF TO if_ixml_element.
+  DATA txtline_node     TYPE REF TO if_ixml_element.
+  DATA txtline_filter   TYPE REF TO if_ixml_node_filter.
+  DATA txtline_iterator TYPE REF TO if_ixml_node_iterator.
+
+  DATA: BEGIN OF xdokhl,
+        objname(62) TYPE c,
+        id          TYPE dokhl-id,
+        object      TYPE dokhl-object,
+        typ         TYPE dokhl-typ,
+        dokversion  TYPE dokhl-dokversion,
+        END OF xdokhl.
+
+  DATA: ilines  TYPE TABLE OF tline.
+  DATA: objname TYPE e071-obj_name.
+  DATA _objtype TYPE string.
+
+  FIELD-SYMBOLS: &lt;xlines_wa&gt; LIKE LINE OF ilines.
+
+  _objtype = getobjecttype( ).
+
+  xmldoc = ixmldocument.
+  root_node = xmldoc-&gt;find_from_name( _objtype ).
+
+* Get Root
+  me-&gt;getstructurefromattributes(
+          EXPORTING  node      = root_node
+          CHANGING   structure = xdokhl ).
+
+  objname = xdokhl-objname.
+
+* Get TextLines from XML
+  FREE: txtline_filter, txtline_iterator, txtline_node.
+  txtline_filter = xmldoc-&gt;create_filter_name( `TextLines` ).
+  txtline_iterator = xmldoc-&gt;create_iterator_filtered( txtline_filter ).
+  txtline_node ?= txtline_iterator-&gt;get_next( ).
+  WHILE txtline_node IS NOT INITIAL.
+    APPEND INITIAL LINE TO ilines ASSIGNING &lt;xlines_wa&gt;.
+    me-&gt;getstructurefromattributes(
+            EXPORTING   node      = txtline_node
+            CHANGING    structure = &lt;xlines_wa&gt; ).
+    txtline_node ?= txtline_iterator-&gt;get_next( ).
+  ENDWHILE.
+
+  CALL FUNCTION &apos;RS_ACCESS_PERMISSION&apos;
+    EXPORTING
+      global_lock              = &apos;X&apos;
+      mode                     = &apos;INSERT&apos;
+      object                   = objname
+      object_class             = &apos;DOCV&apos;
+    EXCEPTIONS
+      canceled_in_corr         = 1
+      enqueued_by_user         = 3
+      enqueue_system_failure   = 4
+      locked_by_author         = 5
+      illegal_parameter_values = 6
+      no_modify_permission     = 7
+      no_show_permission       = 8
+      permission_failure       = 9.
+
+  IF sy-subrc &lt;&gt; 0.
+    CASE sy-subrc.
+      WHEN 7 OR 8 OR 9.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;not_authorized.
+      WHEN 5.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;error_message
+            msg = &apos;object locked&apos;.
+      WHEN OTHERS.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;system_error.
+    ENDCASE.
+  ENDIF.
+
+  DATA checkexists TYPE flag.
+  checkexists = checkexists( ).
+  IF checkexists IS NOT INITIAL.
+    IF overwrite IS INITIAL.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING textid = zcx_saplink=&gt;existing.
+    ELSE.
+*     delete object for new install
+      deleteobject( ).
+    ENDIF.
+  ENDIF.
+
+  CALL FUNCTION &apos;RS_CORR_INSERT&apos;
+    EXPORTING
+      object              = objname
+      object_class        = &apos;DOCV&apos;
+      mode                = &apos;INSERT&apos;
+      global_lock         = &apos;X&apos;
+*     devclass            = devclass
+      author              = sy-uname
+      master_language     = sy-langu
+    EXCEPTIONS
+      cancelled           = 1
+      permission_failure  = 2
+      unknown_objectclass = 3.
+  IF sy-subrc &lt;&gt; 0.
+    CASE sy-subrc.
+      WHEN 2.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;not_authorized.
+      WHEN OTHERS.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;system_error.
+    ENDCASE.
+  ENDIF.
+
+  CALL FUNCTION &apos;DOCU_UPD&apos;
+    EXPORTING
+      id       = xdokhl-id
+      langu    = sy-langu
+      object   = xdokhl-object
+      typ      = xdokhl-typ
+    TABLES
+      line     = ilines
+    EXCEPTIONS
+      ret_code = 1
+      OTHERS   = 2.
+  IF sy-subrc &lt;&gt; 0.
+    RAISE EXCEPTION TYPE zcx_saplink
+     EXPORTING textid = zcx_saplink=&gt;error_message
+               msg    = `Documentation object import failed`.
+  ENDIF.
+
+  name = objname.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+METHOD deleteobject.
+
+*      Plugin created by:
+*      Rich Heilman
+*      rich.heilman.jr@gmail.com
+  DATA xdokhl TYPE dokhl.
+  DATA _docuname TYPE e071-obj_name.
+  DATA xdocu_id  TYPE dokhl-id.
+  DATA xdocu_obj TYPE dokhl-object.
+
+  _docuname = objname.
+
+  xdocu_id  = _docuname(2).
+  xdocu_obj = _docuname+2(60).
+
+  CLEAR xdokhl.
+  SELECT SINGLE * INTO xdokhl
+           FROM dokhl
+             WHERE id = xdocu_id
+               AND object = xdocu_obj.
+
+  CALL FUNCTION &apos;DOCU_DEL&apos;
+    EXPORTING
+      id       = xdokhl-id
+      langu    = sy-langu
+      object   = xdokhl-object
+      typ      = xdokhl-typ
+    EXCEPTIONS
+      ret_code = 1
+      OTHERS   = 2.
+  IF sy-subrc &lt;&gt; 0.
+    RAISE EXCEPTION TYPE zcx_saplink
+     EXPORTING textid = zcx_saplink=&gt;error_message
+               msg    = `Error when deleting existing documentation object`.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+method GETOBJECTTYPE.
+
+*      Plugin created by:
+*      Rich Heilman
+*      rich.heilman.jr@gmail.com
+
+  objecttype = &apos;DOCV&apos;.  &quot;Documentation
+
+endmethod.</source>
+ </method>
+</CLAS>
