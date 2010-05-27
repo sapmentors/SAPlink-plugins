@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<CLAS CLSNAME="ZSAPLINK_FUNCTIONGROUP" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Function Groups" UUID="45594ECCE93E07BF00000000A7E42BB2" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="620" CLSBCCAT="00" REFCLSNAME="ZSAPLINK">
+<CLAS CLSNAME="ZSAPLINK_FUNCTIONGROUP" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Function Groups" UUID="D714EEDF3DA0CC448C32101ABA3C9EF6" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="20090119" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="700" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
  <publicSection>class ZSAPLINK_FUNCTIONGROUP definition
   public
   inheriting from ZSAPLINK
@@ -24,13 +24,11 @@ protected section.
     redefinition .
   methods GETOBJECTTYPE
     redefinition .</protectedSection>
- <privateSection>*&quot;* private components of class ZSAPLINK_FUNCTIONGROUP
+ <privateSection>private section.
+*&quot;* private components of class ZSAPLINK_FUNCTIONGROUP
 *&quot;* do not include other source files here!!!
-private section.
 
-  methods ACTUALIZE_OBJECT_TREE
-    importing
-      !REPID type SY-REPID .
+  methods ACTUALIZE_OBJECT_TREE .
   methods CREATE_TEXTPOOL
     importing
       !TEXTPOOLNODE type ref to IF_IXML_ELEMENT .
@@ -38,6 +36,12 @@ private section.
     importing
       !FM_NODE type ref to IF_IXML_ELEMENT
       !FCT_GROUP type TLIBG-AREA .
+  methods CREATE_DOCUMENTATION
+    importing
+      !DOCNODE type ref to IF_IXML_ELEMENT .
+  methods CREATE_FM_DOCUMENTATION
+    importing
+      !DOCNODE type ref to IF_IXML_ELEMENT .
   methods DEQUEUE_ABAP
     raising
       ZCX_SAPLINK .
@@ -48,6 +52,14 @@ private section.
   methods GET_TEXTPOOL
     returning
       value(TEXTNODE) type ref to IF_IXML_ELEMENT .
+  methods GET_DOCUMENTATION
+    returning
+      value(DOCNODE) type ref to IF_IXML_ELEMENT .
+  methods GET_FM_DOCUMENTATION
+    importing
+      !FM_NAME type ANY
+    returning
+      value(DOCNODE) type ref to IF_IXML_ELEMENT .
   methods GET_INCLUDES
     importing
       !MAIN_PROG type SY-REPID
@@ -92,29 +104,41 @@ private section.
 *&quot;* implementation or private method&apos;s signature</localTypes>
  <localMacros>*&quot;* use this source file for any macro definitions you need
 *&quot;* in the implementation part of the class</localMacros>
- <inheritance CLSNAME="ZSAPLINK_FUNCTIONGROUP" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1" AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130">
-  <redefinition CLSNAME="ZSAPLINK_FUNCTIONGROUP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS"/>
-  <redefinition CLSNAME="ZSAPLINK_FUNCTIONGROUP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT"/>
-  <redefinition CLSNAME="ZSAPLINK_FUNCTIONGROUP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC"/>
-  <redefinition CLSNAME="ZSAPLINK_FUNCTIONGROUP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT"/>
-  <redefinition CLSNAME="ZSAPLINK_FUNCTIONGROUP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE"/>
+ <textPool/>
+ <classDocumentation/>
+ <inheritance CLSNAME="ZSAPLINK_FUNCTIONGROUP" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1" AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="20090119">
+  <redefinition CLSNAME="ZSAPLINK_FUNCTIONGROUP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZSAPLINK_FUNCTIONGROUP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZSAPLINK_FUNCTIONGROUP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZSAPLINK_FUNCTIONGROUP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZSAPLINK_FUNCTIONGROUP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE" EXPOSURE="0"/>
  </inheritance>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="ACTUALIZE_OBJECT_TREE" VERSION="1" LANGU="E" DESCRIPT="Refresh Object Tree" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="ACTUALIZE_OBJECT_TREE" SCONAME="REPID" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SY-REPID"/>
-  <source>method ACTUALIZE_OBJECT_TREE .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="ACTUALIZE_OBJECT_TREE" VERSION="1" LANGU="E" DESCRIPT="Refresh Object Tree" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="20090119" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD actualize_object_tree.
+  DATA: l_offset TYPE i.
+  DATA: l_tree_string TYPE string.
 
-  data: tree_string type string.
+  CONCATENATE &apos;PG_&apos; &apos;SAPL&apos; objname INTO l_tree_string.
 
-  concatenate &apos;PG_&apos; repid into tree_string.
-  call function &apos;WB_TREE_ACTUALIZE&apos;
-       exporting
-           tree_name = tree_string.
+* If we supported namespaces, the following code would be required
+*  FIND ALL OCCURRENCES OF &apos;/&apos; IN objname MATCH OFFSET l_offset.
+*  IF sy-subrc = 0.
+*    l_tree_string  = objname.
+*    REPLACE SECTION OFFSET l_offset LENGTH 1 OF  l_tree_string  WITH &apos;/SAPL&apos;.
+*    CONCATENATE &apos;PG_&apos; l_tree_string  INTO l_tree_string.
+*  ELSE.
+*    CONCATENATE &apos;PG_&apos; &apos;SAPL&apos; objname INTO l_tree_string.
+*  ENDIF.
 
+  CALL FUNCTION &apos;WB_TREE_ACTUALIZE&apos;
+    EXPORTING
+      tree_name = l_tree_string.
 
-endmethod.</source>
+ENDMETHOD.</source>
+  <methodDocumentation/>
  </method>
  <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>method CHECKEXISTS .
+  <source>method CHECKEXISTS.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -134,15 +158,16 @@ endmethod.</source>
 *|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
 *\---------------------------------------------------------------------/
 
-  select single name from trdir into objName where NAME = objName.
+  select single area from tlibg into objname where area = objname.
   if sy-subrc = 0.
     exists = &apos;X&apos;.
   endif.
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
  <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>method CREATEIXMLDOCFROMOBJECT .
+  <source>method CREATEIXMLDOCFROMOBJECT.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -166,16 +191,23 @@ endmethod.</source>
 *      Rich Heilman
 *      rich.heilman.jr@gmail.com
 
+  types: begin of t_tlibt,
+           area type tlibt-area,
+           spras type tlibt-spras,
+           areat type tlibt-areat,
+         end of t_tlibt.
+
   data rootnode            type ref to if_ixml_element.
   data mainprognode        type ref to if_ixml_element.
   data includesnode        type ref to if_ixml_element.
   data functgroupnode      type ref to if_ixml_element.
   data functionmodulesnode type ref to if_ixml_element.
-
+  data docNode             type ref to if_ixml_element.
   data textpoolnode        type ref to if_ixml_element.
   data dynpronode          type ref to if_ixml_element.
   data statusnode          type ref to if_ixml_element.
   data sourcenode          type ref to if_ixml_element.
+  data fmdocumenation      type ref to if_ixml_element.
 
   data rc                type sysubrc.
   data progattribs       type trdir.
@@ -185,15 +217,33 @@ endmethod.</source>
   data _objtype          type string.
   data functiongroupname type  tlibg-area.
   data mainfgprogname    type sy-repid.
-
-  data xtlibt            type tlibt.
+  DATA l_offset          TYPE i.
+  data xtlibt            type t_tlibt.
 
   _objtype = getobjecttype( ).
   rootnode = xmldoc-&gt;create_element( _objtype ).
 
-* Set up main program name
-  mainfgprogname    = &apos;SAPL&apos;.
-  mainfgprogname+4  = objname.
+* function groups in reserved namespace, not supported.
+  IF objname(1) = &apos;/&apos;.
+    RAISE EXCEPTION TYPE zcx_saplink
+      EXPORTING
+        textid = zcx_saplink=&gt;error_message
+        msg    = &apos;Function Groups in / namespace are not supported&apos;.
+  ENDIF.
+
+*  create main program name.  Other namespaces are not supported
+  CONCATENATE &apos;SAPL&apos; objname INTO mainfgprogname.
+
+* If we did support namespaces, this is how we would
+* build the main program name
+*  FIND ALL OCCURRENCES OF &apos;/&apos; IN objname MATCH OFFSET l_offset.
+*  IF sy-subrc = 0.
+*    mainfgprogname = objname.
+*    REPLACE SECTION OFFSET l_offset LENGTH 1 OF mainfgprogname WITH &apos;/SAPL&apos;.
+*  ELSE.
+*    CONCATENATE &apos;SAPL&apos; objname INTO mainfgprogname.
+*  ENDIF.
+
 * Set function group name
   functiongroupname = objname.
 
@@ -201,67 +251,75 @@ endmethod.</source>
   select single * from trdir
            into progattribs
                 where name = mainfgprogname.
-  if sy-subrc = 0.
-
-* Get Function group attributes
-    clear xtlibt.
-    select single * from tlibt
-               into xtlibt
-                       where spras = sy-langu
-                         and area  = functiongroupname.
-
-    setattributesfromstructure( node = rootnode
-                                structure =  xtlibt  ).
-
-    _objname = objname.
-    objname  = mainfgprogname.    &quot; Main program is object
-
-* Write main program for function group.
-    mainprognode = xmldoc-&gt;create_element( &apos;mainprogram&apos; ).
-    setattributesfromstructure( node = mainprognode
-                                structure =   progattribs  ).
-
-    sourcenode = xmldoc-&gt;create_element( &apos;source&apos; ).
-    read report mainfgprogname into progsource.
-    sourcestring = buildsourcestring( sourcetable = progsource ).
-    rc = sourcenode-&gt;if_ixml_node~set_value( sourcestring ).
-
-    textpoolnode =  get_textpool( ).
-    rc = mainprognode-&gt;append_child( textpoolnode ).
-
-    dynpronode = get_dynpro( ).
-    rc = mainprognode-&gt;append_child( dynpronode ).
-
-    statusnode =  get_pfstatus( ).
-    rc = mainprognode-&gt;append_child( statusnode ).
-
-    rc = mainprognode-&gt;append_child( sourcenode ).
-    rc = rootnode-&gt;append_child( mainprognode ).
-
-* Get the includes
-    includesnode = get_includes( main_prog = mainfgprogname
-                                 fct_group = functiongroupname ).
-    rc = rootnode-&gt;append_child( includesnode ).
-
-* Get function modules data.
-    functionmodulesnode = get_function_modules( functiongroupname ).
-    rc = rootnode-&gt;append_child( functionmodulesnode ).
-
-    rc = xmldoc-&gt;append_child( rootnode ).
-
-    ixmldocument = xmldoc.
-    objname      =  _objname.
-
-  else.
+  if sy-subrc &lt;&gt; 0.
     clear ixmldocument.
-    raise exception type zcx_saplink
-      exporting textid = zcx_saplink=&gt;not_found.
+    RAISE EXCEPTION type zcx_saplink
+      EXPORTING
+        textid = zcx_saplink=&gt;not_found.
   endif.
 
+* Get Function group attributes
+  clear xtlibt.
+  select single * from tlibt
+             into corresponding fields of xtlibt
+                     where spras = sy-langu
+                       and area  = functiongroupname.
+  if sy-subrc &lt;&gt; 0.
+    RAISE EXCEPTION type zcx_saplink
+      EXPORTING
+        textid = zcx_saplink=&gt;not_found.
+  endif.
+
+  setattributesfromstructure( node = rootnode
+                              structure =  xtlibt  ).
+
+  _objname = objname.
+  objname  = mainfgprogname.    &quot; Main program is object
+
+* Write main program for function group.
+  mainprognode = xmldoc-&gt;create_element( &apos;mainprogram&apos; ).
+  setattributesfromstructure( node = mainprognode
+                              structure =   progattribs  ).
+
+  sourcenode = xmldoc-&gt;create_element( &apos;source&apos; ).
+  read report mainfgprogname into progsource.
+  sourcestring = buildsourcestring( sourcetable = progsource ).
+  rc = sourcenode-&gt;if_ixml_node~set_value( sourcestring ).
+
+  textpoolnode =  get_textpool( ).
+  rc = mainprognode-&gt;append_child( textpoolnode ).
+
+  docNode = get_documentation( ).
+  rc = rootNOde-&gt;append_child( docNode ).
+
+  dynpronode = get_dynpro( ).
+  rc = mainprognode-&gt;append_child( dynpronode ).
+
+  statusnode =  get_pfstatus( ).
+  rc = mainprognode-&gt;append_child( statusnode ).
+
+  rc = mainprognode-&gt;append_child( sourcenode ).
+  rc = rootnode-&gt;append_child( mainprognode ).
+
+* Get the includes
+  includesnode = get_includes( main_prog = mainfgprogname
+                               fct_group = functiongroupname ).
+  rc = rootnode-&gt;append_child( includesnode ).
+
+* Get function modules data.
+  functionmodulesnode = get_function_modules( functiongroupname ).
+  rc = rootnode-&gt;append_child( functionmodulesnode ).
+
+  rc = xmldoc-&gt;append_child( rootnode ).
+
+  ixmldocument = xmldoc.
+  objname      =  _objname.
+
 endmethod.</source>
+  <methodDocumentation/>
  </method>
  <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>method CREATEOBJECTFROMIXMLDOC .
+  <source>METHOD createobjectfromixmldoc.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -285,29 +343,36 @@ endmethod.</source>
 *      Rich Heilman
 *      rich.heilman.jr@gmail.com
 
-  data rootnode      type ref to if_ixml_element.
-  data sourcenode    type ref to if_ixml_element.
-  data textnode      type ref to if_ixml_element.
-  data dynpnode      type ref to if_ixml_element.
-  data statnode      type ref to if_ixml_element.
+  TYPES: BEGIN OF t_tlibt,
+           area TYPE tlibt-area,
+           spras TYPE tlibt-spras,
+           areat TYPE tlibt-areat,
+         END OF t_tlibt.
 
-  data mainprog_node        type ref to if_ixml_element.
-  data functionmodule_node  type ref to if_ixml_element.
-  data functionmodules_node type ref to if_ixml_element.
-  data includes_node        type ref to if_ixml_element.
+  DATA rootnode      TYPE REF TO if_ixml_element.
+  DATA sourcenode    TYPE REF TO if_ixml_element.
+  DATA textnode      TYPE REF TO if_ixml_element.
+  DATA docnode       TYPE REF TO if_ixml_element.
+  DATA dynpnode      TYPE REF TO if_ixml_element.
+  DATA statnode      TYPE REF TO if_ixml_element.
 
-  data progattribs   type trdir.
-  data source        type string.
-  data sourcetable   type table_of_strings.
-  data _objname(30)  type c.
-  data _objtype      type string.
-  data checkexists   type flag.
+  DATA mainprog_node        TYPE REF TO if_ixml_element.
+  DATA functionmodule_node  TYPE REF TO if_ixml_element.
+  DATA functionmodules_node TYPE REF TO if_ixml_element.
+  DATA includes_node        TYPE REF TO if_ixml_element.
+  DATA fmdoc_node      TYPE REF TO if_ixml_element.
 
-  data xtlibt type tlibt.
-  data xstext type tftit-stext.
+  DATA progattribs   TYPE trdir.
+  DATA source        TYPE string.
+  DATA sourcetable   TYPE table_of_strings.
+  DATA _objname(30)  TYPE c.
+  DATA _objtype      TYPE string.
+  DATA checkexists   TYPE flag.
 
-  data functiongroupname type  tlibg-area.
-  data mainfgprogname    type trdir-name.
+  DATA xtlibt TYPE t_tlibt.
+  DATA xstext TYPE tftit-stext.
+
+  DATA functiongroupname TYPE  tlibg-area.
 
   _objtype = getobjecttype( ).
   xmldoc   = ixmldocument.
@@ -317,39 +382,43 @@ endmethod.</source>
   _objname = objname.
 
   getstructurefromattributes(
-           exporting
+           EXPORTING
                 node      = rootnode
-           changing
+           CHANGING
                 structure = xtlibt ).
 
-  mainfgprogname    = &apos;SAPL&apos;.
-  mainfgprogname+4  = xtlibt-area.
   functiongroupname = xtlibt-area.
 
-  objname = mainfgprogname.          &quot; Main program name is the object
+* function groups in reserved namespace, not supported.
+  IF functiongroupname(1) = &apos;/&apos;.
+    RAISE EXCEPTION TYPE zcx_saplink
+      EXPORTING
+        textid = zcx_saplink=&gt;error_message
+        msg    = &apos;Function Groups in / namespace are not supported&apos;.
+  ENDIF.
+
+  objname = functiongroupname.
 
   checkexists = checkexists( ).
-  if checkexists is not initial.
-    if overwrite is initial.
-      raise exception type zcx_saplink
-        exporting textid = zcx_saplink=&gt;existing.
-    else.
+  IF checkexists IS NOT INITIAL.
+    IF overwrite IS INITIAL.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          textid = zcx_saplink=&gt;existing.
+    ELSE.
 *     delete object for new install
-      objname = functiongroupname.  &quot; Function group name is the object
       deleteobject( ).
-    endif.
-  endif.
-
-  objname =  functiongroupname.     &quot; Function Group name is the object
+    ENDIF.
+  ENDIF.
 
 * Insert the function group
   xstext = xtlibt-areat.
-  call function &apos;RS_FUNCTION_POOL_INSERT&apos;
-    exporting
+  CALL FUNCTION &apos;RS_FUNCTION_POOL_INSERT&apos;
+    EXPORTING
       function_pool           = xtlibt-area
       short_text              = xstext
       devclass                = devclass
-    exceptions
+    EXCEPTIONS
       name_already_exists     = 1
       name_not_correct        = 2
       function_already_exists = 3
@@ -361,7 +430,7 @@ endmethod.</source>
       enqueue_system_failure  = 9
       canceled_in_corr        = 10
       undefined_error         = 11
-      others                  = 12.
+      OTHERS                  = 12.
 
 * Create the function modules
   functionmodules_node  = rootnode-&gt;find_from_name( &apos;functionmodules&apos; ).
@@ -377,9 +446,9 @@ endmethod.</source>
   mainprog_node  = rootnode-&gt;find_from_name( &apos;mainprogram&apos; ).
 
   getstructurefromattributes(
-         exporting
+         EXPORTING
             node      = mainprog_node
-         changing
+         CHANGING
             structure = progattribs ).
 
   objname = progattribs-name.     &quot; Main Program Name is now the object
@@ -387,7 +456,7 @@ endmethod.</source>
 * Update the main program
   enqueue_abap( ).
   transport_copy( author = progattribs-cnam
-                                     devclass = devclass ).
+                  devclass = devclass ).
 
 * Source
   sourcenode  = mainprog_node-&gt;find_from_name( &apos;source&apos; ).
@@ -395,6 +464,10 @@ endmethod.</source>
   sourcetable = buildtablefromstring( source ).
   create_source( source = sourcetable
                  attribs = progattribs ).
+
+* Documentation
+  docnode = rootnode-&gt;find_from_name( &apos;functionGroupDocumentation&apos; ).
+  create_documentation( docnode ).
 
 * text pool
   textnode = mainprog_node-&gt;find_from_name( &apos;textPool&apos; ).
@@ -411,17 +484,112 @@ endmethod.</source>
   dequeue_abap( ).
 
 * Rebuild tree structure for SE80
-  actualize_object_tree( mainfgprogname ).
+  actualize_object_tree( ).
 
 * successful install
   objname = functiongroupname.
   name = objname.
 
-endmethod.</source>
+ENDMETHOD.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_DYNPRO" VERSION="1" LANGU="E" DESCRIPT="Create Dynpro" EXPOSURE="0" STATE="1" EDITORDER="13 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_DYNPRO" SCONAME="DYNP_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <source>method CREATE_DYNPRO .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_DOCUMENTATION" VERSION="1" LANGU="E" DESCRIPT="Create Documentation" EXPOSURE="0" STATE="1" EDITORDER="4 " DISPID="0 " AUTHOR="HEILMANR" CREATEDON="20100526" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_DOCUMENTATION" SCONAME="DOCNODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="HEILMANR" CREATEDON="20100526" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>method CREATE_DOCUMENTATION.
+
+  DATA txtline_node     TYPE REF TO if_ixml_element.
+  DATA txtline_filter   TYPE REF TO if_ixml_node_filter.
+  DATA txtline_iterator TYPE REF TO if_ixml_node_iterator.
+
+  DATA lang_node     TYPE REF TO if_ixml_element.
+  DATA lang_filter   TYPE REF TO if_ixml_node_filter.
+  DATA lang_iterator TYPE REF TO if_ixml_node_iterator.
+
+  data obj_name type DOKHL-OBJECT.
+  data prog_name type string.
+  data language  type string.
+  data obj_langu type DOKHL-LANGU.
+  data lv_str type string.
+  data rc type sy-subrc.
+
+  DATA lt_lines  TYPE TABLE OF tline.
+  FIELD-SYMBOLS: &lt;ls_lines&gt; LIKE LINE OF lt_lines.
+
+  if docnode is not bound.
+    return.
+  endif.
+
+  prog_name = docNode-&gt;get_attribute( name = &apos;OBJECT&apos; ).
+  obj_name = prog_name.
+
+* If no prog name, then there was no program documenation, just return.
+  if prog_name is initial.
+    return.
+  endif.
+
+* Get languages from XML
+  FREE: lang_filter, lang_iterator, lang_node.
+  lang_filter = docNode-&gt;create_filter_name( `language` ).
+  lang_iterator = docNode-&gt;create_iterator_filtered( lang_filter ).
+  lang_node ?= lang_iterator-&gt;get_next( ).
+  WHILE lang_node IS NOT INITIAL.
+
+    refresh lt_lines.
+    language = lang_node-&gt;get_attribute( name = &apos;SPRAS&apos; ).
+    obj_langu = language.
+
+* Get TextLines from XML
+    FREE: txtline_filter, txtline_iterator, txtline_node.
+    txtline_filter = lang_node-&gt;create_filter_name( `textLine` ).
+    txtline_iterator = lang_node-&gt;create_iterator_filtered( txtline_filter ).
+    txtline_node ?= txtline_iterator-&gt;get_next( ).
+    WHILE txtline_node IS NOT INITIAL.
+      APPEND INITIAL LINE TO lt_lines ASSIGNING &lt;ls_lines&gt;.
+      me-&gt;getstructurefromattributes(
+              EXPORTING   node      = txtline_node
+              CHANGING    structure = &lt;ls_lines&gt; ).
+      txtline_node ?= txtline_iterator-&gt;get_next( ).
+    ENDWHILE.
+
+* Delete any documentation that may currently exist.
+    CALL FUNCTION &apos;DOCU_DEL&apos;
+      EXPORTING
+        id       = &apos;RE&apos;   &quot;&lt;-- Report/program documentation
+        langu    = obj_langu
+        object   = obj_name
+        typ      = &apos;E&apos;
+      EXCEPTIONS
+        ret_code = 1
+        OTHERS   = 2.
+
+* Now update with new documentation text
+    CALL FUNCTION &apos;DOCU_UPD&apos;
+      EXPORTING
+        id       = &apos;RE&apos;
+        langu    = obj_langu
+        object   = obj_name
+        typ      = &apos;E&apos;
+      TABLES
+        line     = lt_lines
+      EXCEPTIONS
+        ret_code = 1
+        OTHERS   = 2.
+    IF sy-subrc &lt;&gt; 0.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          textid = zcx_saplink=&gt;error_message
+          msg    = `Program Documentation object import failed`.
+    ENDIF.
+
+    lang_node ?= lang_iterator-&gt;get_next( ).
+  ENDWHILE.
+
+endmethod.</source>
+  <methodDocumentation/>
+ </method>
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_DYNPRO" VERSION="1" LANGU="E" DESCRIPT="Create Dynpro" EXPOSURE="0" STATE="1" EDITORDER="17 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_DYNPRO" SCONAME="DYNP_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>method CREATE_DYNPRO.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -581,11 +749,106 @@ endmethod.</source>
   endwhile.
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_FUNCTION_MODULES" VERSION="1" LANGU="E" DESCRIPT="Create Function Modules" EXPOSURE="0" STATE="1" EDITORDER="3 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_FUNCTION_MODULES" SCONAME="FM_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_FUNCTION_MODULES" SCONAME="FCT_GROUP" VERSION="1" LANGU="E" DESCRIPT="Function group, to which the function module belongs" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TLIBG-AREA"/>
-  <source>method CREATE_FUNCTION_MODULES .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_FM_DOCUMENTATION" VERSION="1" LANGU="E" DESCRIPT="Create FM Documentation" EXPOSURE="0" STATE="1" EDITORDER="5 " DISPID="0 " AUTHOR="HEILMANR" CREATEDON="20100526" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_FM_DOCUMENTATION" SCONAME="DOCNODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="HEILMANR" CREATEDON="20100526" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>method CREATE_FM_DOCUMENTATION.
+
+  DATA txtline_node     TYPE REF TO if_ixml_element.
+  DATA txtline_filter   TYPE REF TO if_ixml_node_filter.
+  DATA txtline_iterator TYPE REF TO if_ixml_node_iterator.
+
+  DATA lang_node     TYPE REF TO if_ixml_element.
+  DATA lang_filter   TYPE REF TO if_ixml_node_filter.
+  DATA lang_iterator TYPE REF TO if_ixml_node_iterator.
+
+  data obj_name type DOKHL-OBJECT.
+  data fm_parm_name type string.
+  data language  type string.
+  data obj_langu type DOKHL-LANGU.
+  data lv_str type string.
+  data rc type sy-subrc.
+
+  DATA lt_lines  TYPE TABLE OF tline.
+  FIELD-SYMBOLS: &lt;ls_lines&gt; LIKE LINE OF lt_lines.
+
+  if docnode is not bound.
+    return.
+  endif.
+
+  fm_parm_name = docNode-&gt;get_attribute( name = &apos;OBJECT&apos; ).
+  obj_name = fm_parm_name.
+
+* If no fm_parm_name, then there was no documenation, just return.
+  if fm_parm_name is initial.
+    return.
+  endif.
+
+* Get languages from XML
+  FREE: lang_filter, lang_iterator, lang_node.
+  lang_filter = docNode-&gt;create_filter_name( `language` ).
+  lang_iterator = docNode-&gt;create_iterator_filtered( lang_filter ).
+  lang_node ?= lang_iterator-&gt;get_next( ).
+  WHILE lang_node IS NOT INITIAL.
+
+    refresh lt_lines.
+    language = lang_node-&gt;get_attribute( name = &apos;SPRAS&apos; ).
+    obj_langu = language.
+
+* Get TextLines from XML
+    FREE: txtline_filter, txtline_iterator, txtline_node.
+    txtline_filter = lang_node-&gt;create_filter_name( `textLine` ).
+    txtline_iterator = lang_node-&gt;create_iterator_filtered( txtline_filter ).
+    txtline_node ?= txtline_iterator-&gt;get_next( ).
+    WHILE txtline_node IS NOT INITIAL.
+      APPEND INITIAL LINE TO lt_lines ASSIGNING &lt;ls_lines&gt;.
+      me-&gt;getstructurefromattributes(
+              EXPORTING   node      = txtline_node
+              CHANGING    structure = &lt;ls_lines&gt; ).
+      txtline_node ?= txtline_iterator-&gt;get_next( ).
+    ENDWHILE.
+
+* Delete any documentation that may currently exist.
+    CALL FUNCTION &apos;DOCU_DEL&apos;
+      EXPORTING
+        id       = &apos;FU&apos;   &quot;&lt;-- function module documentation
+        langu    = obj_langu
+        object   = obj_name
+        typ      = &apos;T&apos;
+      EXCEPTIONS
+        ret_code = 1
+        OTHERS   = 2.
+
+* Now update with new documentation text
+    CALL FUNCTION &apos;DOCU_UPD&apos;
+      EXPORTING
+        id       = &apos;FU&apos;
+        langu    = obj_langu
+        object   = obj_name
+        typ      = &apos;T&apos;
+      TABLES
+        line     = lt_lines
+      EXCEPTIONS
+        ret_code = 1
+        OTHERS   = 2.
+    IF sy-subrc &lt;&gt; 0.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          textid = zcx_saplink=&gt;error_message
+          msg    = `Program Documentation object import failed`.
+    ENDIF.
+
+    lang_node ?= lang_iterator-&gt;get_next( ).
+  ENDWHILE.
+
+endmethod.</source>
+  <methodDocumentation/>
+ </method>
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_FUNCTION_MODULES" VERSION="1" LANGU="E" DESCRIPT="Create Function Modules" EXPOSURE="0" STATE="1" EDITORDER="3 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="20090119" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_FUNCTION_MODULES" SCONAME="FM_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_FUNCTION_MODULES" SCONAME="FCT_GROUP" VERSION="1" LANGU="E" DESCRIPT="Function group, to which the function module belongs" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TLIBG-AREA"/>
+  <source>METHOD create_function_modules.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -605,229 +868,232 @@ endmethod.</source>
 *|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
 *\---------------------------------------------------------------------/
 
-  types: begin of tfunct_head,
-           name type rs38l-name,
-           global type rs38l-global,
-           remote type rs38l-remote,
-           utask  type rs38l-utask,
-           stext  type tftit-stext,
-           area   type rs38l-area,
-           end of tfunct_head.
+  TYPES: BEGIN OF tfunct_head,
+           name TYPE rs38l-name,
+           global TYPE rs38l-global,
+           remote TYPE rs38l-remote,
+           utask  TYPE rs38l-utask,
+           stext  TYPE tftit-stext,
+           area   TYPE rs38l-area,
+           END OF tfunct_head.
 
-  data functionmodules_node type ref to if_ixml_element.
+  DATA functionmodules_node TYPE REF TO if_ixml_element.
 
-  data source      type string.
-  data sourcetable type table_of_strings.
+  DATA source      TYPE string.
+  DATA sourcetable TYPE table_of_strings.
 
-  data functiongroupname type  tlibg-area.
-  data mainfgprogname    type trdir-name.
+  DATA functiongroupname TYPE  tlibg-area.
+  DATA mainfgprogname    TYPE trdir-name.
 
-  data xfunct_head type tfunct_head.
-  data iimport     type table of rsimp.
-  data ichange     type table of rscha.
-  data iexport     type table of rsexp.
-  data itables     type table of rstbl.
-  data iexcepl     type table of rsexc.
-  data idocume     type table of rsfdo.
-  data isource     type table of rssource.
-  data isource_new type  rsfb_source.
+  DATA xfunct_head TYPE tfunct_head.
+  DATA iimport     TYPE TABLE OF rsimp.
+  DATA ichange     TYPE TABLE OF rscha.
+  DATA iexport     TYPE TABLE OF rsexp.
+  DATA itables     TYPE TABLE OF rstbl.
+  DATA iexcepl     TYPE TABLE OF rsexc.
+  DATA idocume     TYPE TABLE OF rsfdo.
+  DATA isource     TYPE TABLE OF rssource.
+  DATA isource_new TYPE  rsfb_source.
 
-  data ximport     type  rsimp.
-  data xchange     type  rscha.
-  data xexport     type  rsexp.
-  data xtables     type  rstbl.
-  data xexcepl     type  rsexc.
-  data xdocume     type  rsfdo.
-  data xsource     type  rssource.
-  data xsource_new like line of isource_new.
+  DATA ximport     TYPE  rsimp.
+  DATA xchange     TYPE  rscha.
+  DATA xexport     TYPE  rsexp.
+  DATA xtables     TYPE  rstbl.
+  DATA xexcepl     TYPE  rsexc.
+  DATA xdocume     TYPE  rsfdo.
+  DATA xsource     TYPE  rssource.
+  DATA xsource_new LIKE LINE OF isource_new.
 
-  data node          type ref to if_ixml_element.
-  data filter        type ref to if_ixml_node_filter.
-  data iterator      type ref to if_ixml_node_iterator.
+  DATA node          TYPE REF TO if_ixml_element.
+  DATA filter        TYPE REF TO if_ixml_node_filter.
+  DATA iterator      TYPE REF TO if_ixml_node_iterator.
 
-  data im_node       type ref to if_ixml_element.
-  data im_filter     type ref to if_ixml_node_filter.
-  data im_iterator   type ref to if_ixml_node_iterator.
+  DATA im_node       TYPE REF TO if_ixml_element.
+  DATA im_filter     TYPE REF TO if_ixml_node_filter.
+  DATA im_iterator   TYPE REF TO if_ixml_node_iterator.
 
-  data ex_node       type ref to if_ixml_element.
-  data ex_filter     type ref to if_ixml_node_filter.
-  data ex_iterator   type ref to if_ixml_node_iterator.
+  DATA ex_node       TYPE REF TO if_ixml_element.
+  DATA ex_filter     TYPE REF TO if_ixml_node_filter.
+  DATA ex_iterator   TYPE REF TO if_ixml_node_iterator.
 
-  data ch_node       type ref to if_ixml_element.
-  data ch_filter     type ref to if_ixml_node_filter.
-  data ch_iterator   type ref to if_ixml_node_iterator.
+  DATA ch_node       TYPE REF TO if_ixml_element.
+  DATA ch_filter     TYPE REF TO if_ixml_node_filter.
+  DATA ch_iterator   TYPE REF TO if_ixml_node_iterator.
 
-  data ta_node       type ref to if_ixml_element.
-  data ta_filter     type ref to if_ixml_node_filter.
-  data ta_iterator   type ref to if_ixml_node_iterator.
+  DATA ta_node       TYPE REF TO if_ixml_element.
+  DATA ta_filter     TYPE REF TO if_ixml_node_filter.
+  DATA ta_iterator   TYPE REF TO if_ixml_node_iterator.
 
-  data el_node       type ref to if_ixml_element.
-  data el_filter     type ref to if_ixml_node_filter.
-  data el_iterator   type ref to if_ixml_node_iterator.
+  DATA el_node       TYPE REF TO if_ixml_element.
+  DATA el_filter     TYPE REF TO if_ixml_node_filter.
+  DATA el_iterator   TYPE REF TO if_ixml_node_iterator.
 
-  data dm_node       type ref to if_ixml_element.
-  data dm_filter     type ref to if_ixml_node_filter.
-  data dm_iterator   type ref to if_ixml_node_iterator.
+  DATA dm_node       TYPE REF TO if_ixml_element.
+  DATA dm_filter     TYPE REF TO if_ixml_node_filter.
+  DATA dm_iterator   TYPE REF TO if_ixml_node_iterator.
 
-  data sc_node       type ref to if_ixml_element.
-  data sc_filter     type ref to if_ixml_node_filter.
-  data sc_iterator   type ref to if_ixml_node_iterator.
+  DATA sc_node       TYPE REF TO if_ixml_element.
+  DATA sc_filter     TYPE REF TO if_ixml_node_filter.
+  DATA sc_iterator   TYPE REF TO if_ixml_node_iterator.
 
-  data scn_node       type ref to if_ixml_element.
-  data scn_filter     type ref to if_ixml_node_filter.
-  data scn_iterator   type ref to if_ixml_node_iterator.
+  DATA scn_node       TYPE REF TO if_ixml_element.
+  DATA scn_filter     TYPE REF TO if_ixml_node_filter.
+  DATA scn_iterator   TYPE REF TO if_ixml_node_iterator.
+
+  DATA fmdoc_node     TYPE REF TO if_ixml_element.
 
   functionmodules_node = fm_node.
   functiongroupname    = fct_group.
 
-  if functionmodules_node  is not initial.
+  IF functionmodules_node  IS NOT INITIAL.
 
-    free: filter, iterator, node.
+    FREE: filter, iterator, node.
     filter =
          functionmodules_node-&gt;create_filter_name( &apos;functionmodule&apos; ).
     iterator = functionmodules_node-&gt;create_iterator_filtered( filter ).
     node ?= iterator-&gt;get_next( ).
-    while node is not initial.
+    WHILE node IS NOT INITIAL.
 
-      call method getstructurefromattributes
-        exporting
+      CALL METHOD getstructurefromattributes
+        EXPORTING
           node      = node
-        changing
+        CHANGING
           structure = xfunct_head.
 
-      refresh: iimport, ichange, iexport,
+      REFRESH: iimport, ichange, iexport,
                itables, iexcepl, idocume, isource, isource_new.
 
 * Get importing
-      free: im_filter, im_iterator, im_node.
+      FREE: im_filter, im_iterator, im_node.
       im_filter = node-&gt;create_filter_name( &apos;importing&apos; ).
       im_iterator = node-&gt;create_iterator_filtered( im_filter ).
       im_node ?= im_iterator-&gt;get_next( ).
-      while im_node is not initial.
-        call method getstructurefromattributes
-          exporting
+      WHILE im_node IS NOT INITIAL.
+        CALL METHOD getstructurefromattributes
+          EXPORTING
             node      = im_node
-          changing
+          CHANGING
             structure = ximport.
-        append ximport to iimport.
+        APPEND ximport TO iimport.
         im_node ?= im_iterator-&gt;get_next( ).
-      endwhile.
+      ENDWHILE.
 
 * Get exporting
-      free: ex_filter, ex_iterator, ex_node.
+      FREE: ex_filter, ex_iterator, ex_node.
       ex_filter = node-&gt;create_filter_name( &apos;exporting&apos; ).
       ex_iterator = node-&gt;create_iterator_filtered( ex_filter ).
       ex_node ?= ex_iterator-&gt;get_next( ).
-      while ex_node is not initial.
-        call method getstructurefromattributes
-          exporting
+      WHILE ex_node IS NOT INITIAL.
+        CALL METHOD getstructurefromattributes
+          EXPORTING
             node      = ex_node
-          changing
+          CHANGING
             structure = xexport.
-        append xexport to iexport.
+        APPEND xexport TO iexport.
         ex_node ?= ex_iterator-&gt;get_next( ).
-      endwhile.
+      ENDWHILE.
 
 * Get changing
-      free: ch_filter, ch_iterator, ch_node.
+      FREE: ch_filter, ch_iterator, ch_node.
       ch_filter = node-&gt;create_filter_name( &apos;changing&apos; ).
       ch_iterator = node-&gt;create_iterator_filtered( ch_filter ).
       ch_node ?= ch_iterator-&gt;get_next( ).
-      while ch_node is not initial.
-        call method getstructurefromattributes
-          exporting
+      WHILE ch_node IS NOT INITIAL.
+        CALL METHOD getstructurefromattributes
+          EXPORTING
             node      = ch_node
-          changing
+          CHANGING
             structure = xchange.
-        append xchange to ichange.
+        APPEND xchange TO ichange.
         ch_node ?= ch_iterator-&gt;get_next( ).
-      endwhile.
+      ENDWHILE.
 
 * Get tables
-      free: ta_filter, ta_iterator, ta_node.
+      FREE: ta_filter, ta_iterator, ta_node.
       ta_filter = node-&gt;create_filter_name( &apos;tables&apos; ).
       ta_iterator = node-&gt;create_iterator_filtered( ta_filter ).
       ta_node ?= ta_iterator-&gt;get_next( ).
-      while ta_node is not initial.
-        call method getstructurefromattributes
-          exporting
+      WHILE ta_node IS NOT INITIAL.
+        CALL METHOD getstructurefromattributes
+          EXPORTING
             node      = ta_node
-          changing
+          CHANGING
             structure = xtables.
-        append xtables to itables.
+        APPEND xtables TO itables.
         ta_node ?= ta_iterator-&gt;get_next( ).
-      endwhile.
+      ENDWHILE.
 
 * Get exception list
-      free: el_filter, el_iterator, el_node.
+      FREE: el_filter, el_iterator, el_node.
       el_filter = node-&gt;create_filter_name( &apos;exceptions&apos; ).
       el_iterator = node-&gt;create_iterator_filtered( el_filter ).
       el_node ?= el_iterator-&gt;get_next( ).
-      while el_node is not initial.
-        call method getstructurefromattributes
-          exporting
+      WHILE el_node IS NOT INITIAL.
+        CALL METHOD getstructurefromattributes
+          EXPORTING
             node      = el_node
-          changing
+          CHANGING
             structure = xexcepl.
-        append xexcepl to iexcepl.
+        APPEND xexcepl TO iexcepl.
         el_node ?= el_iterator-&gt;get_next( ).
-      endwhile.
+      ENDWHILE.
 
 * Get documentation
-      free: dm_filter, dm_iterator, dm_node.
+      FREE: dm_filter, dm_iterator, dm_node.
       dm_filter = node-&gt;create_filter_name( &apos;documentation&apos; ).
       dm_iterator = node-&gt;create_iterator_filtered( dm_filter ).
       dm_node ?= dm_iterator-&gt;get_next( ).
-      while dm_node is not initial.
-        call method getstructurefromattributes
-          exporting
+      WHILE dm_node IS NOT INITIAL.
+        CALL METHOD getstructurefromattributes
+          EXPORTING
             node      = dm_node
-          changing
+          CHANGING
             structure = xdocume.
-        append xdocume to idocume.
+        APPEND xdocume TO idocume.
         dm_node ?= dm_iterator-&gt;get_next( ).
-      endwhile.
+      ENDWHILE.
 
 * Get fm source
 
-      free: sc_filter, sc_iterator, sc_node.
+      FREE: sc_filter, sc_iterator, sc_node.
       sc_filter = node-&gt;create_filter_name( &apos;fm_source&apos; ).
       sc_iterator = node-&gt;create_iterator_filtered( sc_filter ).
       sc_node ?= sc_iterator-&gt;get_next( ).
-      while sc_node is not initial.
+      WHILE sc_node IS NOT INITIAL.
         source = sc_node-&gt;get_value( ).
         sourcetable = buildtablefromstring( source ).
-        loop at sourcetable into xsource.
-          append xsource to isource.
-        endloop.
+        LOOP AT sourcetable INTO xsource.
+          APPEND xsource TO isource.
+        ENDLOOP.
         sc_node ?= sc_iterator-&gt;get_next( ).
-      endwhile.
+      ENDWHILE.
 
 * Get fm source new
-      free: scn_filter, scn_iterator, scn_node.
+      FREE: scn_filter, scn_iterator, scn_node.
       scn_filter = node-&gt;create_filter_name( &apos;fm_source_new&apos; ).
       scn_iterator = node-&gt;create_iterator_filtered( scn_filter ).
       scn_node ?= scn_iterator-&gt;get_next( ).
-      while scn_node is not initial.
-          source = scn_node-&gt;get_value( ).
+      WHILE scn_node IS NOT INITIAL.
+        source = scn_node-&gt;get_value( ).
         sourcetable = buildtablefromstring( source ).
-        loop at sourcetable into xsource_new.
-          append xsource_new to isource_new.
-        endloop.
+        LOOP AT sourcetable INTO xsource_new.
+          APPEND xsource_new TO isource_new.
+        ENDLOOP.
         scn_node ?= scn_iterator-&gt;get_next( ).
-      endwhile.
+      ENDWHILE.
 
 * INsert the function module
-      call function &apos;RS_FUNCTIONMODULE_INSERT&apos;
-        exporting
+      CALL FUNCTION &apos;RS_FUNCTIONMODULE_INSERT&apos;
+        EXPORTING
           funcname                = xfunct_head-name
           function_pool           = functiongroupname
           interface_global        = xfunct_head-global
           remote_call             = xfunct_head-remote
+          update_task             = xfunct_head-utask
           short_text              = xfunct_head-stext
           save_active             = &apos; &apos; &quot;&lt;-- Need to set inactive
           new_source              = isource_new
-        tables
+        TABLES
           import_parameter        = iimport
           export_parameter        = iexport
           tables_parameter        = itables
@@ -835,7 +1101,7 @@ endmethod.</source>
           exception_list          = iexcepl
           parameter_docu          = idocume
           source                  = isource
-        exceptions
+        EXCEPTIONS
           double_task             = 1
           error_message           = 2
           function_already_exists = 3
@@ -846,19 +1112,24 @@ endmethod.</source>
           no_show_permission      = 8
           enqueue_system_failure  = 9
           canceled_in_corr        = 10
-          others                  = 11.
+          OTHERS                  = 11.
+
+* Create function module documentation
+      fmdoc_node = node-&gt;find_from_name( &apos;functionModuleDocumentation&apos; ).
+      create_fm_documentation( fmdoc_node ).
 
       node ?= iterator-&gt;get_next( ).
-    endwhile.
+    ENDWHILE.
 
-  endif.
+  ENDIF.
 
-endmethod.</source>
+ENDMETHOD.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_INCLUDES" VERSION="1" LANGU="E" DESCRIPT="Create Include Programs" EXPOSURE="0" STATE="1" EDITORDER="5 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_INCLUDES" SCONAME="INCL_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_INCLUDES" SCONAME="DEVCLASS" VERSION="1" LANGU="E" DESCRIPT="Development class/package" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DEVCLASS" PARVALUE="&apos;$TMP&apos;"/>
-  <source>method CREATE_INCLUDES .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_INCLUDES" VERSION="1" LANGU="E" DESCRIPT="Create Include Programs" EXPOSURE="0" STATE="1" EDITORDER="7 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_INCLUDES" SCONAME="INCL_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_INCLUDES" SCONAME="DEVCLASS" VERSION="1" LANGU="E" DESCRIPT="Development class/package" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DEVCLASS" PARVALUE="&apos;$TMP&apos;"/>
+  <source>method CREATE_INCLUDES.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -932,10 +1203,11 @@ endmethod.</source>
   endwhile.
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_PFSTATUS" VERSION="1" LANGU="E" DESCRIPT="Create Gui Status" EXPOSURE="0" STATE="1" EDITORDER="15 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_PFSTATUS" SCONAME="PFSTAT_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <source>method CREATE_PFSTATUS .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_PFSTATUS" VERSION="1" LANGU="E" DESCRIPT="Create Gui Status" EXPOSURE="0" STATE="1" EDITORDER="19 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_PFSTATUS" SCONAME="PFSTAT_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>method CREATE_PFSTATUS.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -1196,11 +1468,12 @@ endmethod.</source>
   endif.
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_SOURCE" VERSION="1" LANGU="E" DESCRIPT="Create Source" EXPOSURE="0" STATE="1" EDITORDER="8 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_SOURCE" SCONAME="SOURCE" VERSION="1" LANGU="E" DESCRIPT="Table of Strings" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TABLE_OF_STRINGS"/>
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_SOURCE" SCONAME="ATTRIBS" VERSION="1" LANGU="E" DESCRIPT="Generated Table for View TRDIR" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TRDIR"/>
-  <source>method CREATE_SOURCE .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_SOURCE" VERSION="1" LANGU="E" DESCRIPT="Create Source" EXPOSURE="0" STATE="1" EDITORDER="12 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_SOURCE" SCONAME="SOURCE" VERSION="1" LANGU="E" DESCRIPT="Table of Strings" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TABLE_OF_STRINGS"/>
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_SOURCE" SCONAME="ATTRIBS" VERSION="1" LANGU="E" DESCRIPT="Generated Table for View TRDIR" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TRDIR"/>
+  <source>method CREATE_SOURCE.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -1246,10 +1519,11 @@ data miniReport type table_of_strings.
    modify progdir from progline.
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_TEXTPOOL" VERSION="1" LANGU="E" DESCRIPT="Create Text Pool" EXPOSURE="0" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_TEXTPOOL" SCONAME="TEXTPOOLNODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <source>method CREATE_TEXTPOOL .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_TEXTPOOL" VERSION="1" LANGU="E" DESCRIPT="Create Text Pool" EXPOSURE="0" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="20090119" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="CREATE_TEXTPOOL" SCONAME="TEXTPOOLNODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>method CREATE_TEXTPOOL.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -1328,9 +1602,10 @@ data _state(1) type c.
     langNode ?= langIterator-&gt;get_next( ).
   endwhile.
 endmethod.</source>
+  <methodDocumentation/>
  </method>
  <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>method DELETEOBJECT .
+  <source>method DELETEOBJECT.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -1350,45 +1625,46 @@ endmethod.</source>
 *|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
 *\---------------------------------------------------------------------/
 
-data area type RS38L-AREA.
+  data area type RS38L-AREA.
 
-area = objName.
+  area = objName.
 
-call function &apos;RS_FUNCTION_POOL_DELETE&apos;
- EXPORTING
-    AREA                         = area
+  call function &apos;RS_FUNCTION_POOL_DELETE&apos;
+   EXPORTING
+      AREA                         = area
 *   CORRNUM                      = &apos; &apos;
 *   TEXT                         = &apos; &apos;
 *   UNAME                        = &apos; &apos;
-*   WITH_KORR                    = &apos;X&apos;
+      WITH_KORR                    = &apos; &apos;
 *   WB_FB_MANAGER                =
-    SUPPRESS_POPUPS              = &apos;X&apos;
+      SUPPRESS_POPUPS              = &apos;X&apos;
 *   SKIP_PROGRESS_IND            = &apos; &apos;
 * IMPORTING
 *   E_CORRNUM                    =
-* EXCEPTIONS
-*   CANCELED_IN_CORR             = 1
-*   ENQUEUE_SYSTEM_FAILURE       = 2
-*   FUNCTION_EXIST               = 3
-*   NOT_EXECUTED                 = 4
-*   NO_MODIFY_PERMISSION         = 5
-*   NO_SHOW_PERMISSION           = 6
-*   PERMISSION_FAILURE           = 7
-*   POOL_NOT_EXIST               = 8
-*   CANCELLED                    = 9
-*   OTHERS                       = 10
-          .
-if sy-subrc &lt;&gt; 0.
+ EXCEPTIONS
+   CANCELED_IN_CORR             = 1
+   ENQUEUE_SYSTEM_FAILURE       = 2
+   FUNCTION_EXIST               = 3
+   NOT_EXECUTED                 = 4
+   NO_MODIFY_PERMISSION         = 5
+   NO_SHOW_PERMISSION           = 6
+   PERMISSION_FAILURE           = 7
+   POOL_NOT_EXIST               = 8
+   CANCELLED                    = 9
+   OTHERS                       = 10.
+  .
+  if sy-subrc &lt;&gt; 0.
 * MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
 *         WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
-endif.
+  endif.
 
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="DEQUEUE_ABAP" VERSION="1" LANGU="E" DESCRIPT="Dequeue ABAP" EXPOSURE="0" STATE="1" EDITORDER="4 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <exception CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="DEQUEUE_ABAP" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130"/>
-  <source>method DEQUEUE_ABAP .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="DEQUEUE_ABAP" VERSION="1" LANGU="E" DESCRIPT="Dequeue ABAP" EXPOSURE="0" STATE="1" EDITORDER="6 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <exception CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="DEQUEUE_ABAP" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000"/>
+  <source>method DEQUEUE_ABAP.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -1443,10 +1719,11 @@ endmethod.</source>
   endif.
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="ENQUEUE_ABAP" VERSION="1" LANGU="E" DESCRIPT="Enqueue ABAP" EXPOSURE="0" STATE="1" EDITORDER="9 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <exception CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="ENQUEUE_ABAP" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130"/>
-  <source>method ENQUEUE_ABAP .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="ENQUEUE_ABAP" VERSION="1" LANGU="E" DESCRIPT="Enqueue ABAP" EXPOSURE="0" STATE="1" EDITORDER="13 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <exception CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="ENQUEUE_ABAP" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000"/>
+  <source>method ENQUEUE_ABAP.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -1508,9 +1785,10 @@ endmethod.</source>
   endif.
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
  <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>method GETOBJECTTYPE .
+  <source>method GETOBJECTTYPE.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -1531,10 +1809,93 @@ endmethod.</source>
 *\---------------------------------------------------------------------/
   objectType = &apos;FUGR&apos;. &quot; Function Group
 endmethod.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_DYNPRO" VERSION="1" LANGU="E" DESCRIPT="Get Dynpro" EXPOSURE="0" STATE="1" EDITORDER="12 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_DYNPRO" SCONAME="DYNP_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <source>method GET_DYNPRO .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_DOCUMENTATION" VERSION="1" LANGU="E" DESCRIPT="Get Documentation" EXPOSURE="0" STATE="1" EDITORDER="9 " DISPID="0 " AUTHOR="HEILMANR" CREATEDON="20100526" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_DOCUMENTATION" SCONAME="DOCNODE" VERSION="1" LANGU="E" DESCRIPT="Documentation Node" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="HEILMANR" CREATEDON="20100526" CHANGEDON="00000000" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>method GET_DOCUMENTATION.
+
+  data languageNode   type ref to if_ixml_element.
+  DATA txtlines_node TYPE REF TO if_ixml_element.
+  DATA rc            TYPE sysubrc.
+  DATA _objtype      TYPE string.
+
+  Types: BEGIN OF t_dokhl,
+          id          TYPE dokhl-id,
+          object      TYPE dokhl-object,
+          langu       type dokhl-langu,
+          typ         TYPE dokhl-typ,
+          dokversion  TYPE dokhl-dokversion,
+         END OF t_dokhl.
+
+  data lt_dokhl type table of t_dokhl.
+  data ls_dokhl like line of lt_dokhl.
+
+  DATA lt_lines TYPE TABLE OF tline.
+  DATA ls_lines LIKE LINE OF lt_lines.
+
+  data lv_str type string.
+  DATA _objname TYPE e071-obj_name.
+
+  _objname = objname.
+
+* Check against database
+  SELECT  id object langu typ dokversion
+        INTO corresponding fields of table lt_dokhl
+           FROM dokhl
+             WHERE id = &apos;RE&apos;
+                AND object = _objname.
+
+* Use only most recent version.
+  sort lt_dokhl by id object langu typ ascending dokversion descending.
+  delete adjacent duplicates from lt_dokhl comparing id object typ langu.
+
+  docNode = xmlDoc-&gt;create_element( &apos;functionGroupDocumentation&apos; ).
+
+* Make sure there is at least one record here.
+  clear ls_dokhl.
+  read table lt_dokhl into ls_dokhl index 1.
+  if sy-subrc &lt;&gt; 0.
+    return.
+  endif.
+
+* Set docNode object attribute
+  lv_str = ls_dokhl-object.
+  rc = docNode-&gt;set_attribute( name = &apos;OBJECT&apos; value = lv_Str ).
+
+  Loop at lt_dokhl into ls_dokhl.
+
+* Create language node, and set attribute
+    languageNode = xmlDoc-&gt;create_element( &apos;language&apos; ).
+    lv_str = ls_dokhl-langu.
+    rc = languageNode-&gt;set_attribute( name = &apos;SPRAS&apos; value = lv_Str ).
+
+* Read the documentation text
+    CALL FUNCTION &apos;DOCU_READ&apos;
+      EXPORTING
+        id      = ls_dokhl-id
+        langu   = ls_dokhl-langu
+        object  = ls_dokhl-object
+        typ     = ls_dokhl-typ
+        version = ls_dokhl-dokversion
+      TABLES
+        line    = lt_lines.
+
+* Write records to XML node
+    LOOP AT lt_lines INTO ls_lines.
+      txtlines_node = xmlDoc-&gt;create_element( `textLine` ).
+      me-&gt;setattributesfromstructure( node = txtlines_node structure = ls_lines ).
+      rc = languageNode-&gt;append_child( txtlines_node ).
+    ENDLOOP.
+    rc = docNode-&gt;append_child( languageNode ) .
+  Endloop.
+
+endmethod.</source>
+  <methodDocumentation/>
+ </method>
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_DYNPRO" VERSION="1" LANGU="E" DESCRIPT="Get Dynpro" EXPOSURE="0" STATE="1" EDITORDER="16 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_DYNPRO" SCONAME="DYNP_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>method GET_DYNPRO.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -1677,11 +2038,95 @@ endmethod.</source>
   endloop.
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_FUNCTION_MODULES" VERSION="1" LANGU="E" DESCRIPT="Get Function Modules" EXPOSURE="0" STATE="1" EDITORDER="10 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_FUNCTION_MODULES" SCONAME="FCT_GROUP" VERSION="1" LANGU="E" DESCRIPT="Function group, to which the function module belongs" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TLIBG-AREA"/>
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_FUNCTION_MODULES" SCONAME="FM_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <source>method GET_FUNCTION_MODULES .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_FM_DOCUMENTATION" VERSION="1" LANGU="E" DESCRIPT="Get FM Documentation" EXPOSURE="0" STATE="1" EDITORDER="10 " DISPID="0 " AUTHOR="HEILMANR" CREATEDON="20100526" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_FM_DOCUMENTATION" SCONAME="FM_NAME" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="HEILMANR" CREATEDON="20100527" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY"/>
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_FM_DOCUMENTATION" SCONAME="DOCNODE" VERSION="1" LANGU="E" DESCRIPT="Documentation Node" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="HEILMANR" CREATEDON="20100526" CHANGEDBY="HEILMANR" CHANGEDON="20100527" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>METHOD get_fm_documentation.
+
+  DATA languagenode   TYPE REF TO if_ixml_element.
+  DATA txtlines_node TYPE REF TO if_ixml_element.
+  DATA rc            TYPE sysubrc.
+  DATA _objtype      TYPE string.
+
+  TYPES: BEGIN OF t_dokhl,
+          id          TYPE dokhl-id,
+          object      TYPE dokhl-object,
+          langu       TYPE dokhl-langu,
+          typ         TYPE dokhl-typ,
+          dokversion  TYPE dokhl-dokversion,
+         END OF t_dokhl.
+
+  DATA lt_dokhl TYPE TABLE OF t_dokhl.
+  DATA ls_dokhl LIKE LINE OF lt_dokhl.
+
+  DATA lt_lines TYPE TABLE OF tline.
+  DATA ls_lines LIKE LINE OF lt_lines.
+
+  DATA lv_str TYPE string.
+  DATA _objname TYPE e071-obj_name.
+
+  _objname = fm_name.
+
+* Check against database
+  SELECT  id object langu typ dokversion
+        INTO CORRESPONDING FIELDS OF TABLE lt_dokhl
+           FROM dokhl
+             WHERE id = &apos;FU&apos;
+                AND object = _objname.
+
+* Use only most recent version.
+  SORT lt_dokhl BY id object langu typ ASCENDING dokversion DESCENDING.
+  DELETE ADJACENT DUPLICATES FROM lt_dokhl COMPARING id object typ langu.
+
+  docnode = xmldoc-&gt;create_element( &apos;functionModuleDocumentation&apos; ).
+
+* Make sure there is at least one record here.
+  CLEAR ls_dokhl.
+  READ TABLE lt_dokhl INTO ls_dokhl INDEX 1.
+  IF sy-subrc &lt;&gt; 0.
+    RETURN.
+  ENDIF.
+
+* Set docNode object attribute
+  lv_str = ls_dokhl-object.
+  rc = docnode-&gt;set_attribute( name = &apos;OBJECT&apos; value = lv_str ).
+
+  LOOP AT lt_dokhl INTO ls_dokhl.
+
+* Create language node, and set attribute
+    languagenode = xmldoc-&gt;create_element( &apos;language&apos; ).
+    lv_str = ls_dokhl-langu.
+    rc = languagenode-&gt;set_attribute( name = &apos;SPRAS&apos; value = lv_str ).
+
+* Read the documentation text
+    CALL FUNCTION &apos;DOCU_READ&apos;
+      EXPORTING
+        id      = ls_dokhl-id
+        langu   = ls_dokhl-langu
+        object  = ls_dokhl-object
+        typ     = ls_dokhl-typ
+        version = ls_dokhl-dokversion
+      TABLES
+        line    = lt_lines.
+
+* Write records to XML node
+    LOOP AT lt_lines INTO ls_lines.
+      txtlines_node = xmldoc-&gt;create_element( `textLine` ).
+      me-&gt;setattributesfromstructure( node = txtlines_node structure = ls_lines ).
+      rc = languagenode-&gt;append_child( txtlines_node ).
+    ENDLOOP.
+    rc = docnode-&gt;append_child( languagenode ) .
+  ENDLOOP.
+
+ENDMETHOD.</source>
+  <methodDocumentation/>
+ </method>
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_FUNCTION_MODULES" VERSION="1" LANGU="E" DESCRIPT="Get Function Modules" EXPOSURE="0" STATE="1" EDITORDER="14 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_FUNCTION_MODULES" SCONAME="FCT_GROUP" VERSION="1" LANGU="E" DESCRIPT="Function group, to which the function module belongs" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TLIBG-AREA"/>
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_FUNCTION_MODULES" SCONAME="FM_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>METHOD get_function_modules.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -1701,258 +2146,272 @@ endmethod.</source>
 *|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
 *\---------------------------------------------------------------------/
 
-  types: begin of tfunct_head,
-         name   type rs38l-name,
-         global type rs38l-global,
-         remote type rs38l-remote,
-         utask  type rs38l-utask,
-         stext  type tftit-stext,
-         area   type rs38l-area,
-         end of tfunct_head.
+  TYPES: BEGIN OF tfunct_head,
+         name   TYPE rs38l-name,
+         global TYPE rs38l-global,
+         remote TYPE rs38l-remote,
+         utask  TYPE rs38l-utask,
+         stext  TYPE tftit-stext,
+         area   TYPE rs38l-area,
+         END OF tfunct_head.
 
-  data xfunct_head type tfunct_head.
-  data iimport     type table of rsimp.
-  data ichange     type table of rscha.
-  data iexport     type table of rsexp.
-  data itables     type table of rstbl.
-  data iexcepl     type table of rsexc.
-  data idocume     type table of rsfdo.
-  data isource     type table of rssource.
-  data isource_new type rsfb_source .
+  DATA xfunct_head TYPE tfunct_head.
+  DATA iimport     TYPE TABLE OF rsimp.
+  DATA ichange     TYPE TABLE OF rscha.
+  DATA iexport     TYPE TABLE OF rsexp.
+  DATA itables     TYPE TABLE OF rstbl.
+  DATA iexcepl     TYPE TABLE OF rsexc.
+  DATA idocume     TYPE TABLE OF rsfdo.
+  DATA isource     TYPE TABLE OF rssource.
+  DATA isource_new TYPE rsfb_source .
 
-  data ximport     type  rsimp.
-  data xchange     type  rscha.
-  data xexport     type  rsexp.
-  data xtables     type  rstbl.
-  data xexcepl     type  rsexc.
-  data xdocume     type  rsfdo.
-  data xsource     type  rssource.
-  data xsource_new like line of isource_new.
+  DATA ximport     TYPE  rsimp.
+  DATA xchange     TYPE  rscha.
+  DATA xexport     TYPE  rsexp.
+  DATA xtables     TYPE  rstbl.
+  DATA xexcepl     TYPE  rsexc.
+  DATA xdocume     TYPE  rsfdo.
+  DATA xsource     TYPE  rssource.
+  DATA xsource_new LIKE LINE OF isource_new.
 
-  data functionmodulesnode type ref to if_ixml_element.
-  data functionmodulenode  type ref to if_ixml_element.
-  data importsnode type ref to if_ixml_element.
-  data changesnode type ref to if_ixml_element.
-  data exportsnode type ref to if_ixml_element.
-  data tablesnode  type ref to if_ixml_element.
-  data exceplnode  type ref to if_ixml_element.
-  data documsnode  type ref to if_ixml_element.
-  data fmsrcenode  type ref to if_ixml_element.
-  data fmsrcenewnode  type ref to if_ixml_element.
+  DATA functionmodulesnode TYPE REF TO if_ixml_element.
+  DATA functionmodulenode  TYPE REF TO if_ixml_element.
+  DATA importsnode TYPE REF TO if_ixml_element.
+  DATA changesnode TYPE REF TO if_ixml_element.
+  DATA exportsnode TYPE REF TO if_ixml_element.
+  DATA tablesnode  TYPE REF TO if_ixml_element.
+  DATA exceplnode  TYPE REF TO if_ixml_element.
+  DATA documsnode  TYPE REF TO if_ixml_element.
+  DATA fmsrcenode  TYPE REF TO if_ixml_element.
+  DATA fmsrcenewnode  TYPE REF TO if_ixml_element.
+  DATA fmdocumenation TYPE REF TO if_ixml_element.
+  DATA fmparmdocumenation TYPE REF TO if_ixml_element.
 
-  data functiongroupname type  tlibg-area.
+  DATA functiongroupname TYPE  tlibg-area.
 
-  data ifunct type table of  rs38l_incl.
-  data xfunct type  rs38l_incl.
+  DATA ifunct TYPE TABLE OF  rs38l_incl.
+  DATA xfunct TYPE  rs38l_incl.
 
-  data rc           type sysubrc.
-  data progattribs  type trdir.
-  data progsource   type rswsourcet.
-  data _objname(30) type c.
-  data sourcestring type string.
-  data lines               type i.
+  DATA rc           TYPE sysubrc.
+  DATA progattribs  TYPE trdir.
+  DATA progsource   TYPE rswsourcet.
+  DATA _objname(30) TYPE c.
+  DATA sourcestring TYPE string.
+  DATA function_deleted    TYPE c.
+  DATA endfunction_deleted TYPE c.
 
   functiongroupname = fct_group.
 
 * Now get the function pool contents
-  call function &apos;RS_FUNCTION_POOL_CONTENTS&apos;
-    exporting
+  CALL FUNCTION &apos;RS_FUNCTION_POOL_CONTENTS&apos;
+    EXPORTING
       function_pool           = functiongroupname
-    tables
+    TABLES
       functab                 = ifunct
-    exceptions
+    EXCEPTIONS
       function_pool_not_found = 1
-      others                  = 2.
+      OTHERS                  = 2.
 
 * Now write out function modules data.
   functionmodulesnode = xmldoc-&gt;create_element( &apos;functionmodules&apos; ).
 
-  loop at ifunct into xfunct.
+  LOOP AT ifunct INTO xfunct.
 
     functionmodulenode = xmldoc-&gt;create_element( &apos;functionmodule&apos; ).
     xfunct_head-name =  xfunct-funcname.
 
-    refresh: iimport, ichange, iexport,
+    REFRESH: iimport, ichange, iexport,
              itables, iexcepl, idocume, isource, isource_new.
 
 * Read the function module data
-    call function &apos;RPY_FUNCTIONMODULE_READ_NEW&apos;
-             exporting
-                  functionname       = xfunct_head-name
-             importing
-                  global_flag        = xfunct_head-global
-                  remote_call        = xfunct_head-remote
-                  update_task        = xfunct_head-utask
-                  short_text         = xfunct_head-stext
-             tables
-                  import_parameter   = iimport
-                  changing_parameter = ichange
-                  export_parameter   = iexport
-                  tables_parameter   = itables
-                  exception_list     = iexcepl
-                  documentation      = idocume
-                  source             = isource
-             changing
-                  new_source  = isource_new
-             exceptions
-                  error_message            = 1
-                  function_not_found       = 2
-                  invalid_name             = 3
-                  others                   = 4.
+    CALL FUNCTION &apos;RPY_FUNCTIONMODULE_READ_NEW&apos;
+      EXPORTING
+        functionname       = xfunct_head-name
+      IMPORTING
+        global_flag        = xfunct_head-global
+        remote_call        = xfunct_head-remote
+        update_task        = xfunct_head-utask
+        short_text         = xfunct_head-stext
+*       FUNCTION_POOL      =
+      TABLES
+        import_parameter   = iimport
+        changing_parameter = ichange
+        export_parameter   = iexport
+        tables_parameter   = itables
+        exception_list     = iexcepl
+        documentation      = idocume
+        source             = isource
+      CHANGING
+        new_source         = isource_new
+      EXCEPTIONS
+        error_message      = 1
+        function_not_found = 2
+        invalid_name       = 3
+        OTHERS             = 4.
 
 * Set the header attributes
     setattributesfromstructure(
                node = functionmodulenode
                structure =  xfunct_head  ).
 
-* Imports
-    if not iimport[] is initial.
-      loop at iimport into ximport.
+* IMports
+    IF NOT iimport[] IS INITIAL.
+      LOOP AT iimport INTO ximport.
         importsnode = xmldoc-&gt;create_element( &apos;importing&apos; ).
         setattributesfromstructure(
                  node = importsnode structure =  ximport ).
         rc = functionmodulenode-&gt;append_child( importsnode ).
-      endloop.
-    endif.
+      ENDLOOP.
+    ENDIF.
 
 * Exports
-    if not iexport[] is initial.
-      loop at iexport into xexport.
+    IF NOT iexport[] IS INITIAL.
+      LOOP AT iexport INTO xexport.
         exportsnode = xmldoc-&gt;create_element( &apos;exporting&apos; ).
         setattributesfromstructure(
                  node = exportsnode structure =  xexport ).
         rc = functionmodulenode-&gt;append_child( exportsnode ).
-      endloop.
-    endif.
+      ENDLOOP.
+    ENDIF.
 
 * Changing
-    if not ichange[] is initial.
-      loop at ichange into xchange.
+    IF NOT ichange[] IS INITIAL.
+      LOOP AT ichange INTO xchange.
         changesnode = xmldoc-&gt;create_element( &apos;changing&apos; ).
         setattributesfromstructure(
                  node = changesnode structure =  xchange ).
         rc = functionmodulenode-&gt;append_child( changesnode ).
-      endloop.
-    endif.
+      ENDLOOP.
+    ENDIF.
 
 * Tables
-    if not itables[] is initial.
-      loop at itables into xtables.
+    IF NOT itables[] IS INITIAL.
+      LOOP AT itables INTO xtables.
         tablesnode = xmldoc-&gt;create_element( &apos;tables&apos; ).
         setattributesfromstructure(
                  node = tablesnode structure =  xtables ).
         rc = functionmodulenode-&gt;append_child( tablesnode ).
-      endloop.
-    endif.
+      ENDLOOP.
+    ENDIF.
 
 * Exception list
-    if not iexcepl[] is initial.
-      loop at iexcepl into xexcepl.
+    IF NOT iexcepl[] IS INITIAL.
+      LOOP AT iexcepl INTO xexcepl.
         exceplnode = xmldoc-&gt;create_element( &apos;exceptions&apos; ).
         setattributesfromstructure(
                  node = exceplnode structure =  xexcepl ).
         rc = functionmodulenode-&gt;append_child( exceplnode ).
-      endloop.
-    endif.
+      ENDLOOP.
+    ENDIF.
 
-* Documentation
-    if not idocume[] is initial.
-      loop at idocume into xdocume .
+* Documentation - this is short text
+    IF NOT idocume[] IS INITIAL.
+      LOOP AT idocume INTO xdocume .
         documsnode = xmldoc-&gt;create_element( &apos;documentation&apos; ).
         setattributesfromstructure(
                  node = documsnode structure =  xdocume  ).
+
         rc = functionmodulenode-&gt;append_child( documsnode ).
-      endloop.
-    endif.
+      ENDLOOP.
+    ENDIF.
 
 * Source code for function module
-    if not isource[] is initial.
-* rhj: issue 28--&gt;
+    IF NOT isource[] IS INITIAL.
+
 * Get rid of the FUNCTION and ENDFUNCTION statements.
 * And the signature comments
 * All of this will be inserted automatically, when imported.
-      loop at isource into xsource.
-        check xsource is not initial.
-        if xsource+0(2) = &apos;*&quot;&apos;.
-          delete isource index sy-tabix.
-          continue.
-        endif.
-        translate xsource to upper case.
-        shift xsource left deleting leading space.
-        search xsource for &apos;FUNCTION&apos;.
-        check sy-subrc = 0.
-        if xsource+0(8) = &apos;FUNCTION&apos;.
-          delete isource index sy-tabix.
-          continue.
-        endif.
-        if xsource+0(11) = &apos;ENDFUNCTION&apos;.
-          delete isource index sy-tabix.
-          continue.
-        endif.
-      endloop.
+      CLEAR: function_deleted, endfunction_deleted.
+      LOOP AT isource INTO xsource.
+        IF xsource+0(2) = &apos;*&quot;&apos;.
+          DELETE isource INDEX sy-tabix.
+          CONTINUE.
+        ENDIF.
+        SEARCH xsource FOR &apos;FUNCTION&apos;.
+        &quot;Got it and not a comment?
+        IF sy-subrc  = 0 AND xsource+0(1) &lt;&gt; &apos;*&apos;.
+          DELETE isource INDEX sy-tabix.
+          function_deleted = &apos;X&apos;.
+          CONTINUE.
+        ENDIF.
+        SEARCH xsource FOR &apos;ENDFUNCTION&apos;.
+        IF sy-subrc  = 0.
+          DELETE isource INDEX sy-tabix.
+          endfunction_deleted = &apos;X&apos;.
+          CONTINUE.
+        ENDIF.
+      ENDLOOP.
 
       fmsrcenode = xmldoc-&gt;create_element( &apos;fm_source&apos; ).
-      refresh progsource.
-      loop at isource into xsource.
-        append xsource to progsource.
-      endloop.
+      REFRESH progsource.
+      LOOP AT isource INTO xsource.
+        APPEND xsource TO progsource.
+      ENDLOOP.
       sourcestring = buildsourcestring( sourcetable = progsource ).
       rc = fmsrcenode-&gt;if_ixml_node~set_value( sourcestring ).
       rc = functionmodulenode-&gt;append_child( fmsrcenode ).
-    endif.
+
+    ENDIF.
 
 * Source code for function module
-    if not isource_new[] is initial.
+    IF NOT isource_new[] IS INITIAL.
+
 * Get rid of the FUNCTION and ENDFUNCTION statements.
 * And the signature comments
 * All of this will be inserted automatically, when imported.
-      loop at isource_new into xsource_new.
-        check xsource_new is not initial.
-        try.
-          if xsource_new+0(2) = &apos;*&quot;&apos;.
-            delete isource_new index sy-tabix.
-            continue.
-          endif.
-        catch CX_SY_RANGE_OUT_OF_BOUNDS.
-        endtry.
-        translate xsource_new to upper case.
-        shift xsource_new left deleting leading space.
-        search xsource_new for &apos;FUNCTION&apos;.
-        check sy-subrc = 0.
-        if xsource_new+0(8) = &apos;FUNCTION&apos;.
-          delete isource_new index sy-tabix.
-          continue.
-        endif.
-        if xsource_new+0(11) = &apos;ENDFUNCTION&apos;.
-          delete isource_new index sy-tabix.
-          continue.
-        endif.
-      endloop.
+      CLEAR: function_deleted, endfunction_deleted.
+      LOOP AT isource_new INTO xsource_new.
+        CHECK xsource_new IS NOT INITIAL.
+        IF xsource_new+0(2) = &apos;*&quot;&apos;.
+          DELETE isource_new INDEX sy-tabix.
+          CONTINUE.
+        ENDIF.
+        SEARCH xsource_new FOR &apos;FUNCTION&apos;.
+        &quot;Got it and not a comment?
+        IF sy-subrc  = 0 AND xsource_new+0(1) &lt;&gt; &apos;*&apos;.
+          DELETE isource_new INDEX sy-tabix.
+          function_deleted = &apos;X&apos;.
+          CONTINUE.
+        ENDIF.
+        SEARCH xsource_new FOR &apos;ENDFUNCTION&apos;.
+        IF sy-subrc  = 0.
+          DELETE isource_new INDEX sy-tabix.
+          endfunction_deleted = &apos;X&apos;.
+          CONTINUE.
+        ENDIF.
+      ENDLOOP.
 
       fmsrcenewnode = xmldoc-&gt;create_element( &apos;fm_source_new&apos; ).
-      refresh progsource.
-      loop at isource_new into xsource_new.
-        append xsource_new to progsource.
-      endloop.
+      REFRESH progsource.
+      LOOP AT isource_new INTO xsource_new.
+        APPEND xsource_new TO progsource.
+      ENDLOOP.
       sourcestring = buildsourcestring( sourcetable = progsource ).
       rc = fmsrcenewnode-&gt;if_ixml_node~set_value( sourcestring ).
       rc = functionmodulenode-&gt;append_child( fmsrcenewnode ).
 
-    endif.
-*&lt;--rhj: issue 28
+    ENDIF.
+
+* Get function module documentation
+    fmdocumenation = get_fm_documentation( xfunct-funcname ).
+    rc = functionmodulenode-&gt;append_child( fmdocumenation ).
+
+* Add to functionmodules node
     rc = functionmodulesnode-&gt;append_child( functionmodulenode ).
 
-  endloop.
+  ENDLOOP.
+
 
   fm_node = functionmodulesnode.
 
-endmethod.</source>
+ENDMETHOD.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_INCLUDES" VERSION="1" LANGU="E" DESCRIPT="Get Include Programs" EXPOSURE="0" STATE="1" EDITORDER="7 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_INCLUDES" SCONAME="MAIN_PROG" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SY-REPID"/>
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_INCLUDES" SCONAME="FCT_GROUP" VERSION="1" LANGU="E" DESCRIPT="Function group, to which the function module belongs" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TLIBT-AREA"/>
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_INCLUDES" SCONAME="INCL_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <source>method GET_INCLUDES .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_INCLUDES" VERSION="1" LANGU="E" DESCRIPT="Get Include Programs" EXPOSURE="0" STATE="1" EDITORDER="11 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_INCLUDES" SCONAME="MAIN_PROG" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SY-REPID"/>
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_INCLUDES" SCONAME="FCT_GROUP" VERSION="1" LANGU="E" DESCRIPT="Function group, to which the function module belongs" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TLIBT-AREA"/>
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_INCLUDES" SCONAME="INCL_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>method GET_INCLUDES.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -1998,33 +2457,49 @@ endmethod.</source>
   functiongroupname = fct_group.
   mainfgprogname    = main_prog.
 
-  call function &apos;RS_FUNCTION_POOL_CONTENTS&apos;
-    exporting
+  CALL FUNCTION &apos;RS_FUNCTION_POOL_CONTENTS&apos;
+    EXPORTING
       function_pool           = functiongroupname
-    tables
+    TABLES
       functab                 = ifunct
-    exceptions
+    EXCEPTIONS
       function_pool_not_found = 1
       others                  = 2.
 
 * Get all includes
-  call function &apos;RS_GET_ALL_INCLUDES&apos;
-    exporting
+  CALL FUNCTION &apos;RS_GET_ALL_INCLUDES&apos;
+    EXPORTING
       program      = mainfgprogname
-    tables
+    TABLES
       includetab   = iinclude
-    exceptions
+    EXCEPTIONS
       not_existent = 1
       no_program   = 2
       others       = 3.
 
 * Get rid of any includes that are for the function modules
+* and any includes that are in SAP namespace
   loop at iinclude into xinclude.
     read table ifunct
              into xfunct
                    with key include = xinclude-name.
     if sy-subrc  = 0.
       delete iinclude where name = xinclude-name.
+      continue.
+    endif.
+    select single * from trdir
+            into progattribs
+                   where name = xinclude-name.
+    if progattribs-cnam = &apos;SAP&apos;.
+      delete iinclude where name = xinclude-name.
+      continue.
+    endif.
+    if xinclude-name(2) &lt;&gt; &apos;LZ&apos;
+       and xinclude-name(2) &lt;&gt; &apos;LY&apos;
+       and xinclude-name(1) &lt;&gt; &apos;Z&apos;
+       and xinclude-name(1) &lt;&gt; &apos;Y&apos;.
+      delete iinclude where name = xinclude-name.
+      continue.
     endif.
   endloop.
 
@@ -2053,10 +2528,11 @@ endmethod.</source>
   incl_node = includesnode.
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_PFSTATUS" VERSION="1" LANGU="E" DESCRIPT="Get Gui Status" EXPOSURE="0" STATE="1" EDITORDER="14 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_PFSTATUS" SCONAME="PFSTAT_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <source>method GET_PFSTATUS .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_PFSTATUS" VERSION="1" LANGU="E" DESCRIPT="Get Gui Status" EXPOSURE="0" STATE="1" EDITORDER="18 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_PFSTATUS" SCONAME="PFSTAT_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>method GET_PFSTATUS.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -2252,10 +2728,11 @@ endmethod.</source>
   endif.
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_TEXTPOOL" VERSION="1" LANGU="E" DESCRIPT="Get Text Pool" EXPOSURE="0" STATE="1" EDITORDER="6 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_TEXTPOOL" SCONAME="TEXTNODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <source>method GET_TEXTPOOL .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_TEXTPOOL" VERSION="1" LANGU="E" DESCRIPT="Get Text Pool" EXPOSURE="0" STATE="1" EDITORDER="8 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="GET_TEXTPOOL" SCONAME="TEXTNODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>method GET_TEXTPOOL.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -2311,12 +2788,13 @@ data languageNode type ref to if_ixml_element.
   endloop.
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
- <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="TRANSPORT_COPY" VERSION="1" LANGU="E" DESCRIPT="Transport Copy" EXPOSURE="0" STATE="1" EDITORDER="11 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="TRANSPORT_COPY" SCONAME="AUTHOR" VERSION="1" LANGU="E" DESCRIPT="SAP System, User Logon Name" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SYUNAME"/>
-  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="TRANSPORT_COPY" SCONAME="DEVCLASS" VERSION="1" LANGU="E" DESCRIPT="Package" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DEVCLASS"/>
-  <exception CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="TRANSPORT_COPY" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="USRRQ00" CREATEDON="20061130" CHANGEDBY="USRRQ00" CHANGEDON="20061130"/>
-  <source>method TRANSPORT_COPY .
+ <method CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="TRANSPORT_COPY" VERSION="1" LANGU="E" DESCRIPT="Transport Copy" EXPOSURE="0" STATE="1" EDITORDER="15 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDBY="HEILMANR" CHANGEDON="20100526" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="TRANSPORT_COPY" SCONAME="AUTHOR" VERSION="1" LANGU="E" DESCRIPT="SAP System, User Logon Name" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SYUNAME"/>
+  <parameter CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="TRANSPORT_COPY" SCONAME="DEVCLASS" VERSION="1" LANGU="E" DESCRIPT="Package" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DEVCLASS"/>
+  <exception CLSNAME="ZSAPLINK_FUNCTIONGROUP" CMPNAME="TRANSPORT_COPY" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="ABAP_DEV" CREATEDON="20070410" CHANGEDON="00000000"/>
+  <source>method TRANSPORT_COPY.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -2371,5 +2849,6 @@ endmethod.</source>
   endif.
 
 endmethod.</source>
+  <methodDocumentation/>
  </method>
 </CLAS>
