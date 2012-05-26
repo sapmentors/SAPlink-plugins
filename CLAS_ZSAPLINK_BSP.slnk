@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<CLAS CLSNAME="ZSAPLINK_BSP" VERSION="0" LANGU="E" DESCRIPT="SAPlink - BSP plugin" UUID="44FE5AEA900B09C200000000A7E42BB6" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="USEWH90" CREATEDON="20060907" CHANGEDON="00000000" CHGDANYON="00000000" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="620" CLSBCCAT="00" REFCLSNAME="ZSAPLINK">
+<?xml version="1.0" encoding="utf-16"?>
+<CLAS CLSNAME="ZSAPLINK_BSP" VERSION="1" LANGU="E" DESCRIPT="SAPlink - BSP plugin" UUID="44FE5AEA900B09C200000000A7E42BB6" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="DEVELOPER" CREATEDON="20111008" CHANGEDBY="DEVELOPER" CHANGEDON="20120319" CHGDANYON="00000000" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="702" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
  <publicSection>class ZSAPLINK_BSP definition
   public
   inheriting from ZSAPLINK
@@ -26,27 +26,33 @@ protected section.
  <privateSection>*&quot;* private components of class ZSAPLINK_BSP
 *&quot;* do not include other source files here!!!
 private section.</privateSection>
- <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" LANGU="E" DESCRIPT="Check if object exists" EXPOSURE="2" STATE="1" EDITORDER="9 " DISPID="0 " AUTHOR="USEWH90" CREATEDON="20060831" CHANGEDBY="USEWH90" CHANGEDON="20060831" MTDTYPE="0" MTDDECLTYP="0" MTDABSTRCT="X" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter VERSION="0" CMPTYPE="0" MTDTYPE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="0"/>
-  <source>*/---------------------------------------------------------------------\
-*|   This file is part of SAPlink.                                     |
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <inheritance CLSNAME="ZSAPLINK_BSP" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1" AUTHOR="DEVELOPER" CREATEDON="20111008" CHANGEDBY="DEVELOPER" CHANGEDON="20120319">
+  <redefinition CLSNAME="ZSAPLINK_BSP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS" EXPOSURE="2"/>
+  <redefinition CLSNAME="ZSAPLINK_BSP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT" EXPOSURE="2"/>
+  <redefinition CLSNAME="ZSAPLINK_BSP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC" EXPOSURE="2"/>
+  <redefinition CLSNAME="ZSAPLINK_BSP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT" EXPOSURE="1"/>
+  <redefinition CLSNAME="ZSAPLINK_BSP" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE" EXPOSURE="1"/>
+ </inheritance>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method CHECKEXISTS.
+*/---------------------------------------------------------------------\
+*|   This file is part of the SAPlink-plugins.                         |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-method CHECKEXISTS .
 
 data _bspName TYPE O2APPLNAME.
 
@@ -59,28 +65,18 @@ data _bspName TYPE O2APPLNAME.
 
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" LANGU="E" DESCRIPT="Creates an IF_IXML_DOCUMENT from the OBJNAME Attribute" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " AUTHOR="USDWM01" CREATEDON="20060720" CHANGEDBY="USEWH90" CHANGEDON="20060830" MTDTYPE="0" MTDDECLTYP="0" MTDABSTRCT="X" MTDNEWEXC="X" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter VERSION="0" CMPTYPE="0" MTDTYPE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="0"/>
-  <exception CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" SCONAME="ZCX_SAPLINK" VERSION="0" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="USEWH90" CREATEDON="20060830" CHANGEDON="00000000"/>
-  <source>*/---------------------------------------------------------------------\
-*|   This file is part of SAPlink.                                     |
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method CREATEIXMLDOCFROMOBJECT.
+*/---------------------------------------------------------------------\
+*|   This file is part of the SAPlink-plugins.                         |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-method CREATEIXMLDOCFROMOBJECT .
 
 data _bspName TYPE O2APPLNAME.
 data bspApp type ref to CL_O2_API_APPLICATION.
@@ -292,73 +288,60 @@ data pageParameter type O2PAGPARS.
   ixmlDocument = xmlDoc.
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" LANGU="E" DESCRIPT="Creates Object on System from IXMLDocument passed in" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " AUTHOR="USDWM01" CREATEDON="20060720" CHANGEDBY="USEWH90" CHANGEDON="20060830" MTDTYPE="0" MTDDECLTYP="0" MTDABSTRCT="X" MTDNEWEXC="X" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter VERSION="0" CMPTYPE="0" MTDTYPE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="0"/>
-  <parameter VERSION="0" CMPTYPE="0" MTDTYPE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="0"/>
-  <parameter VERSION="0" CMPTYPE="0" MTDTYPE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="0"/>
-  <parameter VERSION="0" CMPTYPE="0" MTDTYPE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="0"/>
-  <exception CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" SCONAME="ZCX_SAPLINK" VERSION="0" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="USEWH90" CREATEDON="20060830" CHANGEDON="00000000"/>
-  <source>*/---------------------------------------------------------------------\
-*|   This file is part of SAPlink.                                     |
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method CREATEOBJECTFROMIXMLDOC.
+*/---------------------------------------------------------------------\
+*|   This file is part of the SAPlink-plugins.                         |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-method CREATEOBJECTFROMIXMLDOC .
 
-*data _bspName TYPE O2APPLNAME.
-data bspAttributes type O2APPLATTR.
-data flag type char1.
-data transReq type trkorr.
-data nodes type o2applnode_table.
-data navGraph type o2applgrap_table.
-data navLine type O2APPLGRAP.
-data application type ref to cl_o2_api_application.
-data nameSpace type skwf_urlp.
-data folderName type string.
-data folderDesc type sdok_descr.
-data rootNode type ref to if_ixml_element.
-data pageNode type ref to if_ixml_element.
-data node type ref to if_ixml_element.
-data filter type ref to if_ixml_node_filter.
-data iterator type ref to if_ixml_node_iterator.
-data pageIterator type ref to if_ixml_node_iterator.
-data ixmlNode type ref to if_ixml_node.
-data source type string.
-data trobjName type trobj_name.
-data objectName type SEU_OBJKEY.
-data obj_name type E071-OBJ_NAME.
-data l_nodeguid type ICFNODGUID.
-data l_icfdocu  type ICF_DOCU.
-data l_icfname  type ICFNAME.
-data _devclass type devclass.
-data checkExists type flag.
+  &quot;data _bspName TYPE O2APPLNAME.
+  data bspAttributes type O2APPLATTR.
+  data flag type char1.
+  data transReq type trkorr.
+  data nodes type o2applnode_table.
+  data navGraph type o2applgrap_table.
+  data navLine type O2APPLGRAP.
+  data application type ref to cl_o2_api_application.
+  data nameSpace type skwf_urlp.
+  data folderName type string.
+  data folderDesc type sdok_descr.
+  data rootNode type ref to if_ixml_element.
+  data pageNode type ref to if_ixml_element.
+  data node type ref to if_ixml_element.
+  data filter type ref to if_ixml_node_filter.
+  data iterator type ref to if_ixml_node_iterator.
+  data pageIterator type ref to if_ixml_node_iterator.
+  data ixmlNode type ref to if_ixml_node.
+  data source type string.
+  data trobjName type trobj_name.
+  data objectName type SEU_OBJKEY.
+  data obj_name type E071-OBJ_NAME.
+  data l_nodeguid type ICFNODGUID.
+  data l_icfdocu  type ICF_DOCU.
+  data l_icfname  type ICFNAME.
+  data _devclass type devclass.
+  data checkExists type flag.
 
-*page data
-data bspPages type O2PAGELIST.
-data bspPage type O2PAGATTR.
-data pageAttributes type O2PAGATTR.
-data newPage TYPE REF TO CL_O2_API_PAGES.
-data pageContent TYPE O2PAGELINE_TABLE.
-data eventHandlers type O2PAGEVH_TABLETYPE.
-data eventHandler type O2PAGEVHS.
-data eventAttributes type O2PAGEVH.
-data pageParameters TYPE O2PAGPAR_TABLETYPE.
-data pageParameter type O2PAGPARS.
-data typeDefinitionSource type RSWSOURCET.
-data _objType type string.
+  &quot; page data
+  data bspPages type O2PAGELIST.
+  data bspPage type O2PAGATTR.
+  data pageAttributes type O2PAGATTR.
+  data newPage TYPE REF TO CL_O2_API_PAGES.
+  data pageContent TYPE O2PAGELINE_TABLE.
+  data eventHandlers type O2PAGEVH_TABLETYPE.
+  data eventHandler type O2PAGEVHS.
+  data eventAttributes type O2PAGEVH.
+  data pageParameters TYPE O2PAGPAR_TABLETYPE.
+  data pageParameter type O2PAGPARS.
+  data typeDefinitionSource type RSWSOURCET.
+  data _objType type string.
 
   _devclass = devclass.
   _objType = getObjectType( ).
@@ -373,6 +356,7 @@ data _objType type string.
           structure = bspAttributes.
 
   objName = bspAttributes-applname.
+  bspAttributes-devclass = _devclass.
 ** check bsp does not exist
 *  _bspName = bspAttributes-applname.
 *  call method cl_o2_api_application=&gt;check_exist
@@ -789,27 +773,18 @@ data _objType type string.
 
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" LANGU="E" DESCRIPT="Delete object" EXPOSURE="1" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="USEWH90" CREATEDON="20060831" CHANGEDBY="USEWH90" CHANGEDON="20060831" MTDTYPE="0" MTDDECLTYP="0" MTDABSTRCT="X" MTDNEWEXC="X" R3RELEASE="620" BCMTDCAT="00" BCMTDSYN="0">
-  <exception CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" SCONAME="ZCX_SAPLINK" VERSION="0" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="USEWH90" CREATEDON="20060831" CHANGEDON="00000000"/>
-  <source>*/---------------------------------------------------------------------\
-*|   This file is part of SAPlink.                                     |
+ <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method DELETEOBJECT.
+*/---------------------------------------------------------------------\
+*|   This file is part of the SAPlink-plugins.                         |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-method DELETEOBJECT .
 
 data bspName type o2applname.
 data bspAttributes type O2APPLATTR.
@@ -1009,27 +984,18 @@ data pagekey type o2pagkey.
       others                            = 11.
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" LANGU="E" DESCRIPT="Get object type of plugin" EXPOSURE="1" STATE="1" EDITORDER="8 " DISPID="0 " AUTHOR="USEWH90" CREATEDON="20060829" CHANGEDBY="USEWH90" CHANGEDON="20060831" MTDTYPE="0" MTDDECLTYP="0" MTDABSTRCT="X" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter VERSION="0" CMPTYPE="0" MTDTYPE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="0"/>
-  <source>*/---------------------------------------------------------------------\
-*|   This file is part of SAPlink.                                     |
+ <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method GETOBJECTTYPE.
+*/---------------------------------------------------------------------\
+*|   This file is part of the SAPlink-plugins.                         |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-method GETOBJECTTYPE .
 
   objecttype = &apos;WAPA&apos;. &quot;BSP Application
 
