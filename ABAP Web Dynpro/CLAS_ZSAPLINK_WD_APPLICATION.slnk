@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<CLAS CLSNAME="ZSAPLINK_WD_APPLICATION" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Web Dynpro ABAP Application" UUID="CED6827B53FAB5478D6405FC44A7EDBD" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="JUNGTH" CREATEDON="20061209" CHANGEDON="00000000" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="700" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
+<?xml version="1.0" encoding="utf-16"?>
+<CLAS CLSNAME="ZSAPLINK_WD_APPLICATION" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Web Dynpro ABAP Application" UUID="4FC35030080301E4E1008000C008015A" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="RTURNHEIM" CREATEDON="20120528" CHANGEDON="00000000" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="700" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
  <publicSection>class ZSAPLINK_WD_APPLICATION definition
   public
   inheriting from ZSAPLINK
@@ -11,6 +11,10 @@
 public section.
   type-pools WDYN .
   type-pools WDYWB .
+
+  methods CONSTRUCTOR
+    importing
+      !NAME type STRING .
 
   methods CHECKEXISTS
     redefinition .
@@ -44,9 +48,11 @@ private section.
 *&quot;* implementation or private method&apos;s signature</localTypes>
  <localMacros>*&quot;* use this source file for any macro definitions you need
 *&quot;* in the implementation part of the class</localMacros>
+ <typeUsage CLSNAME="ZSAPLINK_WD_APPLICATION" TYPEGROUP="WDYN" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <typeUsage CLSNAME="ZSAPLINK_WD_APPLICATION" TYPEGROUP="WDYWB" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
  <forwardDeclaration>WDYN</forwardDeclaration>
  <forwardDeclaration>WDYWB</forwardDeclaration>
- <inheritance CLSNAME="ZSAPLINK_WD_APPLICATION" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1" AUTHOR="JUNGTH" CREATEDON="20061209" CHANGEDON="00000000">
+ <inheritance CLSNAME="ZSAPLINK_WD_APPLICATION" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1" AUTHOR="RTURNHEIM" CREATEDON="20120528" CHANGEDON="00000000">
   <redefinition CLSNAME="ZSAPLINK_WD_APPLICATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS"/>
   <redefinition CLSNAME="ZSAPLINK_WD_APPLICATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT"/>
   <redefinition CLSNAME="ZSAPLINK_WD_APPLICATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC"/>
@@ -54,7 +60,8 @@ private section.
   <redefinition CLSNAME="ZSAPLINK_WD_APPLICATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE"/>
  </inheritance>
  <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>*/---------------------------------------------------------------------\
+  <source>method CHECKEXISTS.
+*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
 *|   SAPlink is free software; you can redistribute it and/or modify   |
@@ -72,7 +79,6 @@ private section.
 *|   Free Software Foundation, Inc.,                                   |
 *|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
 *\---------------------------------------------------------------------/
-METHOD checkexists.
 
 
 
@@ -90,10 +96,23 @@ METHOD checkexists.
   ENDIF.
 
 
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WD_APPLICATION" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="E" DESCRIPT="CONSTRUCTOR" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="RTURNHEIM" CREATEDON="20120528" CHANGEDON="00000000" MTDTYPE="2" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WD_APPLICATION" CMPNAME="CONSTRUCTOR" SCONAME="NAME" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " AUTHOR="RTURNHEIM" CREATEDON="20120528" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD constructor.
+
+  CALL METHOD super-&gt;constructor
+    EXPORTING
+      name = name.
+
+  nugget_level = 99. &quot; WD Application should load last
+
 ENDMETHOD.</source>
  </method>
  <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>*/---------------------------------------------------------------------\
+  <source>method CREATEIXMLDOCFROMOBJECT.
+*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
 *|   SAPlink is free software; you can redistribute it and/or modify   |
@@ -111,7 +130,6 @@ ENDMETHOD.</source>
 *|   Free Software Foundation, Inc.,                                   |
 *|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
 *\---------------------------------------------------------------------/
-METHOD createixmldocfromobject.
 
 
 *xml nodes
@@ -175,10 +193,11 @@ METHOD createixmldocfromobject.
 *\--------------------------------------------------------------------/
   rc = xmldoc-&gt;append_child( rootnode ).
   ixmldocument = xmldoc.
-ENDMETHOD.</source>
+endmethod.</source>
  </method>
  <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>*/---------------------------------------------------------------------\
+  <source>method CREATEOBJECTFROMIXMLDOC.
+*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
 *|   SAPlink is free software; you can redistribute it and/or modify   |
@@ -196,7 +215,6 @@ ENDMETHOD.</source>
 *|   Free Software Foundation, Inc.,                                   |
 *|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
 *\---------------------------------------------------------------------/
-METHOD createobjectfromixmldoc.
 *
 *
 *xml nodes
@@ -332,10 +350,11 @@ METHOD createobjectfromixmldoc.
 
   COMMIT WORK.
   name = objname.
-ENDMETHOD.</source>
+endmethod.</source>
  </method>
  <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>*/---------------------------------------------------------------------\
+  <source>method DELETEOBJECT.
+*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
 *|   SAPlink is free software; you can redistribute it and/or modify   |
@@ -353,7 +372,6 @@ ENDMETHOD.</source>
 *|   Free Software Foundation, Inc.,                                   |
 *|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
 *\---------------------------------------------------------------------/
-METHOD deleteobject.
 
   DATA: application TYPE REF TO if_wdy_md_application.
   TRY.
@@ -374,10 +392,11 @@ METHOD deleteobject.
 *  cl_wdy_md_application=&gt;delete_sicf( p_applname = application_name  ).
   application-&gt;if_wdy_md_lockable_object~save_to_database( ).
   application-&gt;if_wdy_md_lockable_object~unlock( ).
-ENDMETHOD.</source>
+endmethod.</source>
  </method>
  <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>*/---------------------------------------------------------------------\
+  <source>method GETOBJECTTYPE.
+*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
 *|   SAPlink is free software; you can redistribute it and/or modify   |
@@ -395,18 +414,17 @@ ENDMETHOD.</source>
 *|   Free Software Foundation, Inc.,                                   |
 *|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
 *\---------------------------------------------------------------------/
-method GETOBJECTTYPE.
 
 
   objecttype = wdyn_r3tr_application.  &quot;Web Dynpro Application
 
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK_WD_APPLICATION" CMPNAME="GET_APPLICATION" VERSION="1" LANGU="E" DESCRIPT="Get Application Object" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="JUNGTH" CREATEDON="20061209" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_WD_APPLICATION" CMPNAME="GET_APPLICATION" SCONAME="APPLICATION" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro: Application" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="JUNGTH" CREATEDON="20061209" CHANGEDON="00000000" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_WDY_MD_APPLICATION"/>
-  <exception CLSNAME="ZSAPLINK_WD_APPLICATION" CMPNAME="GET_APPLICATION" SCONAME="CX_WDY_MD_NOT_EXISTING" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro : Objekt existiert nicht" MTDTYPE="0" EDITORDER="1 " AUTHOR="JUNGTH" CREATEDON="20061209" CHANGEDON="00000000"/>
-  <exception CLSNAME="ZSAPLINK_WD_APPLICATION" CMPNAME="GET_APPLICATION" SCONAME="CX_WDY_MD_PERMISSION_FAILURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="2 " AUTHOR="JUNGTH" CREATEDON="20061209" CHANGEDON="00000000"/>
-  <source>METHOD get_application.
+ <method CLSNAME="ZSAPLINK_WD_APPLICATION" CMPNAME="GET_APPLICATION" VERSION="1" LANGU="E" DESCRIPT="Get Application Object" EXPOSURE="0" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="RTURNHEIM" CREATEDON="20120528" CHANGEDBY="RTURNHEIM" CHANGEDON="20120528" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WD_APPLICATION" CMPNAME="GET_APPLICATION" SCONAME="APPLICATION" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro: Application" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="RTURNHEIM" CREATEDON="20120528" CHANGEDON="00000000" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_WDY_MD_APPLICATION"/>
+  <exception CLSNAME="ZSAPLINK_WD_APPLICATION" CMPNAME="GET_APPLICATION" SCONAME="CX_WDY_MD_NOT_EXISTING" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro : Objekt existiert nicht" MTDTYPE="0" EDITORDER="1 " AUTHOR="RTURNHEIM" CREATEDON="20120528" CHANGEDON="00000000"/>
+  <exception CLSNAME="ZSAPLINK_WD_APPLICATION" CMPNAME="GET_APPLICATION" SCONAME="CX_WDY_MD_PERMISSION_FAILURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="2 " AUTHOR="RTURNHEIM" CREATEDON="20120528" CHANGEDON="00000000"/>
+  <source>method GET_APPLICATION.
 
   DATA: application_name TYPE wdy_application_name.
   application_name = objname.
@@ -462,6 +480,6 @@ endmethod.</source>
             application = application.
       ENDTRY.
   ENDTRY.
-ENDMETHOD.</source>
+endmethod.</source>
  </method>
 </CLAS>
