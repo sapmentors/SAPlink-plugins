@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ENHO enhancement_id="ZBUPA_INBOUND" shorttext="Business Partner Inbound" spot_name="BUPA_INBOUND">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <IMPLS>
+    <ENH_BADI_IMPL_DATA>
+     <SPOT_NAME>BUPA_INBOUND</SPOT_NAME>
+     <BADI_NAME>BUPA_INBOUND</BADI_NAME>
+     <IMPL_NAME>ZBUPA_INBOUND</IMPL_NAME>
+     <IMPL_CLASS>ZCL_BUPA_INBOUND</IMPL_CLASS>
+     <ACTIVE>X</ACTIVE>
+     <IS_DEFAULT/>
+     <FILTER_ROOT/>
+     <FILTER_TREE/>
+     <FILTER_VALUES/>
+     <FILTERS/>
+     <FCODE_EXTENSIONS/>
+     <SCREEN_EXTENSIONS/>
+     <IMPL_SHORTTEXT>Implementation: Business partner data exchane data during Inbound</IMPL_SHORTTEXT>
+     <IMPL_SHORTTEXT_ID>08002721BD7F1EE1B3BB661CDA154DD3</IMPL_SHORTTEXT_ID>
+     <IMPL_LONGTEXT_ID/>
+     <MIG_BADI_IMPL/>
+     <SORTER_DATA/>
+     <IS_EXAMPLE_IMPLEMENTATION/>
+     <LOCKED_IN_CUSTOMIZING/>
+    </ENH_BADI_IMPL_DATA>
+   </IMPLS>
+  </asx:values>
+ </asx:abap>
+</ENHO>
