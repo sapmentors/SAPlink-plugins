@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZDUMMY_CLASS_BADI_IMPL_TEST">
+ <CLAS CLSNAME="ZDUMMY_CLASS" VERSION="1" LANGU="E" UUID="502A3BD193ED09C0E10080000A125D40" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="702" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <implementing CLSNAME="ZDUMMY_CLASS" REFCLSNAME="IF_BADI_INTERFACE" VERSION="1" EXPOSURE="2" STATE="1" AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" RELTYPE="1" EDITORDER="0 "/>
+  <implementing CLSNAME="ZDUMMY_CLASS" REFCLSNAME="IF_EX_HRPAD00INFTYUI" VERSION="1" EXPOSURE="2" STATE="1" AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" RELTYPE="1" EDITORDER="0 "/>
+  <publicSection>class ZDUMMY_CLASS definition
+  public
+  final
+  create public .
+
+public section.
+*&quot;* public components of class ZDUMMY_CLASS
+*&quot;* do not include other source files here!!!
+
+  interfaces IF_BADI_INTERFACE .
+  interfaces IF_EX_HRPAD00INFTYUI .</publicSection>
+  <protectedSection>protected section.
+*&quot;* protected components of class ZDUMMY_CLASS
+*&quot;* do not include other source files here!!!</protectedSection>
+  <privateSection>private section.
+*&quot;* private components of class ZDUMMY_CLASS
+*&quot;* do not include other source files here!!!</privateSection>
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <interfaceMethod CLSNAME="ZDUMMY_CLASS" CPDNAME="IF_EX_HRPAD00INFTYUI~FILL_HELP_VALUES">
+   <source>method IF_EX_HRPAD00INFTYUI~FILL_HELP_VALUES.
+endmethod.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZDUMMY_CLASS" CPDNAME="IF_EX_HRPAD00INFTYUI~INITIALIZE">
+   <source>method IF_EX_HRPAD00INFTYUI~INITIALIZE.
+endmethod.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZDUMMY_CLASS" CPDNAME="IF_EX_HRPAD00INFTYUI~INPUT_CONVERSION">
+   <source>method IF_EX_HRPAD00INFTYUI~INPUT_CONVERSION.
+endmethod.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZDUMMY_CLASS" CPDNAME="IF_EX_HRPAD00INFTYUI~INPUT_TABLE_CONVERSION">
+   <source>method IF_EX_HRPAD00INFTYUI~INPUT_TABLE_CONVERSION.
+endmethod.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZDUMMY_CLASS" CPDNAME="IF_EX_HRPAD00INFTYUI~OUTPUT_CONVERSION">
+   <source>method IF_EX_HRPAD00INFTYUI~OUTPUT_CONVERSION.
+endmethod.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZDUMMY_CLASS" CPDNAME="IF_EX_HRPAD00INFTYUI~OUTPUT_TABLE_CONVERSION">
+   <source>method IF_EX_HRPAD00INFTYUI~OUTPUT_TABLE_CONVERSION.
+endmethod.</source>
+  </interfaceMethod>
+ </CLAS>
+</nugget>

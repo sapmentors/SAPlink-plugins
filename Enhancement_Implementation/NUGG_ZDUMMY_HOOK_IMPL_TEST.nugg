@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZDUMMY_HOOK_IMPL_TEST">
+ <ENHO enhancement_id="ZDUMMY" shorttext="testing enho hook" tool_type="HOOK_IMPL" orig_object="R3TR-PT_ARQ_REQUEST_UIA-FUGR-SAPLPT_ARQ_REQUEST_UIA">
+  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+   <asx:values>
+    <IMPLS>
+     <ENH_HOOK_IMPL>
+      <SPOTNAME/>
+      <PROGRAMNAME>SAPLPT_ARQ_REQUEST_UIA</PROGRAMNAME>
+      <EXTID>1</EXTID>
+      <ID>1</ID>
+      <OVERWRITE/>
+      <METHOD/>
+      <ENHMODE>D</ENHMODE>
+      <FULL_NAME>\FU:PT_ARQ_REQUEST_CHECK\SE:BEGIN\EI</FULL_NAME>
+      <SOURCE>
+       <item>&quot;</item>
+       <item>data lv_final type i.</item>
+       <item>lv_final = 20.</item>
+       <item>&quot;</item>
+      </SOURCE>
+      <PARENT_FULL_NAME/>
+     </ENH_HOOK_IMPL>
+    </IMPLS>
+   </asx:values>
+  </asx:abap>
+ </ENHO>
+</nugget>

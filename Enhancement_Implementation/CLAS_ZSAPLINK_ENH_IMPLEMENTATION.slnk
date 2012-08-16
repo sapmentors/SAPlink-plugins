@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<CLAS CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" VERSION="1" LANGU="E" DESCRIPT="SAPlink Class Installer" UUID="08002721BD7F1EE1B3B1406F33E9CDD3" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" WITH_UNIT_TESTS="X" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
+<?xml version="1.0" encoding="utf-16"?>
+<CLAS CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" VERSION="1" LANGU="E" DESCRIPT="SAPlink Class Installer" UUID="502A142793ED09C0E10080000A125D40" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" CHGDANYON="00000000" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="702" CLSBCCAT="00" WITH_UNIT_TESTS="X" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
  <publicSection>class ZSAPLINK_ENH_IMPLEMENTATION definition
   public
   inheriting from ZSAPLINK
@@ -30,22 +30,45 @@ protected section.
   methods GETOBJECTTYPE
     redefinition .</protectedSection>
  <privateSection>private section.
+*&quot;* private components of class ZSAPLINK_ENH_IMPLEMENTATION
+*&quot;* do not include other source files here!!!
 
-  constants ENHANCEMENT_ID type STRING value &apos;enhancement_id&apos;. &quot;#EC NOTEXT
   data SHORTTEXT type STRING .
-  constants SHORTTEXT_ID type STRING value &apos;shorttext&apos;. &quot;#EC NOTEXT
   data SPOT_NAME type ENHSPOTNAME .
+  constants ENHANCEMENT_ID type STRING value &apos;enhancement_id&apos;. &quot;#EC NOTEXT
+  constants SHORTTEXT_ID type STRING value &apos;shorttext&apos;. &quot;#EC NOTEXT
   constants SPOT_NAME_ID type STRING value &apos;spot_name&apos;. &quot;#EC NOTEXT
   data BADIIMPL_TOOL type ref to CL_ENH_TOOL_BADI_IMPL .
+  data HOOKIMPL_TOOL type ref to CL_ENH_TOOL_HOOK_IMPL .
+  data ENHTOOLTYPE type ENHTOOLTYPE value &apos;Tool Type&apos;. &quot;#EC NOTEXT .
+  constants ENH_TOOL_TYPE type STRING value &apos;tool_type&apos;. &quot;#EC NOTEXT
+  data PGMID type PGMID .
+  data OBJ_NAME type TROBJ_NAME .
+  data OBJ_TYPE type TROBJTYPE .
+  data PROGRAM type PROGNAME .
+  constants ORIG_OBJ type STRING value &apos;orig_object&apos;. &quot;#EC NOTEXT
 
-  methods GET_BADIIMPL_TOOL
+  methods GET_IMPL_TOOL
     importing
       !I_LOCK type BOOLEAN optional
     raising
       ZCX_SAPLINK .
   methods GET_IMPLEMENTATIONS
-    returning
-      value(R_IMPLEMENTATIONS) type ENH_BADI_IMPL_DATA_IT
+    exporting
+      value(R_IMPLEMENTATIONS) type ANY
+    raising
+      ZCX_SAPLINK .
+  methods GET_SHORTTEXT .
+  methods SAVE_ACTIVATE_BADI_IMPL
+    importing
+      value(ENHREF) type ref to IF_ENH_TOOL
+      value(BADI_IMPLS) type ENH_BADI_IMPL_DATA_IT
+    raising
+      ZCX_SAPLINK .
+  methods SAVE_ACTIVATE_HOOK_IMPL
+    importing
+      value(ENHREF) type ref to IF_ENH_TOOL
+      value(HOOK_IMPLS) type ENH_HOOK_IMPL_IT
     raising
       ZCX_SAPLINK .</privateSection>
  <localImplementation>*&quot;* local class implementation for public class
@@ -174,20 +197,28 @@ ENDCLASS.                    &quot;ltcl_check_enh_implementation IMPLEMENTATION<
  <forwardDeclaration>SEOS</forwardDeclaration>
  <forwardDeclaration>SEOT</forwardDeclaration>
  <forwardDeclaration>SEOX</forwardDeclaration>
- <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="BADIIMPL_TOOL" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_ENH_TOOL_BADI_IMPL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="ENHANCEMENT_ID" VERSION="1" LANGU="E" DESCRIPT="Name for the enhancement_id Attribute" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="2" ATTVALUE="&apos;enhancement_id&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SHORTTEXT" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SHORTTEXT_ID" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="2" ATTVALUE="&apos;shorttext&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SPOT_NAME" VERSION="1" LANGU="E" DESCRIPT="Name (ID) of an Enhancement Spot" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ENHSPOTNAME" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SPOT_NAME_ID" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="2" ATTVALUE="&apos;spot_name&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <inheritance CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1">
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="BADIIMPL_TOOL" VERSION="1" LANGU="E" DESCRIPT="Enhancement Tool Redefinition BAdI" EXPOSURE="0" STATE="1" EDITORDER="6 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_ENH_TOOL_BADI_IMPL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="ENHANCEMENT_ID" VERSION="1" LANGU="E" DESCRIPT="Name for the enhancement_id Attribute" EXPOSURE="0" STATE="1" EDITORDER="3 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" ATTDECLTYP="2" ATTVALUE="&apos;enhancement_id&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="ENHTOOLTYPE" VERSION="1" LANGU="E" DESCRIPT="Enhancement Tool" EXPOSURE="0" STATE="1" EDITORDER="8 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" ATTDECLTYP="0" ATTVALUE="&apos;Tool Type&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ENHTOOLTYPE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="ENH_TOOL_TYPE" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="9 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" ATTDECLTYP="2" ATTVALUE="&apos;tool_type&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="HOOKIMPL_TOOL" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="7 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_ENH_TOOL_HOOK_IMPL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="OBJ_NAME" VERSION="1" LANGU="E" DESCRIPT="Object Name in Object List" EXPOSURE="0" STATE="1" EDITORDER="11 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="TROBJ_NAME" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="OBJ_TYPE" VERSION="1" LANGU="E" DESCRIPT="Object Type" EXPOSURE="0" STATE="1" EDITORDER="12 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="TROBJTYPE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="ORIG_OBJ" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="14 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" ATTDECLTYP="2" ATTVALUE="&apos;orig_object&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="PGMID" VERSION="1" LANGU="E" DESCRIPT="Program ID in Requests and Tasks" EXPOSURE="0" STATE="1" EDITORDER="10 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="PGMID" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="PROGRAM" VERSION="1" LANGU="E" DESCRIPT="ABAP Program Name" EXPOSURE="0" STATE="1" EDITORDER="13 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="PROGNAME" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SHORTTEXT" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="1 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SHORTTEXT_ID" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="4 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" ATTDECLTYP="2" ATTVALUE="&apos;shorttext&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SPOT_NAME" VERSION="1" LANGU="E" DESCRIPT="Name (ID) of an Enhancement Spot" EXPOSURE="0" STATE="1" EDITORDER="2 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ENHSPOTNAME" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SPOT_NAME_ID" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="5 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" ATTDECLTYP="2" ATTVALUE="&apos;spot_name&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <inheritance CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1" AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000">
   <redefinition CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS" EXPOSURE="2"/>
   <redefinition CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT" EXPOSURE="2"/>
   <redefinition CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC" EXPOSURE="2"/>
   <redefinition CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT" EXPOSURE="1"/>
   <redefinition CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE" EXPOSURE="1"/>
  </inheritance>
- <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>method CHECKEXISTS.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
@@ -203,14 +234,14 @@ ENDCLASS.                    &quot;ltcl_check_enh_implementation IMPLEMENTATION<
   DATA cx  TYPE REF TO cx_root.
 
   TRY.
-      me-&gt;get_badiimpl_tool( ).
+      me-&gt;get_impl_tool( ).
       exists = &apos;X&apos;.
     CATCH cx_root INTO cx.
   ENDTRY.
 
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>method CREATEIXMLDOCFROMOBJECT.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
@@ -229,12 +260,15 @@ endmethod.</source>
   &quot; XML related DATA types
   DATA rootnode TYPE REF TO if_ixml_element.
   &quot; Object specific DATA types
-  DATA impls      TYPE enh_badi_impl_data_it.
+  DATA badi_impls      TYPE enh_badi_impl_data_it.
+  DATA hook_impls      TYPE ENH_HOOK_IMPL_IT.
   DATA impls_xml  TYPE string.
   DATA impls_ixml TYPE REF TO if_ixml_document.
   DATA impls_root TYPE REF TO if_ixml_element.
   DATA value TYPE string.
-  FIELD-SYMBOLS &lt;impl&gt; LIKE LINE OF impls.
+  DATA enh_include TYPE progname.
+  DATA extension TYPE enhincludeextension.
+  FIELD-SYMBOLS &lt;fs_impls&gt; TYPE any.
 
   &quot; Set root object
   _objtype = getobjecttype( ).
@@ -245,28 +279,68 @@ endmethod.</source>
       value     = objname          &quot; VALUE
   ).
 
-  me-&gt;get_badiimpl_tool( ).
-
+  TRY.
+    me-&gt;get_impl_tool( ).
+    CATCH cx_enh_root INTO cx.
+  ENDTRY.
   &quot; Read Shorttext of implementation
-  me-&gt;shorttext = me-&gt;badiimpl_tool-&gt;if_enh_object_docu~get_shorttext( ).
+  me-&gt;get_shorttext( ).
   rootnode-&gt;set_attribute(
     EXPORTING
       name      = me-&gt;shorttext_id &quot; NAME
       value     = me-&gt;shorttext       &quot; VALUE
   ).
-  &quot; Enhancement Spot
-  value = me-&gt;badiimpl_tool-&gt;get_spot_name( ).
+
+  &quot; set enhancement tool type
+  value = enhtooltype.
   rootnode-&gt;set_attribute(
-    EXPORTING
-      name      = me-&gt;spot_name_id
-      value     = value
-  ).
+      EXPORTING
+        name      = me-&gt;enh_tool_type
+        value     = value
+    ).
+
+  if enhtooltype eq cl_enh_tool_badi_impl=&gt;tooltype.  &quot; BADI implementation
+    &quot; Enhancement Spot
+    value = me-&gt;badiimpl_tool-&gt;get_spot_name( ).
+    rootnode-&gt;set_attribute(
+      EXPORTING
+        name      = me-&gt;spot_name_id
+        value     = value
+    ).
+    ASSIGN badi_impls to &lt;fs_impls&gt;.
+
+  else. &quot;hook implementation
+
+    ASSIGN hook_impls to &lt;fs_impls&gt;.
+    CALL METHOD me-&gt;hookimpl_tool-&gt;get_original_object
+      EXPORTING
+        VERSION   = &apos;I&apos;
+      IMPORTING
+        PGMID     = me-&gt;pgmid
+        OBJ_NAME  = me-&gt;obj_name
+        OBJ_TYPE  = me-&gt;obj_type
+        PROGRAM   = me-&gt;program.
+
+     CONCATENATE me-&gt;pgmid    me-&gt;obj_name
+                 me-&gt;obj_type me-&gt;program
+     INTO value  SEPARATED BY &apos;-&apos;.
+
+    rootnode-&gt;set_attribute(
+      EXPORTING
+        name      = me-&gt;orig_obj
+        value     = value
+    ).
+
+  endif.
 
   &quot; Read implementations and transform to XML
-  impls = me-&gt;get_implementations( ).
+  CALL METHOD ME-&gt;GET_IMPLEMENTATIONS
+    IMPORTING
+      R_IMPLEMENTATIONS = &lt;fs_impls&gt;.
+
   CALL TRANSFORMATION (`ID`)
-    SOURCE impls = impls
-    RESULT XML impls_xml.
+  SOURCE impls = &lt;fs_impls&gt;
+  RESULT XML impls_xml.
 
   impls_ixml = zsaplink=&gt;convertstringtoixmldoc( xmlstring = impls_xml ).
   impls_root = impls_ixml-&gt;get_root_element( ).
@@ -279,8 +353,8 @@ endmethod.</source>
 
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>METHOD createobjectfromixmldoc.
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method CREATEOBJECTFROMIXMLDOC.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -293,8 +367,7 @@ endmethod.</source>
 *\---------------------------------------------------------------------/
 
   DATA cx  TYPE REF TO cx_root.
-  DATA: msg      TYPE string,
-        msg_long TYPE string.
+  DATA: msg      TYPE string.
 
   DATA _objtype TYPE string.
   DATA rootnode TYPE REF TO if_ixml_element.
@@ -302,10 +375,15 @@ endmethod.</source>
   DATA impls_root TYPE REF TO if_ixml_node.
   DATA impls_ixml TYPE REF TO if_ixml_document.
   DATA impls_xml  TYPE string.
-  DATA impls      TYPE enh_badi_impl_data_it.
+  DATA badi_impls      TYPE enh_badi_impl_data_it.
+  DATA hook_impls      TYPE ENH_HOOK_IMPL_IT.
+  DATA tool_type       TYPE enhtooltype.
   DATA class_not_active TYPE boolean.
+  DATA enhobj TYPE string.
 
-  FIELD-SYMBOLS: &lt;impl&gt; LIKE LINE OF impls.
+  FIELD-SYMBOLS: &lt;badiimpl&gt; LIKE LINE OF badi_impls.
+  FIELD-SYMBOLS: &lt;hookimpl&gt; LIKE LINE OF hook_impls.
+  FIELD-SYMBOLS &lt;fs_impls&gt; TYPE any.
 
   DATA: error_list TYPE REF TO cl_wb_checklist,
         error_tab  TYPE swbme_error_tab.
@@ -322,17 +400,25 @@ endmethod.</source>
   e_overwrite = overwrite.
   xmldoc = ixmldocument.
   rootnode = xmldoc-&gt;find_from_name( _objtype ).
+
   me-&gt;objname = rootnode-&gt;get_attribute( me-&gt;enhancement_id ).
   me-&gt;shorttext = rootnode-&gt;get_attribute( me-&gt;shorttext_id ).
   me-&gt;spot_name = rootnode-&gt;get_attribute( me-&gt;spot_name_id ).
+  me-&gt;enhtooltype = tool_type = rootnode-&gt;get_attribute( me-&gt;enh_tool_type ).
+  enhobj = rootnode-&gt;get_attribute( me-&gt;orig_obj ).
+
+  SPLIT enhobj AT &apos;-&apos;
+   into me-&gt;pgmid    me-&gt;obj_name
+        me-&gt;obj_type me-&gt;program.
 
   &quot; check if object exists
   TRY.
-      me-&gt;get_badiimpl_tool( &apos;X&apos; ).
+      me-&gt;get_impl_tool( &apos;X&apos; ).
     CATCH cx_root INTO cx.
   ENDTRY.
 
-  IF me-&gt;badiimpl_tool IS BOUND AND
+  IF ( me-&gt;badiimpl_tool IS BOUND   OR
+       me-&gt;hookimpl_tool IS BOUND ) AND
      overwrite         IS INITIAL.
     RAISE EXCEPTION TYPE zcx_saplink
       EXPORTING
@@ -347,9 +433,15 @@ endmethod.</source>
 
   impls_xml = zsaplink=&gt;convertixmldoctostring( ixmldocument = impls_ixml ).
 
+  if tool_type eq cl_enh_tool_badi_impl=&gt;tooltype.
+     ASSIGN badi_impls to &lt;fs_impls&gt;.
+  else.
+    ASSIGN hook_impls to &lt;fs_impls&gt;.
+  endif.
+
   CALL TRANSFORMATION (`ID`)
     SOURCE XML impls_xml
-    RESULT impls = impls.
+    RESULT impls = &lt;fs_impls&gt;.
 
   &quot; Create Implementation
   &quot; try create
@@ -357,7 +449,8 @@ endmethod.</source>
   DATA enhcomp   TYPE enhcompositename.
   DATA enhref    TYPE REF TO if_enh_tool.
   &quot; Delete existing object
-  IF me-&gt;badiimpl_tool IS BOUND.
+  IF me-&gt;badiimpl_tool IS BOUND OR
+     me-&gt;hookimpl_tool IS BOUND.
     me-&gt;deleteobject( ).
   ENDIF.
 
@@ -368,7 +461,7 @@ endmethod.</source>
         EXPORTING
           enhname       = enhname
           enhtype       = cl_abstract_enh_tool_redef=&gt;credefinition
-          enhtooltype   = cl_enh_tool_badi_impl=&gt;tooltype
+          enhtooltype   = tool_type
           compositename = enhcomp
         IMPORTING
           enhancement   = enhref
@@ -383,21 +476,235 @@ endmethod.</source>
           msg    = msg.
   ENDTRY.
 
-  &quot; enhancement is of type BAdI, so convert
+  if tool_type eq cl_enh_tool_badi_impl=&gt;tooltype.
+   TRY.
+  &quot; enhancement is of type BAdI
+    CALL METHOD ME-&gt;SAVE_ACTIVATE_BADI_IMPL
+      EXPORTING
+        ENHREF     = enhref
+        BADI_IMPLS = &lt;fs_impls&gt;.
+    CATCH cx_root INTO cx.
+   ENDTRY.
+  else.
+   TRY.
+  &quot; enhancement is of type hook
+    CALL METHOD ME-&gt;SAVE_ACTIVATE_HOOK_IMPL
+      EXPORTING
+        ENHREF     = enhref
+        HOOK_IMPLS = &lt;fs_impls&gt;.
+    CATCH cx_root INTO cx.
+   ENDTRY.
+  endif.
+  &quot; successful install
+  name = me-&gt;objname.
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method DELETEOBJECT.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
+*|                                                                     |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
+*\---------------------------------------------------------------------/
+
+  DATA: badi_implementations TYPE enh_badi_impl_data_it.
+  DATA: hook_implementations TYPE enh_hook_impl_it.
+
+  if enhtooltype eq cl_enh_tool_badi_impl=&gt;tooltype.
+    IF me-&gt;badiimpl_tool-&gt;if_enh_object~is_locked( ) NE abap_true.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          textid = zcx_saplink=&gt;error_message
+          msg    = &apos;Enhancement Object is not locked&apos;.
+    ENDIF.
+    me-&gt;badiimpl_tool-&gt;if_enh_object~delete(
+      EXPORTING
+        nevertheless_delete = &apos;X&apos;   &quot; Enhancement Boolean
+        run_dark            = &apos;X&apos;    &quot; Enhancement Boolean
+    ).
+    me-&gt;badiimpl_tool-&gt;if_enh_object~unlock( ).
+
+  else.
+    IF me-&gt;hookimpl_tool-&gt;if_enh_object~is_locked( ) NE abap_true.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          textid = zcx_saplink=&gt;error_message
+          msg    = &apos;Enhancement Object is not locked&apos;.
+    ENDIF.
+    me-&gt;hookimpl_tool-&gt;if_enh_object~delete(
+      EXPORTING
+        nevertheless_delete = &apos;X&apos;   &quot; Enhancement Boolean
+        run_dark            = &apos;X&apos;    &quot; Enhancement Boolean
+    ).
+    me-&gt;hookimpl_tool-&gt;if_enh_object~unlock( ).
+  endif.
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method GETOBJECTTYPE.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
+*|                                                                     |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
+*\---------------------------------------------------------------------/
+
+  objecttype = &apos;ENHO&apos;.  &quot; Enhancement Implementation
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_IMPLEMENTATIONS" VERSION="1" LANGU="E" DESCRIPT="Read Enhanchement Implementations" EXPOSURE="0" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_IMPLEMENTATIONS" SCONAME="R_IMPLEMENTATIONS" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" PARDECLTYP="1" PARPASSTYP="0" TYPTYPE="1" TYPE="ANY"/>
+  <exception CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_IMPLEMENTATIONS" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000"/>
+  <source>method GET_IMPLEMENTATIONS.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
+*|                                                                     |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
+*\---------------------------------------------------------------------/
+
+
+  if enhtooltype eq cl_enh_tool_badi_impl=&gt;tooltype.
+    CALL METHOD me-&gt;badiimpl_tool-&gt;get_implementations
+      EXPORTING
+        version            = &apos;I&apos;
+      RECEIVING
+        re_implementations = r_implementations.
+  else.
+    CALL METHOD me-&gt;hookimpl_tool-&gt;get_hook_impls
+      EXPORTING
+        version            = &apos;I&apos;
+      RECEIVING
+        enhancements = r_implementations.
+  endif.
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_IMPL_TOOL" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_IMPL_TOOL" SCONAME="I_LOCK" VERSION="1" LANGU="E" DESCRIPT="Boolean Variable (X=True, -=False, Space=Unknown)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="BOOLEAN" PAROPTIONL="X"/>
+  <exception CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_IMPL_TOOL" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000"/>
+  <source>method GET_IMPL_TOOL.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
+*|                                                                     |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
+*\---------------------------------------------------------------------/
+
+  DATA cx  TYPE REF TO cx_enh_root.
+  DATA msg TYPE string.
+
+  DATA enhname   TYPE enhname.
+  DATA enhspot   TYPE enhspotname.
+  DATA enhref    TYPE REF TO if_enh_tool.
+  DATA classname TYPE enhtoolclassname.
+
+  enhname = objname.
+  enhspot = objname.
+
+  &quot; FREE: enhref, me-&gt;badiimpl_tool.
+
+  TRY.
+      enhref = cl_enh_factory=&gt;get_enhancement(
+                 enhancement_id = enhname
+                 lock           = i_lock
+               ).
+
+      &quot; Check that is is realy a BAdI or Hook
+      enhtooltype = enhref-&gt;get_tool( ).
+      if enhtooltype ne cl_enh_tool_badi_impl=&gt;tooltype and
+         enhtooltype ne cl_enh_tool_hook_impl=&gt;tooltype.
+         CONCATENATE &apos;The enhancement&apos; enhname &apos;is not a BAdI/Hook Implementation&apos; INTO msg SEPARATED BY space.
+          RAISE EXCEPTION TYPE zcx_saplink
+            EXPORTING
+              textid = zcx_saplink=&gt;error_message
+              msg    = msg.
+      ENDIF.
+
+    CATCH cx_enh_is_locked_t100 INTO cx.
+      msg = cx-&gt;get_text( ).
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          textid = zcx_saplink=&gt;error_message
+          msg    = msg.
+
+    CATCH cx_enh_root INTO cx.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          textid = zcx_saplink=&gt;not_found
+          object = objname.
+  ENDTRY.
+
+ &quot; convert based on type of enhancement
+  if enhtooltype eq cl_enh_tool_badi_impl=&gt;tooltype.
+    me-&gt;badiimpl_tool ?= enhref.
+  else.
+    me-&gt;hookimpl_tool ?= enhref.
+  endif.
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_SHORTTEXT" VERSION="1" LANGU="E" DESCRIPT="Read Short text of Enhancement Implementations" EXPOSURE="0" STATE="1" EDITORDER="3 " DISPID="0 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method GET_SHORTTEXT.
+
+  if enhtooltype eq cl_enh_tool_badi_impl=&gt;tooltype.
+    me-&gt;shorttext = me-&gt;badiimpl_tool-&gt;if_enh_object_docu~get_shorttext( ).
+  else.
+    me-&gt;shorttext = me-&gt;hookimpl_tool-&gt;if_enh_object_docu~get_shorttext( ).
+  endif.
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SAVE_ACTIVATE_BADI_IMPL" VERSION="1" LANGU="E" DESCRIPT="Save and Activate BAdi Implementation" EXPOSURE="0" STATE="1" EDITORDER="4 " DISPID="0 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SAVE_ACTIVATE_BADI_IMPL" SCONAME="ENHREF" VERSION="1" LANGU="E" DESCRIPT="SAP Enhancement Tool Root Interface" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_ENH_TOOL"/>
+  <parameter CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SAVE_ACTIVATE_BADI_IMPL" SCONAME="BADI_IMPLS" VERSION="1" LANGU="E" DESCRIPT="Table ENH_BADI_IMPL_DATA" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="ENH_BADI_IMPL_DATA_IT"/>
+  <exception CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SAVE_ACTIVATE_BADI_IMPL" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000"/>
+  <source>method SAVE_ACTIVATE_BADI_IMPL.
+
+  DATA  class_not_active TYPE boolean.
+  DATA: error_list TYPE REF TO cl_wb_checklist.
+  DATA error_tab  TYPE swbme_error_tab.
+
+  DATA  cx  TYPE REF TO cx_root.
+  DATA: msg      TYPE string,
+        msg_long TYPE string.
+
+  FIELD-SYMBOLS: &lt;badiimpl&gt; LIKE LINE OF badi_impls.
+  FIELD-SYMBOLS: &lt;error&gt; LIKE LINE OF error_tab.
+  FIELD-SYMBOLS: &lt;mtext&gt; LIKE LINE OF &lt;error&gt;-mtext.
+
   me-&gt;badiimpl_tool ?= enhref.
   &quot; Set Enhancement Spot Name
   me-&gt;badiimpl_tool-&gt;set_spot_name( spot_name = me-&gt;spot_name ).
 
   me-&gt;badiimpl_tool-&gt;if_enh_object_docu~set_shorttext( me-&gt;shorttext ).
 
-  &quot; me-&gt;badiimpl_tool-&gt;set_spot_name( enhspot ).
-
-  LOOP AT impls ASSIGNING &lt;impl&gt;.
+  LOOP AT badi_impls ASSIGNING &lt;badiimpl&gt;.
     &quot; The implementation can only be created when the
     &quot; implementing class is active
     CALL FUNCTION &apos;SEO_CLASS_EXISTENCE_CHECK&apos;
       EXPORTING
-        clskey        = &lt;impl&gt;-impl_class
+        clskey        = &lt;badiimpl&gt;-impl_class
       IMPORTING
         not_active    = class_not_active
       EXCEPTIONS
@@ -420,7 +727,7 @@ endmethod.</source>
     TRY.
         CALL METHOD badiimpl_tool-&gt;add_implementation
           EXPORTING
-            im_implementation = &lt;impl&gt;.
+            im_implementation = &lt;badiimpl&gt;.
       CATCH cx_enh_root INTO cx.
         msg = cx-&gt;get_text( ).
         RAISE EXCEPTION TYPE zcx_saplink
@@ -438,10 +745,12 @@ endmethod.</source>
         CHANGING
           error_list             = error_list    &quot; List of All Error Messages from a Syntax Check
       ).
+
       error_list-&gt;get_error_messages(
         IMPORTING
           p_error_tab = error_tab    &quot; Error Message Table
       ).
+
       IF error_tab IS NOT INITIAL.
         LOOP AT error_tab ASSIGNING &lt;error&gt; WHERE mtype = &apos;E&apos;.
           LOOP AT &lt;error&gt;-mtext ASSIGNING &lt;mtext&gt;.
@@ -455,7 +764,9 @@ endmethod.</source>
       ENDIF.
 
       &quot; Save
-      me-&gt;badiimpl_tool-&gt;if_enh_object~save( ).
+      me-&gt;badiimpl_tool-&gt;if_enh_object~save( run_dark = &apos;X&apos; ).
+      &quot; Activate
+      me-&gt;badiimpl_tool-&gt;if_enh_object~activate( run_dark = &apos;X&apos; ).
       &quot; Unlock
       me-&gt;badiimpl_tool-&gt;if_enh_object~unlock( ).
     CATCH cx_enh_root INTO cx.
@@ -463,157 +774,78 @@ endmethod.</source>
       me-&gt;badiimpl_tool-&gt;if_enh_object~unlock( ).
       msg = cx-&gt;get_text( ).
       msg_long = cx-&gt;get_longtext( ).
+      ROLLBACK WORK.
       RAISE EXCEPTION TYPE zcx_saplink
         EXPORTING
           textid = zcx_saplink=&gt;error_message
           msg    = msg.
   ENDTRY.
-  &quot; successful install
-  name = me-&gt;objname.
-
-ENDMETHOD.</source>
- </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>METHOD deleteobject.
-*/---------------------------------------------------------------------\
-*|   This file is part of SAPlink.                                     |
-*|                                                                     |
-*|   The code of this project is provided to you under the current     |
-*|   version of the SAP Code Exchange Terms of Use. You can find the   |
-*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
-*|                                                                     |
-*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
-*|   support.                                                          |
-*\---------------------------------------------------------------------/
-
-  DATA: implementations TYPE enh_badi_impl_data_it.
-  FIELD-SYMBOLS: &lt;impl&gt; LIKE LINE OF implementations.
-  &quot; First delete implementation
-  implementations = me-&gt;get_implementations( ).
-
-  IF me-&gt;badiimpl_tool-&gt;if_enh_object~is_locked( ) NE abap_true.
-    RAISE EXCEPTION TYPE zcx_saplink
-      EXPORTING
-        textid = zcx_saplink=&gt;error_message
-        msg    = &apos;Enhancement Object is not locked&apos;.
-  ENDIF.
-* Should not be needed as BADIIMPL_TOOL does it in one go.
-*
-*  LOOP AT implementations ASSIGNING &lt;impl&gt;.
-*    CALL METHOD me-&gt;badiimpl_tool-&gt;delete_implementation
-*      EXPORTING
-*        impl_name = &lt;impl&gt;-impl_name.
-*  ENDLOOP.
-
-  &quot; And now the Enhancement itself
-  me-&gt;badiimpl_tool-&gt;if_enh_object~delete(
-    EXPORTING
-      nevertheless_delete = &apos;X&apos;   &quot; Enhancement Boolean
-      run_dark            = &apos;X&apos;    &quot; Enhancement Boolean
-*      scwb_call           = ABAP_FALSE    &quot; Enhancement Boolean
-*    CHANGING
-*      devclass            = devclass    &quot; Package
-*      trkorr              = trkorr    &quot; Request/Task
-  ).
-  me-&gt;badiimpl_tool-&gt;if_enh_object~unlock( ).
-ENDMETHOD.</source>
- </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>method GETOBJECTTYPE.
-*/---------------------------------------------------------------------\
-*|   This file is part of SAPlink.                                     |
-*|                                                                     |
-*|   The code of this project is provided to you under the current     |
-*|   version of the SAP Code Exchange Terms of Use. You can find the   |
-*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
-*|                                                                     |
-*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
-*|   support.                                                          |
-*\---------------------------------------------------------------------/
-
-  objecttype = &apos;ENHO&apos;.  &quot; Enhancement Implementation
 
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_BADIIMPL_TOOL" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_BADIIMPL_TOOL" SCONAME="I_LOCK" VERSION="1" LANGU="E" DESCRIPT="Boolean Variable (X=True, -=False, Space=Unknown)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="BOOLEAN" PAROPTIONL="X"/>
-  <exception CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_BADIIMPL_TOOL" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 "/>
-  <source>method GET_BADIIMPL_TOOL.
-*/---------------------------------------------------------------------\
-*|   This file is part of SAPlink.                                     |
-*|                                                                     |
-*|   The code of this project is provided to you under the current     |
-*|   version of the SAP Code Exchange Terms of Use. You can find the   |
-*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
-*|                                                                     |
-*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
-*|   support.                                                          |
-*\---------------------------------------------------------------------/
+ <method CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SAVE_ACTIVATE_HOOK_IMPL" VERSION="1" LANGU="E" DESCRIPT="Save and Activate Hook Implementation" EXPOSURE="0" STATE="1" EDITORDER="5 " DISPID="0 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDBY="ATYAGI" CHANGEDON="20120815" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SAVE_ACTIVATE_HOOK_IMPL" SCONAME="ENHREF" VERSION="1" LANGU="E" DESCRIPT="SAP Enhancement Tool Root Interface" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_ENH_TOOL"/>
+  <parameter CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SAVE_ACTIVATE_HOOK_IMPL" SCONAME="HOOK_IMPLS" VERSION="1" LANGU="E" DESCRIPT="Internal Table for ENH_HOOK_IMPL" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="ENH_HOOK_IMPL_IT"/>
+  <exception CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="SAVE_ACTIVATE_HOOK_IMPL" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="ATYAGI" CREATEDON="20120815" CHANGEDON="00000000"/>
+  <source>method SAVE_ACTIVATE_HOOK_IMPL.
 
-  DATA cx  TYPE REF TO cx_enh_root.
-  DATA msg TYPE string.
+  DATA  class_not_active TYPE boolean.
 
-  DATA enhname       TYPE enhname.
-  DATA enhspot       TYPE enhspotname.
-  DATA enhref        TYPE REF TO if_enh_tool.
+  DATA  cx  TYPE REF TO cx_root.
+  DATA: msg      TYPE string,
+        msg_long TYPE string.
 
-  enhname = objname.
-  enhspot = objname.
+  FIELD-SYMBOLS: &lt;hookimpl&gt; LIKE LINE OF hook_impls.
 
-  &quot; FREE: enhref, me-&gt;badiimpl_tool.
+  me-&gt;hookimpl_tool ?= enhref.
 
-  TRY.
-      enhref = cl_enh_factory=&gt;get_enhancement(
-                 enhancement_id = enhname
-                 lock           = i_lock
-               ).
-      &quot; Check that is is realy a BAdI
-      IF enhref-&gt;get_tool( ) &lt;&gt; cl_enh_tool_badi_impl=&gt;tooltype.
-        CONCATENATE &apos;The enhancement&apos; enhname &apos;is not a BAdI Implementation&apos; INTO msg SEPARATED BY space.
+  &quot; Set orig object name
+  CALL METHOD ME-&gt;HOOKIMPL_TOOL-&gt;SET_ORIGINAL_OBJECT
+    EXPORTING
+      PGMID    = me-&gt;pgmid
+      OBJ_NAME = me-&gt;obj_name
+      OBJ_TYPE = me-&gt;obj_type
+      PROGRAM  = me-&gt;program.
+
+  me-&gt;hookimpl_tool-&gt;if_enh_object_docu~set_shorttext( me-&gt;shorttext ).
+
+  LOOP AT hook_impls ASSIGNING &lt;hookimpl&gt;.
+    TRY.
+        me-&gt;hookimpl_tool-&gt;add_hook_impl(
+          overwrite = &lt;hookimpl&gt;-overwrite
+          method =    &lt;hookimpl&gt;-method
+          enhmode =   &lt;hookimpl&gt;-enhmode
+          full_name = &lt;hookimpl&gt;-full_name
+          source =    &lt;hookimpl&gt;-source
+         ).
+
+      CATCH cx_enh_root INTO cx.
+        msg = cx-&gt;get_text( ).
         RAISE EXCEPTION TYPE zcx_saplink
           EXPORTING
             textid = zcx_saplink=&gt;error_message
             msg    = msg.
-      ENDIF.
-    CATCH cx_enh_is_locked_t100 INTO cx.
+    ENDTRY.
+  ENDLOOP.
+
+  TRY.
+      &quot; Save
+      me-&gt;hookimpl_tool-&gt;if_enh_object~save( run_dark = &apos;X&apos; ).
+      &quot; Activate
+      me-&gt;hookimpl_tool-&gt;if_enh_object~activate( run_dark = &apos;X&apos; ).
+      &quot; Unlock
+      me-&gt;hookimpl_tool-&gt;if_enh_object~unlock( ).
+    CATCH cx_enh_root INTO cx.
+      &quot; Unlock
+      me-&gt;hookimpl_tool-&gt;if_enh_object~unlock( ).
       msg = cx-&gt;get_text( ).
+      msg_long = cx-&gt;get_longtext( ).
+      ROLLBACK WORK.
       RAISE EXCEPTION TYPE zcx_saplink
         EXPORTING
           textid = zcx_saplink=&gt;error_message
           msg    = msg.
-
-    CATCH cx_enh_root INTO cx.
-      RAISE EXCEPTION TYPE zcx_saplink
-        EXPORTING
-          textid = zcx_saplink=&gt;not_found
-          object = objname.
   ENDTRY.
-
-  &quot; enhancement is of type BAdI, so convert
-  me-&gt;badiimpl_tool ?= enhref.
-
-endmethod.</source>
- </method>
- <method CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_IMPLEMENTATIONS" VERSION="1" LANGU="E" DESCRIPT="Read Enhanchement Implementations" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_IMPLEMENTATIONS" SCONAME="R_IMPLEMENTATIONS" VERSION="1" LANGU="E" DESCRIPT="Table ENH_BADI_IMPL_DATA" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ENH_BADI_IMPL_DATA_IT"/>
-  <exception CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" CMPNAME="GET_IMPLEMENTATIONS" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 "/>
-  <source>method GET_IMPLEMENTATIONS.
-*/---------------------------------------------------------------------\
-*|   This file is part of SAPlink.                                     |
-*|                                                                     |
-*|   The code of this project is provided to you under the current     |
-*|   version of the SAP Code Exchange Terms of Use. You can find the   |
-*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
-*|                                                                     |
-*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
-*|   support.                                                          |
-*\---------------------------------------------------------------------/
-
-  CALL METHOD me-&gt;badiimpl_tool-&gt;get_implementations
-    EXPORTING
-      version            = &apos;I&apos;
-    RECEIVING
-      re_implementations = r_implementations.
 
 endmethod.</source>
  </method>
