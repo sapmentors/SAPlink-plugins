@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-16"?>
+<?xml version="1.0" encoding="utf-8"?>
 <nugget name="ZDUMMY_BADI_IMPL_TEST">
  <ENHO enhancement_id="ZDUMMY_BADI" shorttext="test enho badi imp" tool_type="BADI_IMPL" spot_name="HRPAD00INFTYUI">
   <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-16"?>
+<?xml version="1.0" encoding="utf-8"?>
 <nugget name="ZDUMMY_HOOK_IMPL_TEST">
  <ENHO enhancement_id="ZDUMMY" shorttext="testing enho hook" tool_type="HOOK_IMPL" orig_object="R3TR-PT_ARQ_REQUEST_UIA-FUGR-SAPLPT_ARQ_REQUEST_UIA">
   <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
