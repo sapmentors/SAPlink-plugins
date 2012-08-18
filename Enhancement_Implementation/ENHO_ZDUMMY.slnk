@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ENHO enhancement_id="ZDUMMY" shorttext="test" tooltype_id="HOOK_IMPL" orig_object="R3TR-PT_ARQ_REQUEST_UIA-FUGR-SAPLPT_ARQ_REQUEST_UIA">
+<ENHO enhancement_id="ZDUMMY" shorttext="Dummy Enhancement Implementation" tooltype_id="HOOK_IMPL" orig_object="R3TR-CL_HTTP_UTILITY-CLAS-CL_HTTP_UTILITY===============CP">
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <IMPLS>
     <ENH_HOOK_IMPL>
      <SPOTNAME/>
-     <PROGRAMNAME>SAPLPT_ARQ_REQUEST_UIA</PROGRAMNAME>
+     <PROGRAMNAME>CL_HTTP_UTILITY===============CP</PROGRAMNAME>
      <EXTID>1</EXTID>
      <ID>1</ID>
      <OVERWRITE/>
      <METHOD/>
      <ENHMODE>D</ENHMODE>
-     <FULL_NAME>\FU:PT_ARQ_REQUEST_CHECK\SE:BEGIN\EI</FULL_NAME>
+     <FULL_NAME>\TY:CL_HTTP_UTILITY\IN:IF_HTTP_UTILITY\ME:IS_VALID_URL\SE:BEGIN\EI</FULL_NAME>
      <SOURCE>
-      <item>data lv type string.</item>
+      <item>* Hello World</item>
      </SOURCE>
      <PARENT_FULL_NAME/>
     </ENH_HOOK_IMPL>

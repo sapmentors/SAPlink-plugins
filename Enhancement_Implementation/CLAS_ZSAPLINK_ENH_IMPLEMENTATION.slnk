@@ -475,23 +475,17 @@ endmethod.</source>
   ENDTRY.
 
   if tool_type eq cl_enh_tool_badi_impl=&gt;tooltype.
-   TRY.
-  &quot; enhancement is of type BAdI
+    &quot; enhancement is of type BAdI
     CALL METHOD ME-&gt;SAVE_BADI_IMPL
       EXPORTING
         ENHREF     = enhref
         BADI_IMPLS = &lt;fs_impls&gt;.
-    CATCH cx_root INTO cx.
-   ENDTRY.
   else.
-   TRY.
-  &quot; enhancement is of type hook
+    &quot; enhancement is of type hook
     CALL METHOD ME-&gt;SAVE_HOOK_IMPL
       EXPORTING
         ENHREF     = enhref
         HOOK_IMPLS = &lt;fs_impls&gt;.
-    CATCH cx_root INTO cx.
-   ENDTRY.
   endif.
   &quot; successful install
   name = me-&gt;objname.
