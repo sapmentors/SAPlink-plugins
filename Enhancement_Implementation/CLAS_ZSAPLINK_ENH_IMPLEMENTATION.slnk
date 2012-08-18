@@ -91,9 +91,11 @@ protected section.
 *|   support.                                                          |
 *\---------------------------------------------------------------------/
 
-CLASS ltcl_check_enh_implementation DEFINITION FINAL FOR TESTING
-  DURATION SHORT
-  RISK LEVEL HARMLESS .
+CLASS ltcl_check_enh_implementation DEFINITION FINAL FOR TESTING.
+  &quot; DURATION SHORT
+  &quot; RISK LEVEL HARMLESS
+  &quot;#AU Duration Medium
+  &quot;#AU Risk_Level Harmless
   PUBLIC SECTION.
     METHODS:
       check_010_non_existing   FOR TESTING RAISING cx_static_check,
@@ -104,6 +106,7 @@ CLASS ltcl_check_enh_implementation DEFINITION FINAL FOR TESTING
     DATA cx           TYPE REF TO cx_root.
     DATA msg  TYPE string.
     DATA name TYPE string.
+    DATA devclass TYPE devclass.
     METHODS setup.
 ENDCLASS.                    &quot;ltcl_check_enh_implementation DEFINITION
 
@@ -134,7 +137,8 @@ CLASS ltcl_check_enh_implementation IMPLEMENTATION.
 
   METHOD check_020_create_slinkee.
     DATA: xmlstring TYPE string.
-    name = &apos;/CEX/SAPLINK_ADT_TEST&apos;.
+    name     = &apos;ZDUMMY_BADI&apos;.
+    devclass = &apos;$TMP&apos;.
     CREATE OBJECT targetobject
       TYPE zsaplink_enh_implementation
       EXPORTING
@@ -159,7 +163,7 @@ CLASS ltcl_check_enh_implementation IMPLEMENTATION.
         targetobject-&gt;createobjectfromixmldoc(
           EXPORTING
             ixmldocument = ixml    &quot; IF_IXML_DOCUMENT
-            devclass     = &apos;/CEX/SAPLINKADT&apos;    &quot; Development class/package
+            devclass     = devclass    &quot; Development class/package
 *         overwrite    = overwrite    &quot; Overwrite original objects
 *       RECEIVING
 *         name         = name    &quot; Installed object name
@@ -173,7 +177,7 @@ CLASS ltcl_check_enh_implementation IMPLEMENTATION.
         targetobject-&gt;createobjectfromixmldoc(
           EXPORTING
             ixmldocument = ixml                 &quot; IF_IXML_DOCUMENT
-            devclass     = &apos;/CEX/SAPLINKADT&apos;    &quot; Development class/package
+            devclass     = devclass    &quot; Development class/package
             overwrite    = &apos;X&apos;                  &quot; Overwrite original objects
 *       RECEIVING
 *         name         = name    &quot; Installed object name
