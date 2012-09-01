@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<CLAS CLSNAME="ZSAPLINK_MIME" VERSION="1" LANGU="E" DESCRIPT="SapLink Class Installer" UUID="DF43BB0FF40580F1BC94000C291BF083" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20100409" CHANGEDON="20100409" CHGDANYON="00000000" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="701" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK" CHANGEDBY="BCUSER">
+ <types CLSNAME="ZSAPLINK_MIME" CMPNAME="GT_MIME" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20100413" CHANGEDBY="BCUSER" CHANGEDON="20100414" TYPTYPE="4" SRCROW1="6 " SRCCOLUMN1="4 " SRCROW2="15 " SRCCOLUMN2="22 " TYPESRC_LENG="292 " TYPESRC="BEGIN OF gt_mime,
+          path TYPE string,
+          id TYPE sdok_docid,
+          class TYPE sdok_class,
+          name TYPE string,
+          description TYPE string,
+          type TYPE w3conttype,
+          size TYPE i,
+          language TYPE spras,
+         END OF gt_mime
+"/>
+ <publicSection>class ZSAPLINK_MIME definition
+  public
+  inheriting from ZSAPLINK
+  create public .
+
+*&quot;* public components of class ZSAPLINK_MIME
+*&quot;* do not include other source files here!!!
+public section.
+  type-pools ABAP .
+  type-pools SEOP .
+  type-pools SEOR .
+  type-pools SEOS .
+  type-pools SEOT .
+  type-pools SEOX .
+
+  methods CHECKEXISTS
+    redefinition .
+  methods CREATEIXMLDOCFROMOBJECT
+    redefinition .
+  methods CREATEOBJECTFROMIXMLDOC
+    redefinition .</publicSection>
+ <protectedSection>*&quot;* protected components of class ZSAPLINK_MIME
+*&quot;* do not include other source files here!!!
+protected section.
+
+  methods GETOBJECTTYPE
+    redefinition .
+  methods DELETEOBJECT
+    redefinition .</protectedSection>
+ <privateSection>*&quot;* private components of class ZSAPLINK_MIME
+*&quot;* do not include other source files here!!!
+private section.
+
+  types:
+    BEGIN OF gt_mime,
+          path TYPE string,
+          id TYPE sdok_docid,
+          class TYPE sdok_class,
+          name TYPE string,
+          description TYPE string,
+          type TYPE w3conttype,
+          size TYPE i,
+          language TYPE spras,
+         END OF gt_mime .
+
+  constants GC_DOC_CLASS_IMAGE_LOG type SDOK_CLASS value &apos;M_IMAGE_L&apos;. &quot;#EC NOTEXT
+  constants GC_PROP_FOLDER_ID type STRING value &apos;KW_PARENT_FOLDER_ID&apos;. &quot;#EC NOTEXT
+  constants GC_PROP_FOLDER_CLASS type STRING value &apos;KW_PARENT_FOLDER_CLASS&apos;. &quot;#EC NOTEXT
+  constants GC_PROP_URL type STRING value &apos;KW_RELATIVE_URL&apos;. &quot;#EC NOTEXT
+  constants GC_OBJECT_TYPE type STRING value &apos;SMIM&apos;. &quot;#EC NOTEXT
+  data GV_MIME_PATH type STRING .
+  data GR_MIME_REPOSITORY type ref to IF_MR_API .
+  data GC_DOC_CLASS_FOLDER_LOG type STRING value &apos;M_FOLDER&apos;. &quot;#EC NOTEXT .
+
+  methods GET_MIME_PATH
+    importing
+      !IV_CLASS type SDOK_CLASS
+      !IV_OBJID type SDOK_DOCID
+    returning
+      value(RV_PATH) type STRING
+    raising
+      ZCX_SAPLINK .
+  methods GET_MIME_DESCRIPTION
+    importing
+      !IV_CLASS type SDOK_CLASS
+      !IV_OBJID type SDOK_DOCID
+    returning
+      value(RV_DESCRIPTION) type STRING .
+  methods MIME_TO_XML
+    returning
+      value(RR_MIME_NODE) type ref to IF_IXML_ELEMENT .
+  methods XML_TO_MIME
+    importing
+      !IV_XML type ref to IF_IXML_DOCUMENT
+      !IV_DEV_PACKAGE type DEVCLASS default &apos;$TMP&apos;
+      !IV_OVERWRITE type FLAG
+    raising
+      ZCX_SAPLINK .
+  methods GET_MIME_CLASS
+    importing
+      !IV_OBJID type SDOK_DOCID
+    returning
+      value(RV_CLASS) type SDOK_CLASS .</privateSection>
+ <localImplementation>*&quot;* local class implementation for public class
+*&quot;* use this source file for the implementation part of
+*&quot;* local helper classes</localImplementation>
+ <localTypes>*&quot;* use this source file for any type declarations (class
+*&quot;* definitions, interfaces or data types) you need for method
+*&quot;* implementation or private method&apos;s signature</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <typeUsage CLSNAME="ZSAPLINK_MIME" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <typeUsage CLSNAME="ZSAPLINK_MIME" TYPEGROUP="SEOP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <typeUsage CLSNAME="ZSAPLINK_MIME" TYPEGROUP="SEOR" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <typeUsage CLSNAME="ZSAPLINK_MIME" TYPEGROUP="SEOS" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <typeUsage CLSNAME="ZSAPLINK_MIME" TYPEGROUP="SEOT" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <typeUsage CLSNAME="ZSAPLINK_MIME" TYPEGROUP="SEOX" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <forwardDeclaration>SEOP</forwardDeclaration>
+ <forwardDeclaration>SEOR</forwardDeclaration>
+ <forwardDeclaration>SEOS</forwardDeclaration>
+ <forwardDeclaration>SEOT</forwardDeclaration>
+ <forwardDeclaration>SEOX</forwardDeclaration>
+ <attribute CLSNAME="ZSAPLINK_MIME" CMPNAME="GC_DOC_CLASS_FOLDER_LOG" VERSION="1" LANGU="E" DESCRIPT="Folder document class" EXPOSURE="0" STATE="1" EDITORDER="8 " AUTHOR="BCUSER" CREATEDON="20100415" CHANGEDBY="BCUSER" CHANGEDON="20100415" ATTDECLTYP="0" ATTVALUE="&apos;M_FOLDER&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="701" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_MIME" CMPNAME="GC_DOC_CLASS_IMAGE_LOG" VERSION="1" LANGU="E" DESCRIPT="Document class" EXPOSURE="0" STATE="1" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20100415" CHANGEDON="00000000" ATTDECLTYP="2" ATTVALUE="&apos;M_IMAGE_L&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SDOK_CLASS" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_MIME" CMPNAME="GC_OBJECT_TYPE" VERSION="1" LANGU="E" DESCRIPT="MIME object type" EXPOSURE="0" STATE="1" EDITORDER="5 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100415" ATTDECLTYP="2" ATTVALUE="&apos;SMIM&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_MIME" CMPNAME="GC_PROP_FOLDER_CLASS" VERSION="1" LANGU="E" DESCRIPT="Property folder class" EXPOSURE="0" STATE="1" EDITORDER="3 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100415" ATTDECLTYP="2" ATTVALUE="&apos;KW_PARENT_FOLDER_CLASS&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_MIME" CMPNAME="GC_PROP_FOLDER_ID" VERSION="1" LANGU="E" DESCRIPT="Property folder id" EXPOSURE="0" STATE="1" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100415" ATTDECLTYP="2" ATTVALUE="&apos;KW_PARENT_FOLDER_ID&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_MIME" CMPNAME="GC_PROP_URL" VERSION="1" LANGU="E" DESCRIPT="Property relative url" EXPOSURE="0" STATE="1" EDITORDER="4 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100415" ATTDECLTYP="2" ATTVALUE="&apos;KW_RELATIVE_URL&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_MIME" CMPNAME="GR_MIME_REPOSITORY" VERSION="1" LANGU="E" DESCRIPT="API for MIME Repository" EXPOSURE="0" STATE="1" EDITORDER="7 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100415" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="IF_MR_API" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_MIME" CMPNAME="GV_MIME_PATH" VERSION="1" LANGU="E" DESCRIPT="MIME path" EXPOSURE="0" STATE="1" EDITORDER="6 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100415" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <inheritance CLSNAME="ZSAPLINK_MIME" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1" AUTHOR="BCUSER" CREATEDON="20100409" CHANGEDBY="BCUSER" CHANGEDON="20100409">
+  <redefinition CLSNAME="ZSAPLINK_MIME" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS"/>
+  <redefinition CLSNAME="ZSAPLINK_MIME" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT"/>
+  <redefinition CLSNAME="ZSAPLINK_MIME" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC"/>
+  <redefinition CLSNAME="ZSAPLINK_MIME" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT"/>
+  <redefinition CLSNAME="ZSAPLINK_MIME" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE"/>
+ </inheritance>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD checkexists.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+  &quot;
+  &quot; References
+  DATA lr_mime_repository TYPE REF TO if_mr_api.
+  &quot;
+  &quot;  Variables
+  DATA lv_path TYPE string.
+
+  CLEAR exists.
+
+  &quot; Create MIME repository instance
+  lr_mime_repository = cl_mime_repository_api=&gt;get_api( ).
+
+  lr_mime_repository-&gt;get( EXPORTING
+                             i_url = objname
+                           EXCEPTIONS
+                             parameter_missing = 1
+                             error_occured = 2
+                             not_found = 3
+                             permission_failure = 4 ).
+
+  IF sy-subrc = 0.
+    &quot; MIME exists
+    exists = abap_true.
+  ELSE.
+    &quot; MIME does not exist
+    exists = abap_false.
+  ENDIF.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD createixmldocfromobject.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+  &quot;
+  &quot; References
+  DATA lr_mime_node TYPE REF TO if_ixml_element.
+  &quot;
+  &quot;
+  DATA lv_return_code TYPE sysubrc.
+  &quot;
+  &quot; MIME to XML
+  lr_mime_node = me-&gt;mime_to_xml( ).
+
+  &quot; Append MIME node to xmldoc
+  lv_return_code = xmldoc-&gt;append_child( lr_mime_node ).
+
+  &quot; Return xml
+  ixmldocument = xmldoc.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD createobjectfromixmldoc.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+  xml_to_mime( iv_xml = ixmldocument
+               iv_overwrite = overwrite ).
+
+  name = objname.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD deleteobject.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+  &quot;
+  &quot; References
+  DATA lr_mime_repository TYPE REF TO if_mr_api.
+  &quot;
+  &quot; Variables
+  DATA lv_textid TYPE sotr_conc.
+
+  &quot; Create instance of MIME repository
+  lr_mime_repository = cl_mime_repository_api=&gt;get_api( ).
+
+  &quot; Delete MIME object
+  lr_mime_repository-&gt;delete( EXPORTING
+                                i_url = objname
+                                i_delete_children = &apos;X&apos;
+                              EXCEPTIONS
+                                parameter_missing = 1
+                                error_occured = 2
+                                cancelled = 3
+                                permission_failure = 4
+                                not_found = 5 ).
+
+  IF sy-subrc &lt;&gt; 0.
+    CASE sy-subrc.
+      WHEN 4.
+        lv_textid = zcx_saplink=&gt;not_authorized.
+      WHEN 5.
+        lv_textid = zcx_saplink=&gt;not_found.
+    ENDCASE.
+
+    RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING textid = lv_textid.
+  ENDIF.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD getobjecttype.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+  &quot;
+  &quot;Return MIME object type SMIM
+  objecttype = me-&gt;gc_object_type.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_MIME" CMPNAME="GET_MIME_CLASS" VERSION="1" LANGU="E" DESCRIPT="Get document class of LOIO (objname)" EXPOSURE="0" STATE="1" EDITORDER="5 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100415" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="701" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_MIME" CMPNAME="GET_MIME_CLASS" SCONAME="IV_OBJID" VERSION="1" LANGU="E" DESCRIPT="ID for documents and relations" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100415" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SDOK_DOCID"/>
+  <parameter CLSNAME="ZSAPLINK_MIME" CMPNAME="GET_MIME_CLASS" SCONAME="RV_CLASS" VERSION="1" LANGU="E" DESCRIPT="Document class" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100415" CHANGEDON="00000000" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SDOK_CLASS"/>
+  <source>METHOD get_mime_class.
+  CLEAR rv_class.
+  &quot;
+  &quot; Get mime class
+  SELECT SINGLE lo_class
+    INTO rv_class
+    FROM smimloio
+    WHERE loio_id = iv_objid.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_MIME" CMPNAME="GET_MIME_DESCRIPTION" VERSION="1" LANGU="E" DESCRIPT="Get description of LOIO (objname)" EXPOSURE="0" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_MIME" CMPNAME="GET_MIME_DESCRIPTION" SCONAME="IV_CLASS" VERSION="1" LANGU="E" DESCRIPT="Document class" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SDOK_CLASS"/>
+  <parameter CLSNAME="ZSAPLINK_MIME" CMPNAME="GET_MIME_DESCRIPTION" SCONAME="IV_OBJID" VERSION="1" LANGU="E" DESCRIPT="ID for documents and relations" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SDOK_DOCID"/>
+  <parameter CLSNAME="ZSAPLINK_MIME" CMPNAME="GET_MIME_DESCRIPTION" SCONAME="RV_DESCRIPTION" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD get_mime_description.
+  &quot;
+  &quot; Tables
+  DATA lt_object_list TYPE TABLE OF sdokobject.
+  DATA lt_descriptions TYPE TABLE OF sdokdesc.
+  &quot;
+  &quot; Structures
+  DATA ls_object_list TYPE sdokobject.
+  DATA ls_description TYPE sdokdesc.
+  &quot;
+  &quot; Variables
+  DATA lv_description TYPE string.
+
+  CLEAR rv_description.
+
+  ls_object_list-class = iv_class.
+  ls_object_list-objid = iv_objid.
+
+  CALL FUNCTION &apos;SDOK_LOIO_DESCRIPTIONS_GET&apos;
+    EXPORTING
+      object_id    = ls_object_list
+    TABLES
+      descriptions = lt_descriptions
+    exceptions
+    NOT_EXISTING  Object Does Not Exist
+NOT_AUTHORIZED  No Authorization  .
+  &quot;
+  &quot; Description
+  READ TABLE lt_descriptions INTO ls_description WITH KEY langu = sy-langu.
+
+  IF sy-subrc = 0.
+    lv_description = ls_description-descript.
+  ENDIF.
+
+  rv_description = lv_description.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_MIME" CMPNAME="GET_MIME_PATH" VERSION="1" LANGU="E" DESCRIPT="Get path from LOIO (objname)" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100415" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_MIME" CMPNAME="GET_MIME_PATH" SCONAME="IV_CLASS" VERSION="1" LANGU="E" DESCRIPT="Document class" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SDOK_CLASS"/>
+  <parameter CLSNAME="ZSAPLINK_MIME" CMPNAME="GET_MIME_PATH" SCONAME="IV_OBJID" VERSION="1" LANGU="E" DESCRIPT="ID for documents and relations" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SDOK_DOCID"/>
+  <parameter CLSNAME="ZSAPLINK_MIME" CMPNAME="GET_MIME_PATH" SCONAME="RV_PATH" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <exception CLSNAME="ZSAPLINK_MIME" CMPNAME="GET_MIME_PATH" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20100415" CHANGEDON="00000000"/>
+  <source>METHOD GET_MIME_PATH.
+  &quot;
+  &quot; Tables
+  DATA lt_object_list TYPE TABLE OF sdokobject.
+  DATA lt_properties TYPE TABLE OF sdokproptl.
+  &quot;
+  &quot; Structures
+  DATA ls_object_list TYPE sdokobject.
+  DATA ls_properties TYPE sdokproptl.
+  &quot;
+  &quot; Variables
+  DATA lv_path TYPE string.
+
+  CLEAR rv_path.
+
+  ls_object_list-class = iv_class.
+  ls_object_list-objid = iv_objid.
+  APPEND ls_object_list TO lt_object_list.
+
+  WHILE lt_object_list IS NOT INITIAL.
+
+    CALL FUNCTION &apos;SDOK_LOIOS_PROPERTIES_GET&apos;
+      TABLES
+        object_list        = lt_object_list
+        properties         = lt_properties.
+
+
+    CLEAR ls_object_list.
+    REFRESH lt_object_list.
+    &quot;
+    &quot; KW_RELATIVE_URL
+    READ TABLE lt_properties INTO ls_properties WITH KEY name = me-&gt;gc_prop_url.
+
+    IF sy-subrc = 0.
+      &quot; Build path
+      CONCATENATE &apos;/&apos;
+                  ls_properties-value
+                  lv_path
+             INTO lv_path.
+    ENDIF.
+
+    &quot;
+    &quot;KW_PARENT_FOLDER_CLASS
+    READ TABLE lt_properties INTO ls_properties WITH KEY name = me-&gt;gc_prop_folder_class.
+    ls_object_list-class = ls_properties-value.
+
+    &quot; KW_PARENT_FOLDER_ID
+    READ TABLE lt_properties INTO ls_properties WITH KEY name = me-&gt;gc_prop_folder_id.
+    ls_object_list-objid = ls_properties-value.
+
+    IF ls_object_list-class IS NOT INITIAL AND
+       ls_object_list-objid IS NOT INITIAL.
+      APPEND ls_object_list TO lt_object_list.
+    ENDIF.
+  ENDWHILE.
+
+  if lv_path is initial.
+    &quot;Not found
+    RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING textid = zcx_saplink=&gt;not_found.
+  endif.
+
+  rv_path = lv_path.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_MIME" CMPNAME="MIME_TO_XML" VERSION="1" LANGU="E" DESCRIPT="Convert MIME to XML" EXPOSURE="0" STATE="1" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_MIME" CMPNAME="MIME_TO_XML" SCONAME="RR_MIME_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>METHOD mime_to_xml.
+  &quot;
+  &quot; References
+  DATA lr_mime_node TYPE REF TO if_ixml_element.
+  DATA lr_mime_repository TYPE REF TO if_mr_api.
+  DATA lr_zip TYPE REF TO cl_abap_zip.
+  &quot;
+  &quot; Structures
+  DATA ls_mime TYPE gt_mime.
+  DATA ls_loio TYPE skwf_io.
+  &quot;
+  &quot; Variables
+  DATA lv_object_type TYPE string.
+  DATA lv_return_code TYPE sysubrc.
+  DATA lv_mime_xstring TYPE xstring.
+  DATA lv_zip_xstring TYPE xstring.
+  DATA lv_string TYPE string.
+  DATA lv_loio TYPE sdok_docid.
+  DATA lv_class TYPE sdok_class.
+
+  CLEAR rr_mime_node.
+
+  try.
+      &quot; Object type = SMIM
+      lv_object_type = getobjecttype( ).
+
+      &quot; Node SMIM
+      lr_mime_node = xmldoc-&gt;create_element( lv_object_type ).
+
+      &quot; Get logical id of info object
+      lv_loio = objname.
+
+      &quot; MIME class
+      lv_class = me-&gt;get_mime_class( iv_objid = lv_loio ).
+
+      &quot; Build path
+      ls_mime-path = me-&gt;get_mime_path( iv_class = lv_class
+                               iv_objid = lv_loio ).
+
+      &quot; Get description
+      ls_mime-description = me-&gt;get_mime_description( iv_class = lv_class
+                                                iv_objid = lv_loio ).
+
+      &quot; MIME repository reference
+      lr_mime_repository = cl_mime_repository_api=&gt;get_api( ).
+
+      &quot; Get properties from MIME
+      CALL METHOD lr_mime_repository-&gt;properties
+        EXPORTING
+          i_url              = ls_mime-path
+        IMPORTING
+          e_name             = ls_mime-name
+          e_size             = ls_mime-size
+          e_loio             = ls_loio
+        EXCEPTIONS
+          parameter_missing  = 1
+          error_occured      = 2
+          not_found          = 3
+          permission_failure = 4.
+
+      ls_mime-id = ls_loio-objid.
+      ls_mime-class = ls_loio-class.
+
+      &quot; Get file from MIME
+      CALL METHOD lr_mime_repository-&gt;get
+        EXPORTING
+          i_url              = ls_mime-path
+        IMPORTING
+          e_content          = lv_mime_xstring
+          e_mime_type        = ls_mime-type
+        CHANGING
+          c_language         = ls_mime-language
+        EXCEPTIONS
+          parameter_missing  = 1
+          error_occured      = 2
+          not_found          = 3
+          permission_failure = 4.
+
+      &quot; Create zip file from MIME file
+      CREATE OBJECT lr_zip.
+
+      &quot; Add MIME to zip
+      lr_zip-&gt;add(
+       EXPORTING name = ls_mime-name
+              content = lv_mime_xstring ).
+
+      &quot;
+      lr_zip-&gt;save( RECEIVING zip = lv_zip_xstring ).
+
+      &quot; Encode xstring BASE64
+      CALL FUNCTION &apos;SCMS_BASE64_ENCODE_STR&apos;
+        EXPORTING
+          input  = lv_zip_xstring
+        IMPORTING
+          output = lv_string.
+
+      IF sy-subrc = 0.
+        &quot; Set node attributes from structure
+        setattributesfromstructure( node = lr_mime_node
+                                    structure = ls_mime
+                                    ).
+
+        &quot; Add BASE64 string to xml value
+        lv_return_code = lr_mime_node-&gt;if_ixml_node~set_value( lv_string ).
+
+        &quot; Return xml node
+        rr_mime_node = lr_mime_node.
+      ENDIF.
+    CATCH zcx_saplink.
+    CATCH cx_root.
+  ENDTRY.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_MIME" CMPNAME="XML_TO_MIME" VERSION="1" LANGU="E" DESCRIPT="Convert XML to MIME" EXPOSURE="0" STATE="1" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_MIME" CMPNAME="XML_TO_MIME" SCONAME="IV_XML" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_DOCUMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_DOCUMENT"/>
+  <parameter CLSNAME="ZSAPLINK_MIME" CMPNAME="XML_TO_MIME" SCONAME="IV_DEV_PACKAGE" VERSION="1" LANGU="E" DESCRIPT="Development class/package" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DEVCLASS" PARVALUE="&apos;$TMP&apos;" PAROPTIONL="X"/>
+  <parameter CLSNAME="ZSAPLINK_MIME" CMPNAME="XML_TO_MIME" SCONAME="IV_OVERWRITE" VERSION="1" LANGU="E" DESCRIPT="Overwrite original objects" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDBY="BCUSER" CHANGEDON="20100414" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="FLAG"/>
+  <exception CLSNAME="ZSAPLINK_MIME" CMPNAME="XML_TO_MIME" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20100414" CHANGEDON="00000000"/>
+  <source>METHOD xml_to_mime.
+  &quot;
+  &quot; References
+  DATA lr_rootnode TYPE REF TO if_ixml_element.
+  DATA lr_filter TYPE REF TO if_ixml_node_filter.
+  DATA lr_iterator TYPE REF TO if_ixml_node_iterator.
+  DATA lr_node TYPE REF TO if_ixml_element.
+  DATA lr_mime_repository TYPE REF TO if_mr_api.
+  DATA lr_zip TYPE REF TO cl_abap_zip.
+  &quot;
+  &quot; Structures
+  DATA ls_mime TYPE gt_mime.
+  &quot;
+  &quot; Variables
+  DATA lv_string TYPE string.
+  DATA lv_zip_xstring TYPE xstring.
+  DATA lv_mime_xstring TYPE xstring.
+  DATA lv_is_existing TYPE flag.
+  DATA lv_is_folder TYPE flag.
+
+  xmldoc = iv_xml.
+
+  lr_filter = xmldoc-&gt;create_filter_name( me-&gt;gc_object_type ).
+  lr_iterator = xmldoc-&gt;create_iterator_filtered( lr_filter ).
+  lr_node ?= lr_iterator-&gt;get_next( ).
+
+  WHILE lr_node IS NOT INITIAL.
+    getstructurefromattributes( EXPORTING
+                                  node = lr_node
+                                CHANGING
+                                  structure = ls_mime ).
+
+    lv_is_existing = checkexists( ).
+
+    IF lv_is_existing IS NOT INITIAL.
+      IF iv_overwrite IS INITIAL.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING textid = zcx_saplink=&gt;existing.
+      ELSE.
+        &quot; Delete object for new install
+        deleteobject( ).
+      ENDIF.
+    ENDIF.
+
+    TRY.
+        &quot; MIME repository API instance
+        lr_mime_repository = cl_mime_repository_api=&gt;get_api( ).
+
+        IF ls_mime-class = me-&gt;gc_doc_class_folder_log.
+          &quot;
+          &quot; Create folder
+          lr_mime_repository-&gt;create_folder(
+            i_url = ls_mime-path
+            i_description = ls_mime-description
+            i_language = ls_mime-language
+            i_dev_package = iv_dev_package
+          ).
+        ELSE.
+          lv_string = lr_node-&gt;get_value( ).
+
+          CALL FUNCTION &apos;SCMS_BASE64_DECODE_STR&apos;
+            EXPORTING
+              input  = lv_string
+            IMPORTING
+              output = lv_zip_xstring.
+
+          &quot;
+          &quot; Unzip
+          CREATE OBJECT lr_zip.
+
+          &quot;
+          lr_zip-&gt;load( zip = lv_zip_xstring ).
+
+          &quot; Get MIME from Zip
+          lr_zip-&gt;get( EXPORTING
+                         name = ls_mime-name
+                       IMPORTING
+                         content = lv_mime_xstring
+                                  ).
+          &quot;
+          &quot; Create MIME
+          lr_mime_repository-&gt;put(
+            EXPORTING
+              i_url = ls_mime-path
+              i_content = lv_mime_xstring
+              i_description = ls_mime-description
+              i_language = ls_mime-language
+              i_dev_package = iv_dev_package
+            EXCEPTIONS
+              parameter_missing         = 1
+              error_occured             = 2
+              cancelled                 = 3
+              permission_failure        = 4
+              data_inconsistency        = 5
+              new_loio_already_exists   = 6
+              is_folder                 = 7
+              OTHERS                    = 8
+          ).
+        ENDIF.
+      CATCH zcx_saplink.
+        RAISE EXCEPTION TYPE zcx_saplink
+           EXPORTING textid = zcx_saplink=&gt;cx_root.
+      CATCH cx_root.
+        RAISE EXCEPTION TYPE zcx_saplink
+           EXPORTING textid = zcx_saplink=&gt;cx_root.
+    ENDTRY.
+
+    lr_node ?= lr_iterator-&gt;get_next( ).
+  ENDWHILE.
+ENDMETHOD.</source>
+ </method>
+</CLAS>
