@@ -637,13 +637,6 @@ endmethod.</source>
               msg    = msg.
       ENDIF.
 
-    CATCH cx_enh_is_locked_t100 INTO cx.
-      msg = cx-&gt;get_text( ).
-      RAISE EXCEPTION TYPE zcx_saplink
-        EXPORTING
-          textid = zcx_saplink=&gt;error_message
-          msg    = msg.
-
     CATCH cx_enh_root INTO cx.
       msg = cx-&gt;get_text( ).
       RAISE EXCEPTION TYPE zcx_saplink

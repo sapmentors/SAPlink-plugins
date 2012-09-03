@@ -114,6 +114,8 @@ START-OF-SELECTION.
       APPEND object TO objects.
       object-obj_name = &apos;ZSAPLINK_SICF&apos;.
       APPEND object TO objects.
+      object-obj_name = &apos;ZSAPLINK_MIME&apos;.
+      APPEND object TO objects.
       object-obj_name = &apos;ZSAPLINK_SMARTFORM&apos;.
       APPEND object TO objects.
       object-obj_name = &apos;ZSAPLINK_TABLE_CONTENTS&apos;.
