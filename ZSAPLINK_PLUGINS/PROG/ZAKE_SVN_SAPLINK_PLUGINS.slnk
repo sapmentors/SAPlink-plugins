@@ -150,6 +150,8 @@ START-OF-SELECTION.
       APPEND object TO objects.
       object-obj_name = &apos;ZSAPLINK_ENH_SPOT&apos;.
       APPEND object TO objects.
+      object-obj_name = &apos;ZSAPLINK_INTERFACE&apos;.
+      APPEND object TO objects.
 
       IF checkout = &apos;X&apos;.
         zake-&gt;checkout( ).
@@ -163,10 +165,10 @@ START-OF-SELECTION.
         &quot; zake-&gt;install_objects( zake_objects ).
       ELSEIF export = &apos;X&apos;.
         CLEAR objects.
-        &quot; Classes
-        object-object   = &apos;CLAS&apos;.
-        object-obj_name = &apos;ZSAPLINK_BSP&apos;.
-        APPEND object TO objects.
+*        &quot; Classes
+*        object-object   = &apos;CLAS&apos;.
+*        object-obj_name = &apos;ZSAPLINK_BSP&apos;.
+*        APPEND object TO objects.
         &quot; Programs
         object-object   = &apos;PROG&apos;.
         object-obj_name = &apos;ZAKE_SVN_SAPLINK_PLUGINS&apos;.
