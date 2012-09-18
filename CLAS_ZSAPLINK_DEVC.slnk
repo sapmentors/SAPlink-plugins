@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="utf-16"?>
+<CLAS CLSNAME="ZSAPLINK_DEVC" VERSION="1" LANGU="E" DESCRIPT="SapLink Class Installer" UUID="49C8F849F357C656E1000000AC120102" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="TBENSIAL" CREATEDON="20090430" CHANGEDON="00000000" CHGDANYON="00000000" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="700" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
+ <types CLSNAME="ZSAPLINK_DEVC" CMPNAME="TS_FIELD_MAP" VERSION="1" LANGU="E" DESCRIPT="Field map" EXPOSURE="2" STATE="1" EDITORDER="1 " AUTHOR="TBENSIAL" CREATEDON="20090430" CHANGEDBY="TBENSIAL" CHANGEDON="20090430" TYPTYPE="4" SRCROW1="17 " SRCCOLUMN1="4 " SRCROW2="20 " SRCCOLUMN2="24 " TYPESRC_LENG="151 " TYPESRC='BEGIN OF ts_field_map,
+        st_fn TYPE string, &quot; Structure Field Name
+        obj_fn TYPE string, &quot; Object Field NAME
+      END OF ts_field_map
+'/>
+ <types CLSNAME="ZSAPLINK_DEVC" CMPNAME="TT_FIELD_MAP" VERSION="1" LANGU="E" DESCRIPT="Mapping" EXPOSURE="2" STATE="1" EDITORDER="2 " AUTHOR="TBENSIAL" CREATEDON="20090430" CHANGEDBY="TBENSIAL" CHANGEDON="20090430" TYPTYPE="4" SRCROW1="22 " SRCCOLUMN1="4 " SRCROW2="22 " SRCCOLUMN2="71 " R3RELEASE="700" TYPESRC_LENG="70 " TYPESRC="tt_field_map TYPE SORTED TABLE OF ts_field_map WITH UNIQUE KEY st_fn
+"/>
+ <publicSection>class ZSAPLINK_DEVC definition
+  public
+  inheriting from ZSAPLINK
+  create public .
+
+*&quot;* public components of class ZSAPLINK_DEVC
+*&quot;* do not include other source files here!!!
+public section.
+  type-pools ABAP .
+  type-pools SEOP .
+  type-pools SEOR .
+  type-pools SEOS .
+  type-pools SEOT .
+  type-pools SEOX .
+
+  types:
+    BEGIN OF ts_field_map,
+        st_fn TYPE string, &quot; Structure Field Name
+        obj_fn TYPE string, &quot; Object Field NAME
+      END OF ts_field_map .
+  types:
+    tt_field_map TYPE SORTED TABLE OF ts_field_map WITH UNIQUE KEY st_fn .
+
+  class-methods CLASS_CONSTRUCTOR .
+  class-methods OBJ_2_STRUCT
+    importing
+      !OBJ type ref to OBJECT
+      !MAPPING type TT_FIELD_MAP optional
+    changing
+      !STRUCT type ANY .
+
+  methods CHECKEXISTS
+    redefinition .
+  methods CREATEIXMLDOCFROMOBJECT
+    redefinition .
+  methods CREATEOBJECTFROMIXMLDOC
+    redefinition .
+  methods DELETEOBJECT
+    redefinition .</publicSection>
+ <protectedSection>*&quot;* protected components of class ZSAPLINK_CLASS
+*&quot;* do not include other source files here!!!
+protected section.
+
+  methods GETOBJECTTYPE
+    redefinition .</protectedSection>
+ <privateSection>*&quot;* private components of class ZSAPLINK_DEVC
+*&quot;* do not include other source files here!!!
+private section.
+
+  data OBJ type ref to IF_PACKAGE .
+  class-data SCOMPKDTLN_MAPPING type TT_FIELD_MAP .
+
+  methods LOAD_OBJ .</privateSection>
+ <localImplementation>*&quot;* local class implementation for public class
+*&quot;* use this source file for the implementation part of
+*&quot;* local helper classes</localImplementation>
+ <localTypes>*&quot;* use this source file for any type declarations (class
+*&quot;* definitions, interfaces or data types) you need for method
+*&quot;* implementation or private method&apos;s signature</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <typeUsage CLSNAME="ZSAPLINK_DEVC" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <typeUsage CLSNAME="ZSAPLINK_DEVC" TYPEGROUP="SEOP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <typeUsage CLSNAME="ZSAPLINK_DEVC" TYPEGROUP="SEOR" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <typeUsage CLSNAME="ZSAPLINK_DEVC" TYPEGROUP="SEOS" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <typeUsage CLSNAME="ZSAPLINK_DEVC" TYPEGROUP="SEOT" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <typeUsage CLSNAME="ZSAPLINK_DEVC" TYPEGROUP="SEOX" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <forwardDeclaration>SEOP</forwardDeclaration>
+ <forwardDeclaration>SEOR</forwardDeclaration>
+ <forwardDeclaration>SEOS</forwardDeclaration>
+ <forwardDeclaration>SEOT</forwardDeclaration>
+ <forwardDeclaration>SEOX</forwardDeclaration>
+ <attribute CLSNAME="ZSAPLINK_DEVC" CMPNAME="OBJ" VERSION="1" LANGU="E" DESCRIPT="Interface for Packages" EXPOSURE="0" STATE="1" EDITORDER="1 " AUTHOR="TBENSIAL" CREATEDON="20090430" CHANGEDON="00000000" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="IF_PACKAGE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="700" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_DEVC" CMPNAME="SCOMPKDTLN_MAPPING" VERSION="1" LANGU="E" DESCRIPT="Mapping" EXPOSURE="0" STATE="1" EDITORDER="2 " AUTHOR="TBENSIAL" CREATEDON="20090430" CHANGEDON="00000000" ATTDECLTYP="1" ATTEXPVIRT="0" TYPTYPE="1" TYPE="TT_FIELD_MAP" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="700" TYPESRC_LENG="0 "/>
+ <inheritance CLSNAME="ZSAPLINK_DEVC" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1" AUTHOR="TBENSIAL" CREATEDON="20090430" CHANGEDON="00000000">
+  <redefinition CLSNAME="ZSAPLINK_DEVC" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS"/>
+  <redefinition CLSNAME="ZSAPLINK_DEVC" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT"/>
+  <redefinition CLSNAME="ZSAPLINK_DEVC" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC"/>
+  <redefinition CLSNAME="ZSAPLINK_DEVC" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT"/>
+  <redefinition CLSNAME="ZSAPLINK_DEVC" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE"/>
+ </inheritance>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method CHECKEXISTS.
+*/---------------------------------------------------------------------\
+*|   This plugin have been don by : Taryck BENSIALI                    |
+*|                                                                     |
+*|   e-mail : taryck@bensiali.net                                      |
+*|                                                                     |
+*|   this plugin is distributed in the hope that it will be useful,    |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*\---------------------------------------------------------------------/
+
+
+data _key type DEVCLASS.
+data _devc type ref to IF_PACKAGE. &quot;for debug
+
+  _key = objname.
+  CALL METHOD cl_package=&gt;if_package~load_package
+    EXPORTING
+      i_package_name             = _key
+      i_force_reload             = &apos;X&apos;
+    IMPORTING
+      e_package                  = _devc
+    EXCEPTIONS
+      object_not_existing        = 1
+*      unexpected_error           = 2  =&gt; DUMP
+*      intern_err                 = 3  =&gt; DUMP
+      object_locked_and_modified = 0
+*      others                     = 5  =&gt; DUMP
+          .
+  IF sy-subrc = 0.
+    exists = &apos;X&apos;.
+  ENDIF.
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_DEVC" CMPNAME="CLASS_CONSTRUCTOR" VERSION="1" LANGU="E" DESCRIPT="CLASS_CONSTRUCTOR" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="TBENSIAL" CREATEDON="20090430" CHANGEDON="00000000" MTDTYPE="2" MTDDECLTYP="1" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method CLASS_CONSTRUCTOR.
+*/---------------------------------------------------------------------\
+*|   This plugin have been don by : Taryck BENSIALI                    |
+*|                                                                     |
+*|   e-mail : taryck@bensiali.net                                      |
+*|                                                                     |
+*|   this plugin is distributed in the hope that it will be useful,    |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*\---------------------------------------------------------------------/
+
+  data: _wa like LINE OF SCOMPKDTLN_MAPPING.
+
+* FROM method M_LOAD_DATA of CL_PACKAGE
+
+* Package
+  _wa-st_fn = &apos;DEVCLASS&apos;.
+  _wa-obj_fn = &apos;PACKAGE_NAME&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Short Description of Repository Objects
+  _wa-st_fn = &apos;CTEXT&apos;.
+  _wa-obj_fn = &apos;SHORT_TEXT&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Indicator for Object Deleted from Memory
+  _wa-st_fn = &apos;DEL_IN_MEM&apos;.
+  _wa-obj_fn = &apos;DELETED_IN_MEMORY&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Language Key
+  _wa-st_fn = &apos;LANGUAGE&apos;.
+  _wa-obj_fn = &apos;TEXT_LANGUAGE&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Original Language in Repository objects
+  _wa-st_fn = &apos;MASTERLANG&apos;.
+  _wa-obj_fn = &apos;MASTER_LANGUAGE&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Changes Recorded
+  _wa-st_fn = &apos;KORRFLAG&apos;.
+  _wa-obj_fn = &apos;WBO_KORR_FLAG&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* User Responsible for Package
+  _wa-st_fn = &apos;AS4USER&apos;.
+  _wa-obj_fn = &apos;AUTHOR&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Transport Layer in ABAP Workbench
+  _wa-st_fn = &apos;PDEVCLASS&apos;.
+  _wa-obj_fn = &apos;TRANSPORT_LAYER&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+** Short Text for Transport Layer
+*  _wa-st_fn = &apos;LAYER_TEXT&apos;.
+*  _wa-obj_fn = &apos;TRANSPORT_LAYER_TEXT&apos;.
+*  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Software Component
+  _wa-st_fn = &apos;DLVUNIT&apos;.
+  _wa-obj_fn = &apos;SOFTWARE_COMPONENT&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Application Component ID
+  _wa-st_fn = &apos;COMP_POSID&apos;.
+  _wa-obj_fn = &apos;APPLICATION_COMPONENT_ABBREV&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Application Component
+  _wa-st_fn = &apos;COMPONENT&apos;.
+  _wa-obj_fn = &apos;APPLICATION_COMPONENT&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Flag: Inherit Use Accesses from Surrounding Package
+  _wa-st_fn = &apos;PERMINHER&apos;.
+  _wa-obj_fn = &apos;INHERITS_PERMISSIONS&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Surrounding Package
+  _wa-st_fn = &apos;PARENTCL&apos;.
+  _wa-obj_fn = &apos;SUPER_PACKAGE_NAME&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Prefix for Package Interfaces (Suggested Value)
+  _wa-st_fn = &apos;INTFPREFX&apos;.
+  _wa-obj_fn = &apos;INTERFACE_PREFIX&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Package Type (Permitted Object Types)
+  _wa-st_fn = &apos;PACKTYPE&apos;.
+  _wa-obj_fn = &apos;PACKAGE_TYPE&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Constraint on Extending Package
+  _wa-st_fn = &apos;RESTRICTED&apos;.
+  _wa-obj_fn = &apos;EXTENSION_RESTRICTED&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Main Package Indicator
+  _wa-st_fn = &apos;MAINPACK&apos;.
+  _wa-obj_fn = &apos;MAIN_PACKAGE&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Flag for Package Check as Server
+  _wa-st_fn = &apos;SRV_CHECK&apos;.
+  _wa-obj_fn = &apos;CHECKS_AS_SERVER_ENFORCED&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Flag: Package Check as Client
+  _wa-st_fn = &apos;CLI_CHECK&apos;.
+  _wa-obj_fn = &apos;CHECKS_AS_CLIENT_ENFORCED&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+* Alias for R/3 Enterprise Extension in Transaction FIBF
+  _wa-st_fn = &apos;EXT_ALIAS&apos;.
+  _wa-obj_fn = &apos;R3_EXTENSION_ALIAS&apos;.
+  INSERT _wa into TABLE SCOMPKDTLN_MAPPING.
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD createixmldocfromobject.
+*/---------------------------------------------------------------------\
+*|   This plugin have been don by : Taryck BENSIALI                    |
+*|                                                                     |
+*|   e-mail : taryck@bensiali.net                                      |
+*|                                                                     |
+*|   this plugin is distributed in the hope that it will be useful,    |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*\---------------------------------------------------------------------/
+
+
+  DATA _devc_data TYPE scompkdtln.
+  DATA rc         TYPE sysubrc.  &quot; for debug
+  DATA _objtype   TYPE string.
+  DATA tmp_str    TYPE string.
+
+  DATA root_node     TYPE REF TO if_ixml_element.
+
+  _objtype  = getobjecttype( ).
+  root_node = xmldoc-&gt;create_element( _objtype ).
+
+  load_obj( ).
+  obj_2_struct( EXPORTING obj = obj
+                      mapping = scompkdtln_mapping
+              CHANGING struct = _devc_data ).
+
+  setattributesfromstructure( node = root_node structure = _devc_data  ).
+* because of the following code in the previous method we have to set back DEVCLASS
+*        when &apos;DEVCLASS&apos;. &quot;development class should always be $TMP
+*          sValue = &apos;$TMP&apos;.
+  tmp_str = _devc_data-devclass.
+  rc = root_node-&gt;set_attribute( name = &apos;DEVCLASS&apos; value = tmp_str ).
+
+  rc = xmldoc-&gt;append_child( root_node ).
+  ixmldocument = xmldoc.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD createobjectfromixmldoc.
+*/---------------------------------------------------------------------\
+*|   This plugin have been don by : Taryck BENSIALI                    |
+*|                                                                     |
+*|   e-mail : taryck@bensiali.net                                      |
+*|                                                                     |
+*|   this plugin is distributed in the hope that it will be useful,    |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*\---------------------------------------------------------------------/
+
+  DATA root_node        TYPE REF TO if_ixml_element.
+  DATA rootnode TYPE REF TO if_ixml_element.
+  DATA objname TYPE e071-obj_name.
+  DATA _objtype TYPE string.
+  DATA _devc_data TYPE scompkdtln.
+
+  _objtype = getobjecttype( ).
+
+  xmldoc = ixmldocument.
+  root_node = xmldoc-&gt;find_from_name( _objtype ).
+
+* Get Root
+  me-&gt;getstructurefromattributes(
+          EXPORTING  node      = root_node
+          CHANGING   structure = _devc_data ).
+
+  objname = _devc_data-devclass.
+
+* Done in method S_LOCK_DB de CL_PACKAGE
+*  CALL FUNCTION &apos;RS_ACCESS_PERMISSION&apos;
+*    EXPORTING
+*      global_lock              = &apos;X&apos;
+*      mode                     = &apos;INSERT&apos;
+*      object                   = objname
+*      object_class             = _objtype
+*    EXCEPTIONS
+*      canceled_in_corr         = 1
+*      enqueued_by_user         = 3
+*      enqueue_system_failure   = 4
+*      locked_by_author         = 5
+*      illegal_parameter_values = 6
+*      no_modify_permission     = 7
+*      no_show_permission       = 8
+*      permission_failure       = 9.
+*
+*  IF sy-subrc &lt;&gt; 0.
+*    CASE sy-subrc.
+*      WHEN 7 OR 8 OR 9.
+*        RAISE EXCEPTION TYPE zcx_saplink
+*          EXPORTING
+*            textid = zcx_saplink=&gt;not_authorized.
+*      WHEN 5.
+*        RAISE EXCEPTION TYPE zcx_saplink
+*          EXPORTING
+*            textid = zcx_saplink=&gt;error_message
+*            msg = &apos;object locked&apos;.
+*      WHEN OTHERS.
+*        RAISE EXCEPTION TYPE zcx_saplink
+*          EXPORTING
+*            textid = zcx_saplink=&gt;system_error.
+*    ENDCASE.
+*  ENDIF.
+
+*  CALL FUNCTION &apos;RS_CORR_INSERT&apos;
+*    EXPORTING
+*      object              = objname
+*      object_class        = _objtype
+*      mode                = &apos;INSERT&apos;
+*      global_lock         = &apos;X&apos;
+**     devclass            = devclass
+*      author              = sy-uname
+*      master_language     = sy-langu
+*    EXCEPTIONS
+*      cancelled           = 1
+*      permission_failure  = 2
+*      unknown_objectclass = 3.
+*  IF sy-subrc &lt;&gt; 0.
+*    CASE sy-subrc.
+*      WHEN 2.
+*        RAISE EXCEPTION TYPE zcx_saplink
+*          EXPORTING
+*            textid = zcx_saplink=&gt;not_authorized.
+*      WHEN OTHERS.
+*        RAISE EXCEPTION TYPE zcx_saplink
+*          EXPORTING
+*            textid = zcx_saplink=&gt;system_error.
+*    ENDCASE.
+*  ENDIF.
+
+  CALL METHOD cl_package=&gt;if_package~create_new_package
+*    EXPORTING
+*      i_reuse_deleted_object     = &apos;X&apos;
+    IMPORTING
+      e_package                  = obj
+    CHANGING
+      c_package_data             = _devc_data
+    EXCEPTIONS
+      object_already_existing    = 1
+      object_just_created        = 2
+      not_authorized             = 3
+      wrong_name_prefix          = 4
+      undefined_name             = 5
+      reserved_local_name        = 6
+      invalid_package_name       = 7
+      short_text_missing         = 8
+      software_component_invalid = 9
+      layer_invalid              = 10
+      author_not_existing        = 11
+      component_not_existing     = 12
+      component_missing          = 13
+      prefix_in_use              = 14
+      unexpected_error           = 15
+      intern_err                 = 16
+      OTHERS                     = 17
+          .
+  IF sy-subrc = 11.
+    _devc_data-as4user = sy-uname.
+    CALL METHOD cl_package=&gt;if_package~create_new_package
+*    EXPORTING
+*      i_reuse_deleted_object     = &apos;X&apos;
+      IMPORTING
+        e_package                  = obj
+      CHANGING
+        c_package_data             = _devc_data
+      EXCEPTIONS
+        object_already_existing    = 1
+        object_just_created        = 2
+        not_authorized             = 3
+        wrong_name_prefix          = 4
+        undefined_name             = 5
+        reserved_local_name        = 6
+        invalid_package_name       = 7
+        short_text_missing         = 8
+        software_component_invalid = 9
+        layer_invalid              = 10
+        author_not_existing        = 11
+        component_not_existing     = 12
+        component_missing          = 13
+        prefix_in_use              = 14
+        unexpected_error           = 15
+        intern_err                 = 16
+        OTHERS                     = 17
+            .
+  ENDIF.
+  IF sy-subrc &lt;&gt; 0.
+    CASE sy-subrc.
+      WHEN 1.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;error_message
+            msg = &apos;All ready exist&apos;.
+      WHEN 2 OR 3.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;not_authorized.
+      WHEN 4 OR 5 OR 6 OR 7.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;error_message
+            msg = &apos;Problem with Dev Class name&apos;.
+      WHEN 8.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;error_message
+            msg = &apos;Problem with Short Text&apos;.
+      WHEN 9.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;error_message
+            msg = &apos;Problem with SoftwareComponent&apos;.
+      WHEN 10.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;error_message
+            msg = &apos;Problem with Layer&apos;.
+      WHEN 12 OR 13.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;error_message
+            msg = &apos;Problem with Component&apos;.
+      WHEN OTHERS.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;system_error.
+    ENDCASE.
+  ENDIF.
+
+  CALL METHOD obj-&gt;save
+*    EXPORTING
+*      i_transport_request   =
+*    IMPORTING
+*      e_transport_request   =
+    EXCEPTIONS
+      object_invalid        = 1
+      object_not_changeable = 2
+      cancelled_in_corr     = 3
+      permission_failure    = 4
+      unexpected_error      = 5
+      intern_err            = 6
+      OTHERS                = 7
+          .
+  IF sy-subrc &lt;&gt; 0.
+    RAISE EXCEPTION TYPE zcx_saplink
+      EXPORTING
+        textid = zcx_saplink=&gt;error_message
+        msg = &apos;Dev Class creation failed !&apos;.
+  ENDIF.
+
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD deleteobject.
+*/---------------------------------------------------------------------\
+*|   This plugin have been don by : Taryck BENSIALI                    |
+*|                                                                     |
+*|   e-mail : taryck@bensiali.net                                      |
+*|                                                                     |
+*|   this plugin is distributed in the hope that it will be useful,    |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*\---------------------------------------------------------------------/
+
+  load_obj( ).
+  CALL METHOD obj-&gt;delete
+    EXCEPTIONS
+      object_not_empty      = 1
+      object_not_changeable = 2
+      object_invalid        = 3
+      intern_err            = 4
+      OTHERS                = 5.
+  IF sy-subrc &lt;&gt; 0.
+*  MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*             WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+  ENDIF.
+  CALL METHOD obj-&gt;save
+    EXPORTING
+      i_transport_request   = space
+*   IMPORTING
+*     e_transport_request   =
+    EXCEPTIONS
+      object_invalid        = 1
+      object_not_changeable = 2
+      cancelled_in_corr     = 3
+      permission_failure    = 4
+      unexpected_error      = 5
+      intern_err            = 6
+      OTHERS                = 7
+          .
+  IF sy-subrc &lt;&gt; 0.
+*  MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*             WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method GETOBJECTTYPE.
+*/---------------------------------------------------------------------\
+*|   This plugin have been don by : Taryck BENSIALI                    |
+*|                                                                     |
+*|   e-mail : taryck@bensiali.net                                      |
+*|                                                                     |
+*|   this plugin is distributed in the hope that it will be useful,    |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*\---------------------------------------------------------------------/
+
+  objecttype = &apos;DEVC&apos;.  &quot;Dev class
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_DEVC" CMPNAME="LOAD_OBJ" VERSION="1" LANGU="E" DESCRIPT="Load IF_Package" EXPOSURE="0" STATE="1" EDITORDER="3 " DISPID="0 " AUTHOR="TBENSIAL" CREATEDON="20090430" CHANGEDBY="TBENSIAL" CHANGEDON="20090430" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method LOAD_OBJ.
+*/---------------------------------------------------------------------\
+*|   This plugin have been don by : Taryck BENSIALI                    |
+*|                                                                     |
+*|   e-mail : taryck@bensiali.net                                      |
+*|                                                                     |
+*|   this plugin is distributed in the hope that it will be useful,    |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*\---------------------------------------------------------------------/
+  data _key type DEVCLASS.
+
+  _key = objname.
+  CALL METHOD cl_package=&gt;if_package~load_package
+    EXPORTING
+      i_package_name             = _key
+      i_force_reload             = &apos;X&apos;
+    IMPORTING
+      e_package                  = obj
+    EXCEPTIONS
+      object_not_existing        = 1
+      unexpected_error           = 2
+      intern_err                 = 3
+      object_locked_and_modified = 4
+      others                     = 5
+          .
+  IF sy-subrc &lt;&gt; 0.
+    clear obj.
+  ENDIF.
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_DEVC" CMPNAME="OBJ_2_STRUCT" VERSION="1" LANGU="E" DESCRIPT="Object fields to Structure fierlds" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="TBENSIAL" CREATEDON="20090430" CHANGEDBY="TBENSIAL" CHANGEDON="20090430" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_DEVC" CMPNAME="OBJ_2_STRUCT" SCONAME="OBJ" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="TBENSIAL" CREATEDON="20090430" CHANGEDBY="TBENSIAL" CHANGEDON="20090430" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="OBJECT"/>
+  <parameter CLSNAME="ZSAPLINK_DEVC" CMPNAME="OBJ_2_STRUCT" SCONAME="MAPPING" VERSION="1" LANGU="E" DESCRIPT="Mapping" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="TBENSIAL" CREATEDON="20090430" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TT_FIELD_MAP" PAROPTIONL="X"/>
+  <parameter CLSNAME="ZSAPLINK_DEVC" CMPNAME="OBJ_2_STRUCT" SCONAME="STRUCT" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="TBENSIAL" CREATEDON="20090430" CHANGEDBY="TBENSIAL" CHANGEDON="20090430" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY"/>
+  <source>METHOD obj_2_struct.
+*/---------------------------------------------------------------------\
+*|   This plugin have been don by : Taryck BENSIALI                    |
+*|                                                                     |
+*|   e-mail : taryck@bensiali.net                                      |
+*|                                                                     |
+*|   this plugin is distributed in the hope that it will be useful,    |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*\---------------------------------------------------------------------/
+  DATA:
+    of TYPE string,
+    desc TYPE REF TO cl_abap_typedescr,
+    fields TYPE REF TO cl_abap_structdescr.
+  FIELD-SYMBOLS:
+    &lt;map&gt; LIKE LINE OF mapping,
+    &lt;field&gt; LIKE LINE OF fields-&gt;components,
+    &lt;sf&gt; TYPE ANY,
+    &lt;of&gt; TYPE ANY.
+
+  CALL METHOD cl_abap_datadescr=&gt;describe_by_data
+    EXPORTING
+      p_data      = struct
+    RECEIVING
+      p_descr_ref = desc.
+
+  CHECK desc-&gt;kind = cl_abap_typedescr=&gt;kind_struct.
+  CHECK desc-&gt;type_kind = cl_abap_typedescr=&gt;typekind_struct1
+     OR desc-&gt;type_kind = cl_abap_typedescr=&gt;typekind_struct2.
+
+  fields ?= desc.
+  CHECK fields-&gt;struct_kind = cl_abap_structdescr=&gt;structkind_flat.
+
+  LOOP AT fields-&gt;components ASSIGNING &lt;field&gt;.
+* Check for exception
+    READ TABLE mapping WITH TABLE KEY st_fn = &lt;field&gt;-name
+                       ASSIGNING &lt;map&gt;.
+    IF sy-subrc &lt;&gt; 0.
+      CONCATENATE &apos;OBJ-&gt;&apos; &lt;field&gt;-name INTO of.
+    ELSE.
+      CONCATENATE &apos;OBJ-&gt;&apos; &lt;map&gt;-obj_fn INTO of.
+    ENDIF.
+    ASSIGN (of) TO &lt;of&gt;.
+    CHECK sy-subrc = 0.
+
+    ASSIGN COMPONENT &lt;field&gt;-name OF STRUCTURE struct TO &lt;sf&gt;.
+    CHECK sy-subrc = 0.
+
+    TRY.
+        &lt;sf&gt; = &lt;of&gt;.
+      CATCH cx_root.
+    ENDTRY.
+  ENDLOOP.
+
+ENDMETHOD.</source>
+ </method>
+</CLAS>
