@@ -136,6 +136,8 @@ START-OF-SELECTION.
       APPEND object TO objects.
       object-obj_name = &apos;ZSAPLINK_LOCK_OBJECTS&apos;.
       APPEND object TO objects.
+      object-obj_name = &apos;ZSAPLINK_SEARCH_HELPS&apos;.
+      APPEND object TO objects.
       object-obj_name = &apos;ZSAPLINK_TABLE_TECH_SETTINGS&apos;.
       APPEND object TO objects.
       object-obj_name = &apos;ZSAPLINK_TABLE_TYPES&apos;.
