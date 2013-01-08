@@ -154,6 +154,12 @@ START-OF-SELECTION.
       APPEND object TO objects.
       object-obj_name = &apos;ZSAPLINK_INTERFACE&apos;.
       APPEND object TO objects.
+      object-obj_name = &apos;ZSAPLINK_VIEW_CLUSTER&apos;.
+      APPEND object TO objects.
+      object-obj_name = &apos;ZSAPLINK_USER_PARAMETER&apos;.
+      APPEND object TO objects.
+      object-obj_name = &apos;ZSAPLINK_CHECKPOINT_GROUP&apos;.
+      APPEND object TO objects.
 
       IF checkout = &apos;X&apos;.
         zake-&gt;checkout( ).
