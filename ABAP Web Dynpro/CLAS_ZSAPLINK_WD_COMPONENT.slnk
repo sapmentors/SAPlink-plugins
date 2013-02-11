@@ -1,64 +1,5 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<CLAS CLSNAME="ZSAPLINK_WD_COMPONENT" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Web Dynpro ABAP Component" UUID="1099664D11805749BF5C3C52132D9137" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="700" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
- <publicSection>class ZSAPLINK_WD_COMPONENT definition
-  public
-  inheriting from ZSAPLINK
-  final
-  create public .
-
-*&quot;* public components of class ZSAPLINK_WD_COMPONENT
-*&quot;* do not include other source files here!!!
-public section.
-  type-pools WDYN .
-  type-pools WDYWB .
-
-  methods CHECKEXISTS
-    redefinition .
-  methods CREATEIXMLDOCFROMOBJECT
-    redefinition .
-  methods CREATEOBJECTFROMIXMLDOC
-    redefinition .</publicSection>
- <protectedSection>*&quot;* protected components of class ZSAPLINK_WD_COMPONENT
-*&quot;* do not include other source files here!!!
-protected section.
-
-  methods DELETEOBJECT
-    redefinition .
-  methods GETOBJECTTYPE
-    redefinition .</protectedSection>
- <privateSection>*&quot;* private components of class ZSAPLINK_WD_COMPONENT
-*&quot;* do not include other source files here!!!
-private section.
-
-  methods CONTROLLER_TO_XML
-    importing
-      !CONTROLLER type ref to IF_WDY_MD_CONTROLLER
-      !XML_NODE type ref to IF_IXML_ELEMENT .
-  methods XML_TO_CONTROLLER
-    importing
-      !XML_NODE type ref to IF_IXML_ELEMENT
-    returning
-      value(CONTROLLER) type ref to IF_WDY_MD_CONTROLLER
-    raising
-      CX_WDY_MD_ENQUEUE_FAILURE
-      CX_WDY_MD_ALREADY_EXISTING .
-  methods XML_TO_VIEW
-    importing
-      !XML_NODE type ref to IF_IXML_ELEMENT
-    raising
-      CX_WDY_MD_ENQUEUE_FAILURE .
-  methods GET_COMPONENT
-    returning
-      value(COMPONENT) type ref to IF_WDY_MD_COMPONENT
-    raising
-      CX_WDY_MD_NOT_EXISTING
-      CX_WDY_MD_PERMISSION_FAILURE .
-  methods VIEW_TO_XML
-    importing
-      !VIEW type ref to IF_WDY_MD_ABSTRACT_VIEW
-      !XML_NODE type ref to IF_IXML_ELEMENT
-    exporting
-      !VIEW_NODE type ref to IF_IXML_ELEMENT .</privateSection>
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="ZSAPLINK_WD_COMPONENT" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Web Dynpro ABAP Component" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
  <localImplementation>*&quot;* local class implementation for public class
 *&quot;* use this source file for the implementation part of
 *&quot;* local helper classes</localImplementation>
@@ -71,53 +12,51 @@ private section.
  <typeUsage CLSNAME="ZSAPLINK_WD_COMPONENT" TYPEGROUP="WDYWB" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
  <forwardDeclaration>WDYN</forwardDeclaration>
  <forwardDeclaration>WDYWB</forwardDeclaration>
- <inheritance CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1" AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515">
-  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS"/>
-  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT"/>
-  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC"/>
-  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT"/>
-  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE"/>
+ <inheritance CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1">
+  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS" EXPOSURE="2"/>
+  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT" EXPOSURE="2"/>
+  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC" EXPOSURE="2"/>
+  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT" EXPOSURE="1"/>
+  <redefinition CLSNAME="ZSAPLINK_WD_COMPONENT" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE" EXPOSURE="1"/>
  </inheritance>
- <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>method CHECKEXISTS.
+ <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD checkexists.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
 
+  DATA: lv_name   TYPE wdy_component_name.
 
-  DATA: component TYPE REF TO if_wdy_md_component.
-  exists = abap_true.
-  TRY.
-      component = me-&gt;get_component( ).
-    CATCH cx_wdy_md_not_existing.
-      CLEAR exists.
-    CATCH cx_wdy_md_permission_failure.
-      CLEAR exists.
-  ENDTRY.
+  lv_name = objname.
 
+  exists = cl_wdy_md_component=&gt;check_existency(
+      name     = lv_name  &quot; Web Dynpro: Application Name
+  ).
 
-
-endmethod.</source>
+ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="CONTROLLER_TO_XML" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="CONTROLLER_TO_XML" SCONAME="CONTROLLER" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro: Controller" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_WDY_MD_CONTROLLER"/>
-  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="CONTROLLER_TO_XML" SCONAME="XML_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+ <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="CONTROLLER_TO_XML" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="CONTROLLER_TO_XML" SCONAME="CONTROLLER" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro: Controller" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_WDY_MD_CONTROLLER"/>
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="CONTROLLER_TO_XML" SCONAME="XML_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
   <source>method CONTROLLER_TO_XML.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
+*|                                                                     |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
+*\---------------------------------------------------------------------/
+
   DATA definition TYPE wdy_controller.
   DATA rc TYPE i.
   DATA controller_definition_node    TYPE REF TO if_ixml_element.
@@ -387,27 +326,18 @@ endmethod.</source>
 
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>method CREATEIXMLDOCFROMOBJECT.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-
 
 *xml nodes
   DATA rootnode   TYPE REF TO if_ixml_element.
@@ -715,27 +645,18 @@ endmethod.</source>
   ixmldocument = xmldoc.
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>method CREATEOBJECTFROMIXMLDOC.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-
 
 *xml nodes
   DATA rootnode   TYPE REF TO if_ixml_element.
@@ -952,25 +873,17 @@ endmethod.</source>
   name = objname.
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>method DELETEOBJECT.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
 
   DATA: component TYPE REF TO if_wdy_md_component.
@@ -990,37 +903,38 @@ endmethod.</source>
   component-&gt;if_wdy_md_lockable_object~unlock( ).
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>method GETOBJECTTYPE.
 */---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-
 
   objecttype = wdyn_r3tr_component.  &quot;Web Dynpro Component
 
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="GET_COMPONENT" VERSION="1" LANGU="E" DESCRIPT="Get Component Object" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="GET_COMPONENT" SCONAME="COMPONENT" VERSION="1" LANGU="E" DESCRIPT="Component" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_WDY_MD_COMPONENT"/>
-  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="GET_COMPONENT" SCONAME="CX_WDY_MD_NOT_EXISTING" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro : Objekt existiert nicht" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410"/>
-  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="GET_COMPONENT" SCONAME="CX_WDY_MD_PERMISSION_FAILURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410"/>
+ <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="GET_COMPONENT" VERSION="1" LANGU="E" DESCRIPT="Get Component Object" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="GET_COMPONENT" SCONAME="COMPONENT" VERSION="1" LANGU="E" DESCRIPT="Component" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_WDY_MD_COMPONENT"/>
+  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="GET_COMPONENT" SCONAME="CX_WDY_MD_NOT_EXISTING" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro : Objekt existiert nicht" MTDTYPE="0" EDITORDER="1 "/>
+  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="GET_COMPONENT" SCONAME="CX_WDY_MD_PERMISSION_FAILURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="2 "/>
   <source>method GET_COMPONENT.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
+*|                                                                     |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
+*\---------------------------------------------------------------------/
 
   DATA: component_name TYPE wdy_component_name.
   component_name = objname.
@@ -1078,11 +992,22 @@ endmethod.</source>
   ENDTRY.
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="VIEW_TO_XML" VERSION="1" LANGU="E" DESCRIPT="Convert View Information to XML" EXPOSURE="0" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="VIEW_TO_XML" SCONAME="VIEW" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_WDY_MD_ABSTRACT_VIEW"/>
-  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="VIEW_TO_XML" SCONAME="XML_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="VIEW_TO_XML" SCONAME="VIEW_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+ <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="VIEW_TO_XML" VERSION="1" LANGU="E" DESCRIPT="Convert View Information to XML" EXPOSURE="0" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="VIEW_TO_XML" SCONAME="VIEW" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_WDY_MD_ABSTRACT_VIEW"/>
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="VIEW_TO_XML" SCONAME="XML_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="VIEW_TO_XML" SCONAME="VIEW_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
   <source>method VIEW_TO_XML.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
+*|                                                                     |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
+*\---------------------------------------------------------------------/
+
   DATA definition TYPE wdy_view.
   DATA rc TYPE i.
   DATA view_definition_node    TYPE REF TO if_ixml_element.
@@ -1635,12 +1560,23 @@ endmethod.</source>
 
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" SCONAME="XML_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" SCONAME="CONTROLLER" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro: Controller" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_WDY_MD_CONTROLLER"/>
-  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" SCONAME="CX_WDY_MD_ENQUEUE_FAILURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410"/>
-  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" SCONAME="CX_WDY_MD_ALREADY_EXISTING" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro : Objekt existiert bereits" MTDTYPE="0" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410"/>
+ <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" SCONAME="XML_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" SCONAME="CONTROLLER" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro: Controller" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_WDY_MD_CONTROLLER"/>
+  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" SCONAME="CX_WDY_MD_ENQUEUE_FAILURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 "/>
+  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_CONTROLLER" SCONAME="CX_WDY_MD_ALREADY_EXISTING" VERSION="1" LANGU="E" DESCRIPT="Web Dynpro : Objekt existiert bereits" MTDTYPE="0" EDITORDER="2 "/>
   <source>method XML_TO_CONTROLLER.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
+*|                                                                     |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
+*\---------------------------------------------------------------------/
+
 *xml nodes
   DATA definition TYPE wdy_controller.
   DATA rc TYPE i.
@@ -1870,10 +1806,21 @@ endmethod.</source>
 
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_VIEW" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070515" MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" R3RELEASE="700" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_VIEW" SCONAME="XML_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
-  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_VIEW" SCONAME="CX_WDY_MD_ENQUEUE_FAILURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20061207" CHANGEDBY="ABAP_DEV" CHANGEDON="20070410"/>
+ <method CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_VIEW" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_VIEW" SCONAME="XML_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <exception CLSNAME="ZSAPLINK_WD_COMPONENT" CMPNAME="XML_TO_VIEW" SCONAME="CX_WDY_MD_ENQUEUE_FAILURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 "/>
   <source>method XML_TO_VIEW.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
+*|                                                                     |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
+*\---------------------------------------------------------------------/
+
 *xml nodes
   DATA definition TYPE wdy_view.
   DATA rc TYPE i.
