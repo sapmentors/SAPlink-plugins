@@ -1,76 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CLAS CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" VERSION="1" LANGU="E" DESCRIPT="SAPlink Class Installer" UUID="502D151B98370BC0E10080000A125D40" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" WITH_UNIT_TESTS="X" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
- <publicSection>class ZSAPLINK_ENH_IMPLEMENTATION definition
-  public
-  inheriting from ZSAPLINK
-  create public .
-
-public section.
-*&quot;* public components of class ZSAPLINK_ENH_IMPLEMENTATION
-*&quot;* do not include other source files here!!!
-  type-pools ABAP .
-  type-pools SEOP .
-  type-pools SEOR .
-  type-pools SEOS .
-  type-pools SEOT .
-  type-pools SEOX .
-
-  methods CHECKEXISTS
-    redefinition .
-  methods CREATEIXMLDOCFROMOBJECT
-    redefinition .
-  methods CREATEOBJECTFROMIXMLDOC
-    redefinition .</publicSection>
- <protectedSection>*&quot;* protected components of class ZSAPLINK_ENH_IMPLEMENTATION
-*&quot;* do not include other source files here!!!
-protected section.
-
-  methods DELETEOBJECT
-    redefinition .
-  methods GETOBJECTTYPE
-    redefinition .</protectedSection>
- <privateSection>private section.
-*&quot;* private components of class ZSAPLINK_ENH_IMPLEMENTATION
-*&quot;* do not include other source files here!!!
-
-  data SHORTTEXT type STRING .
-  data SPOT_NAME type ENHSPOTNAME .
-  constants ENHANCEMENT_ID type STRING value &apos;enhancement_id&apos;. &quot;#EC NOTEXT
-  constants SHORTTEXT_ID type STRING value &apos;shorttext&apos;. &quot;#EC NOTEXT
-  constants SPOT_NAME_ID type STRING value &apos;spot_name&apos;. &quot;#EC NOTEXT
-  data BADIIMPL_TOOL type ref to CL_ENH_TOOL_BADI_IMPL .
-  data HOOKIMPL_TOOL type ref to CL_ENH_TOOL_HOOK_IMPL .
-  data ENHTOOLTYPE type ENHTOOLTYPE value &apos;Tool Type&apos;. &quot;#EC NOTEXT .
-  constants ENHTOOLTYPE_ID type STRING value &apos;tooltype_id&apos;. &quot;#EC NOTEXT
-  data PGMID type PGMID .
-  data OBJ_NAME type TROBJ_NAME .
-  data OBJ_TYPE type TROBJTYPE .
-  data PROGRAM type PROGNAME .
-  constants ORIG_OBJ type STRING value &apos;orig_object&apos;. &quot;#EC NOTEXT
-
-  methods GET_IMPL_TOOL
-    importing
-      !I_LOCK type BOOLEAN optional
-    raising
-      ZCX_SAPLINK .
-  methods GET_IMPLEMENTATIONS
-    exporting
-      value(R_IMPLEMENTATIONS) type ANY
-    raising
-      ZCX_SAPLINK .
-  methods GET_SHORTTEXT .
-  methods SAVE_BADI_IMPL
-    importing
-      value(ENHREF) type ref to IF_ENH_TOOL
-      value(BADI_IMPLS) type ENH_BADI_IMPL_DATA_IT
-    raising
-      ZCX_SAPLINK .
-  methods SAVE_HOOK_IMPL
-    importing
-      value(ENHREF) type ref to IF_ENH_TOOL
-      value(HOOK_IMPLS) type ENH_HOOK_IMPL_IT
-    raising
-      ZCX_SAPLINK .</privateSection>
+<CLAS CLSNAME="ZSAPLINK_ENH_IMPLEMENTATION" VERSION="1" LANGU="E" DESCRIPT="SAPlink Class Installer" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" WITH_UNIT_TESTS="X" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
  <localImplementation>*&quot;* local class implementation for public class
 *&quot;* use this source file for the implementation part of
 *&quot;* local helper classes</localImplementation>
@@ -628,8 +557,10 @@ endmethod.</source>
 
       &quot; Check that is is realy a BAdI or Hook
       enhtooltype = enhref-&gt;get_tool( ).
-      if enhtooltype ne cl_enh_tool_badi_impl=&gt;tooltype and
-         enhtooltype ne cl_enh_tool_hook_impl=&gt;tooltype.
+      &quot; The static constans are only available in NetWeaver 7.02 or higher
+      &quot; yo have to replace them with the values provided in the comment
+      if enhtooltype ne cl_enh_tool_badi_impl=&gt;tooltype and &quot; &apos;BADI_IMPL&apos;
+         enhtooltype ne cl_enh_tool_hook_impl=&gt;tooltype.    &quot; &apos;HOOK_IMPL&apos;
          CONCATENATE &apos;The enhancement&apos; enhname &apos;is not a BAdI/Hook Implementation&apos; INTO msg SEPARATED BY space.
           RAISE EXCEPTION TYPE zcx_saplink
             EXPORTING
@@ -641,8 +572,8 @@ endmethod.</source>
       msg = cx-&gt;get_text( ).
       RAISE EXCEPTION TYPE zcx_saplink
         EXPORTING
-          textid = zcx_saplink=&gt;not_found
-          object = objname.
+          textid = zcx_saplink=&gt;error_message
+          msg    = msg.
 
   ENDTRY.
 
