@@ -1,32 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CLAS CLSNAME="ZSAPLINK_TABLES" VERSION="0" LANGU="E" DESCRIPT="SAPlink - Data Dictionary  - Tables/Structures" UUID="45268E711D9500D602000000A7E42BA1" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="USEWH90" CREATEDON="20061008" CHANGEDON="00000000" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="640" CLSBCCAT="00" REFCLSNAME="ZSAPLINK">
- <publicSection>class ZSAPLINK_TABLES definition
-  public
-  inheriting from ZSAPLINK
-  final
-  create public .
-
-*&quot;* public components of class ZSAPLINK_TABLES
-*&quot;* do not include other source files here!!!
-public section.
-
-  methods CHECKEXISTS
-    redefinition .
-  methods CREATEIXMLDOCFROMOBJECT
-    redefinition .
-  methods CREATEOBJECTFROMIXMLDOC
-    redefinition .</publicSection>
- <protectedSection>*&quot;* protected components of class ZSAPLINK_TABLES
-*&quot;* do not include other source files here!!!
-protected section.
-
-  methods DELETEOBJECT
-    redefinition .
-  methods GETOBJECTTYPE
-    redefinition .</protectedSection>
- <privateSection>*&quot;* private components of class ZSAPLINK_TABLES
-*&quot;* do not include other source files here!!!
-private section.</privateSection>
+<CLAS CLSNAME="ZSAPLINK_TABLES" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Data Dictionary  - Tables/Structures" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
  <localImplementation>*&quot;* local class implementation for public class
 *&quot;* use this source file for the implementation part of
 *&quot;* local helper classes</localImplementation>
@@ -35,34 +8,25 @@ private section.</privateSection>
 *&quot;* implementation or private method&apos;s signature</localTypes>
  <localMacros>*&quot;* use this source file for any macro definitions you need
 *&quot;* in the implementation part of the class</localMacros>
- <inheritance CLSNAME="ZSAPLINK_TABLES" REFCLSNAME="ZSAPLINK" VERSION="0" STATE="1" AUTHOR="USEWH90" CREATEDON="20061008" CHANGEDON="00000000">
-  <redefinition CLSNAME="ZSAPLINK_TABLES" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="CHECKEXISTS"/>
-  <redefinition CLSNAME="ZSAPLINK_TABLES" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="CREATEIXMLDOCFROMOBJECT"/>
-  <redefinition CLSNAME="ZSAPLINK_TABLES" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="CREATEOBJECTFROMIXMLDOC"/>
-  <redefinition CLSNAME="ZSAPLINK_TABLES" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="DELETEOBJECT"/>
-  <redefinition CLSNAME="ZSAPLINK_TABLES" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="GETOBJECTTYPE"/>
+ <inheritance CLSNAME="ZSAPLINK_TABLES" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1">
+  <redefinition CLSNAME="ZSAPLINK_TABLES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS" EXPOSURE="2"/>
+  <redefinition CLSNAME="ZSAPLINK_TABLES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT" EXPOSURE="2"/>
+  <redefinition CLSNAME="ZSAPLINK_TABLES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC" EXPOSURE="2"/>
+  <redefinition CLSNAME="ZSAPLINK_TABLES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT" EXPOSURE="1"/>
+  <redefinition CLSNAME="ZSAPLINK_TABLES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE" EXPOSURE="1"/>
  </inheritance>
- <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>*/---------------------------------------------------------------------\
+ <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD checkexists.
+*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-METHOD checkexists.
-
 *      Plugin created by:
 *      Thomas Jung
 *      thomas.jung1@gmail.com
@@ -86,27 +50,18 @@ METHOD checkexists.
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>*/---------------------------------------------------------------------\
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD createixmldocfromobject.
+*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-METHOD createixmldocfromobject.
-
 *      Plugin created by:
 *      Thomas Jung
 *      thomas.jung1@gmail.com
@@ -225,27 +180,18 @@ METHOD createixmldocfromobject.
   ixmldocument = xmldoc.
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>*/---------------------------------------------------------------------\
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD createobjectfromixmldoc.
+*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-METHOD createobjectfromixmldoc.
-
 *      Plugin created by:
 *      Thomas Jung
 *      thomas.jung1@gmail.com
@@ -286,6 +232,7 @@ METHOD createobjectfromixmldoc.
   DATA _devclass   TYPE devclass.
   DATA checkexists TYPE flag.
   DATA _objtype    TYPE string.
+  DATA _objname    TYPE string.
 
   _devclass = devclass.
   _objtype = getobjecttype( ).
@@ -305,7 +252,8 @@ METHOD createobjectfromixmldoc.
   IF checkexists IS NOT INITIAL.
     IF overwrite IS INITIAL.
       RAISE EXCEPTION TYPE zcx_saplink
-        EXPORTING textid = zcx_saplink=&gt;existing.
+        EXPORTING
+          textid = zcx_saplink=&gt;existing.
     ELSE.
 *     delete object for new install
       deleteobject( ).
@@ -498,13 +446,18 @@ METHOD createobjectfromixmldoc.
       WHEN 1 OR 9 OR 7 OR 8. &quot;OK! - Doesn&apos;t exist yet
       WHEN 11 OR 23 OR 24.
         RAISE EXCEPTION TYPE zcx_saplink
-          EXPORTING textid = zcx_saplink=&gt;not_authorized.
+          EXPORTING
+            textid = zcx_saplink=&gt;not_authorized.
       WHEN 22.
+        _objname = l_obj_name.
         RAISE EXCEPTION TYPE zcx_saplink
-          EXPORTING textid = zcx_saplink=&gt;locked.
+          EXPORTING
+            textid = zcx_saplink=&gt;locked
+            object = _objname.
       WHEN OTHERS.
         RAISE EXCEPTION TYPE zcx_saplink
-          EXPORTING textid = zcx_saplink=&gt;system_error.
+          EXPORTING
+            textid = zcx_saplink=&gt;system_error.
     ENDCASE.
   ENDIF.
 
@@ -529,7 +482,8 @@ METHOD createobjectfromixmldoc.
 
   IF sy-subrc &lt;&gt; 0.
     RAISE EXCEPTION TYPE zcx_saplink
-      EXPORTING textid = zcx_saplink=&gt;system_error.
+      EXPORTING
+        textid = zcx_saplink=&gt;system_error.
   ENDIF.
 
   DATA: trobjtype  TYPE trobjtype,
@@ -543,57 +497,39 @@ METHOD createobjectfromixmldoc.
     EXCEPTIONS
       wrong_object_name = 1.
 
-  name = objName.
+  name = objname.
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>*/---------------------------------------------------------------------\
+ <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method DELETEOBJECT.
+*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-method DELETEOBJECT.
-
 *      Plugin created by:
 *      Thomas Jung
 *      thomas.jung1@gmail.com
 
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>*/---------------------------------------------------------------------\
+ <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method GETOBJECTTYPE.
+*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
-*|   SAPlink is free software; you can redistribute it and/or modify   |
-*|   it under the terms of the GNU General Public License as published |
-*|   by the Free Software Foundation; either version 2 of the License, |
-*|   or (at your option) any later version.                            |
+*|   The code of this project is provided to you under the current     |
+*|   version of the SAP Code Exchange Terms of Use. You can find the   |
+*|   text on the SAP Code Exchange webpage at http://www.sdn.sap.com   |
 *|                                                                     |
-*|   SAPlink is distributed in the hope that it will be useful,        |
-*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
-*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
-*|   GNU General Public License for more details.                      |
-*|                                                                     |
-*|   You should have received a copy of the GNU General Public License |
-*|   along with SAPlink; if not, write to the                          |
-*|   Free Software Foundation, Inc.,                                   |
-*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*|   SAPlink is provided to you AS IS with no guarantee, warranty or   |
+*|   support.                                                          |
 *\---------------------------------------------------------------------/
-method GETOBJECTTYPE.
-
 *      Plugin created by:
 *      Thomas Jung
 *      thomas.jung1@gmail.com
