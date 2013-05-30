@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="utf-16"?>
+<CLAS CLSNAME="ZSAPLINK_SOTR" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Table Contents" UUID="000C2958AE941EE193BA7C59300BA92C" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20120202" CHANGEDBY="BCUSER" CHANGEDON="20120203" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="702" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
+ <publicSection>class ZSAPLINK_SOTR definition
+  public
+  inheriting from ZSAPLINK
+  final
+  create public .
+
+*&quot;* public components of class ZSAPLINK_SOTR
+*&quot;* do not include other source files here!!!
+public section.
+
+  methods CHECKEXISTS
+    redefinition .
+  methods CREATEIXMLDOCFROMOBJECT
+    redefinition .
+  methods CREATEOBJECTFROMIXMLDOC
+    redefinition .</publicSection>
+ <protectedSection>*&quot;* protected components of class ZSAPLINK_TABLES
+*&quot;* do not include other source files here!!!
+protected section.
+
+  methods DELETEOBJECT
+    redefinition .
+  methods GETOBJECTTYPE
+    redefinition .</protectedSection>
+ <privateSection>*&quot;* private components of class ZSAPLINK_TABLES
+*&quot;* do not include other source files here!!!
+private section.</privateSection>
+ <localImplementation>*&quot;* local class implementation for public class
+*&quot;* use this source file for the implementation part of
+*&quot;* local helper classes</localImplementation>
+ <localTypes>*&quot;* use this source file for any type declarations (class
+*&quot;* definitions, interfaces or data types) you need for method
+*&quot;* implementation or private method&apos;s signature</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <inheritance CLSNAME="ZSAPLINK_SOTR" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1" AUTHOR="BCUSER" CREATEDON="20120202" CHANGEDBY="BCUSER" CHANGEDON="20120203">
+  <redefinition CLSNAME="ZSAPLINK_SOTR" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZSAPLINK_SOTR" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZSAPLINK_SOTR" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZSAPLINK_SOTR" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZSAPLINK_SOTR" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE" EXPOSURE="0"/>
+ </inheritance>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD checkexists.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Berthe Joseph
+*      joseph.berthe@gmail.com
+
+* No implementation
+
+  exists = abap_true.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method CREATEIXMLDOCFROMOBJECT.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Berthe Joseph
+*      joseph.berthe@gmail.com
+
+  TYPES: BEGIN OF totrhead,
+          packet TYPE sotr_head-paket,
+         END OF totrhead.
+
+  DATA rc(4)           TYPE n.
+  DATA root_node    TYPE REF TO if_ixml_element.
+  DATA sub_node     TYPE REF TO if_ixml_element.
+  DATA datarow_node TYPE REF TO if_ixml_element.
+  DATA _concept     TYPE sotr_head-concept.
+  DATA _objtype     TYPE string.
+  DATA _header      TYPE sotr_head.
+  DATA _entry_keys  TYPE TABLE OF sotr_text.
+  DATA _entry       TYPE TABLE OF sotr_text.
+  DATA _otr_keys    TYPE TABLE OF sotr_key.
+  DATA _paket       TYPE totrhead.
+
+  FIELD-SYMBOLS: &lt;dyn_tab&gt; TYPE STANDARD TABLE.
+  FIELD-SYMBOLS: &lt;dyn_wa&gt;  TYPE ANY.
+  FIELD-SYMBOLS: &lt;fs_otr_key&gt; TYPE sotr_key.
+
+* Check that table exits.
+  REFRESH _otr_keys.
+  CLEAR _header.
+
+  _paket-packet = objname.
+  CALL FUNCTION &apos;SOTR_GET_KEYS_FOR_PACKAGE&apos;
+    EXPORTING
+      paket          = _paket-packet
+    IMPORTING
+      sotr_keys      = _otr_keys
+    EXCEPTIONS
+      no_entry_found = 1
+      OTHERS         = 2.
+
+  IF sy-subrc &lt;&gt; 0.
+    RAISE EXCEPTION TYPE zcx_saplink
+    EXPORTING
+      textid = zcx_saplink=&gt;error_message
+      msg    = `OTR : Package not found`.
+  ENDIF.
+
+  _objtype  = getobjecttype( ).
+  root_node = xmldoc-&gt;create_element( _objtype ).
+  me-&gt;setattributesfromstructure( node = root_node structure = _paket  ).
+
+  LOOP AT _otr_keys ASSIGNING &lt;fs_otr_key&gt;.
+    CLEAR: _header.
+    REFRESH: _entry.
+
+    CALL FUNCTION &apos;SOTR_GET_CONCEPT&apos;
+      EXPORTING
+        concept        = &lt;fs_otr_key&gt;-concept
+      IMPORTING
+        header         = _header
+      TABLES
+        entries        = _entry
+      EXCEPTIONS
+        no_entry_found = 1
+        OTHERS         = 2.
+
+
+
+
+    IF sy-subrc &lt;&gt; 0.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          textid = zcx_saplink=&gt;error_message
+          msg    = `OTR not found`.
+    ENDIF.
+
+* Create sub node
+    sub_node = xmldoc-&gt;create_element( &apos;SOTR_HEAD&apos; ).
+    me-&gt;setattributesfromstructure( node = sub_node structure = _header  ).
+
+* Create dynamic internal table and work area
+    ASSIGN (&apos;_ENTRY[]&apos;) TO &lt;dyn_tab&gt;.
+
+* Write records to XML node
+    LOOP AT &lt;dyn_tab&gt; ASSIGNING &lt;dyn_wa&gt;.
+      datarow_node = xmldoc-&gt;create_element( `SOTR_TEXT` ).
+      me-&gt;setattributesfromstructure( node = datarow_node structure = &lt;dyn_wa&gt; ).
+      rc = sub_node-&gt;append_child( datarow_node ).
+    ENDLOOP.
+
+    rc = root_node-&gt;append_child( sub_node ).
+  ENDLOOP.
+* Add node
+  rc = xmldoc-&gt;append_child( root_node ).
+
+  ixmldocument = xmldoc.
+
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD createobjectfromixmldoc.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Berthe Joseph
+*      joseph.berthe@gmail.com
+
+  TYPES: BEGIN OF totrhead,
+    packet TYPE sotr_head-paket,
+    END OF totrhead.
+
+
+  DATA root_node        TYPE REF TO if_ixml_element.
+  DATA sub_node     TYPE REF TO if_ixml_element.
+  DATA sub_node_node     TYPE REF TO if_ixml_element.
+  DATA sub_node_filter   TYPE REF TO if_ixml_node_filter.
+  DATA sub_node_iterator TYPE REF TO if_ixml_node_iterator.
+
+  DATA datarow_node     TYPE REF TO if_ixml_element.
+  DATA datarow_filter   TYPE REF TO if_ixml_node_filter.
+  DATA datarow_iterator TYPE REF TO if_ixml_node_iterator.
+
+  DATA _objtype           TYPE string.
+
+
+  DATA _header      TYPE sotr_head.
+  DATA _text_tab    TYPE sotr_text_tt.
+  DATA _packet      TYPE sotr_pack.
+  DATA _object_type TYPE trobjtype.
+  DATA _msg_err     TYPE string.
+  DATA _paket       TYPE totrhead.
+  DATA checkexists   TYPE flag.
+
+  DATA dref_tab_head TYPE REF TO data.
+  DATA dref_head  TYPE REF TO data.
+  DATA dref_tab_text TYPE REF TO data.
+  DATA dref_text  TYPE REF TO data.
+
+  FIELD-SYMBOLS: &lt;dyn_tab_head&gt;  TYPE STANDARD TABLE.
+  FIELD-SYMBOLS: &lt;dyn_tab_text&gt;  TYPE STANDARD TABLE.
+  FIELD-SYMBOLS: &lt;dyn_head&gt;   TYPE sotr_head .
+  FIELD-SYMBOLS: &lt;dyn_text&gt;   TYPE sotr_text .
+
+
+  &quot; --&gt;
+  &quot; This bloc is useless for this version.
+  checkexists = checkexists( ).
+  IF checkexists IS NOT INITIAL.
+    IF overwrite IS INITIAL.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          textid = zcx_saplink=&gt;existing.
+    ELSE.
+*     delete object for new install
+      deleteobject( ).
+    ENDIF.
+  ENDIF.
+  &quot; &lt;--
+
+  _objtype = getobjecttype( ).
+  _object_type = _objtype.
+  xmldoc = ixmldocument.
+  root_node ?= xmldoc-&gt;find_from_name( _objtype ).
+
+* Get table name from XML.
+  me-&gt;getstructurefromattributes(
+          EXPORTING  node      = root_node
+          CHANGING   structure = _paket ).
+
+  _packet = _paket-packet.
+
+  &quot; Check if Package exist.
+  SELECT COUNT(*) FROM tdevc WHERE devclass EQ _packet.
+
+  IF sy-subrc EQ 0.
+
+* Create dynamic internal table and work area
+    CREATE DATA dref_tab_head TYPE TABLE OF (&apos;SOTR_HEAD&apos;).
+    ASSIGN dref_tab_head-&gt;* TO &lt;dyn_tab_head&gt;.
+    CREATE DATA dref_head LIKE LINE OF &lt;dyn_tab_head&gt;.
+    ASSIGN dref_head-&gt;* TO &lt;dyn_head&gt;.
+
+* Build dynamic internal table from XML
+    FREE: sub_node_filter, sub_node_iterator, sub_node_node.
+
+    &quot; Find all sub_node.
+
+    sub_node_filter = xmldoc-&gt;create_filter_name( `SOTR_HEAD` ).
+    sub_node_iterator = xmldoc-&gt;create_iterator_filtered( sub_node_filter ).
+    sub_node_node ?= sub_node_iterator-&gt;get_next( ).
+    WHILE sub_node_node IS NOT INITIAL.
+      APPEND INITIAL LINE TO &lt;dyn_tab_head&gt; ASSIGNING &lt;dyn_head&gt;.
+      me-&gt;getstructurefromattributes(
+              EXPORTING   node      = sub_node_node
+              CHANGING    structure = &lt;dyn_head&gt; ).
+
+
+* Create dynamic internal table and work area
+      CREATE DATA dref_tab_text TYPE TABLE OF (&apos;SOTR_TEXT&apos;).
+      ASSIGN dref_tab_text-&gt;* TO &lt;dyn_tab_text&gt;.
+      CREATE DATA dref_text LIKE LINE OF &lt;dyn_tab_text&gt;.
+      ASSIGN dref_text-&gt;* TO &lt;dyn_text&gt;.
+      FREE: datarow_filter, datarow_iterator, datarow_node.
+
+      datarow_filter = sub_node_node-&gt;create_filter_name( `SOTR_TEXT` ).
+      datarow_iterator = sub_node_node-&gt;create_iterator_filtered( datarow_filter ).
+      datarow_node ?= datarow_iterator-&gt;get_next( ).
+      WHILE datarow_node IS NOT INITIAL.
+        APPEND INITIAL LINE TO &lt;dyn_tab_text&gt; ASSIGNING &lt;dyn_text&gt;.
+        me-&gt;getstructurefromattributes(
+        EXPORTING   node      = datarow_node
+        CHANGING    structure = &lt;dyn_text&gt; ).
+
+        APPEND &lt;dyn_text&gt; TO _text_tab.
+
+
+        datarow_node ?= datarow_iterator-&gt;get_next( ).
+      ENDWHILE.
+
+* Create the OTR
+      CALL FUNCTION &apos;SOTR_CREATE_CONCEPT&apos;
+        EXPORTING
+          paket                         = _packet
+          crea_lan                      = &lt;dyn_head&gt;-crea_lan
+          alias_name                    = &lt;dyn_head&gt;-alias_name
+          object                        = &apos;WDCC&apos;
+          entries                       = _text_tab
+        EXCEPTIONS
+          package_missing               = 1
+          crea_lan_missing              = 2
+          object_missing                = 3
+          paket_does_not_exist          = 4
+          alias_already_exist           = 5
+          object_type_not_found         = 6
+          langu_missing                 = 7
+          identical_context_not_allowed = 8
+          text_too_long                 = 9
+          error_in_update               = 10
+          no_master_langu               = 11
+          error_in_concept_id           = 12
+          alias_not_allowed             = 13
+          tadir_entry_creation_failed   = 14
+          internal_error                = 15
+          error_in_correction           = 16
+          user_cancelled                = 17
+          no_entry_found                = 18
+          OTHERS                        = 19.
+      IF sy-subrc &lt;&gt; 0.
+        DATA: lv_msg  TYPE string.
+        CASE sy-subrc.
+          WHEN 1.
+            lv_msg = &apos;OTR : Package missing.&apos;.
+          WHEN 2.
+            lv_msg = &apos;OTR : Language missing.&apos;.
+          WHEN 3.
+            lv_msg = &apos;OTR : Object missing.&apos;.
+          WHEN 4.
+            lv_msg = &apos;OTR : Packet doesn&apos;&apos;t exist.&apos;.
+          WHEN 5.
+            lv_msg = &apos;OTR : Alias already exist.&apos;.
+          WHEN 6.
+            lv_msg = &apos;OTR : Object type not found.&apos;.
+          WHEN 7.
+            lv_msg = &apos;OTR : Language missing.&apos;.
+          WHEN 8.
+            lv_msg = &apos;OTR : Identical context not allowed.&apos;.
+          WHEN 9.
+            lv_msg = &apos;OTR : Text too long.&apos;.
+          WHEN 10.
+            lv_msg = &apos;OTR : Error in update.&apos;.
+          WHEN 11.
+            lv_msg = &apos;OTR : No master language.&apos;.
+          WHEN 12.
+            lv_msg = &apos;OTR : Error in concept ID (GUID).&apos;.
+          WHEN 13.
+            lv_msg = &apos;OTR : Alias not allowed.&apos;.
+          WHEN 14.
+            lv_msg = &apos;OTR : TADIR entry creation failed.&apos;.
+          WHEN 15.
+            lv_msg = &apos;OTR : Internal Error.&apos;.
+          WHEN 16.
+            lv_msg = &apos;OTR : Error in correction.&apos;.
+          WHEN 17.
+            lv_msg = &apos;OTR : User cancelled.&apos;.
+          WHEN 18.
+            lv_msg = &apos;OTR : No entry found.&apos;.
+          WHEN OTHERS.
+            lv_msg = &apos;OTR : Global error.&apos;.
+        ENDCASE.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            textid = zcx_saplink=&gt;error_message
+            msg    = lv_msg.
+      ENDIF.
+
+      sub_node_node ?= sub_node_iterator-&gt;get_next( ).
+    ENDWHILE.
+  ELSE.
+
+    CONCATENATE &apos;Package &apos; _packet &apos; doesn&apos;&apos;t exist.&apos; INTO _msg_err RESPECTING BLANKS.
+
+    RAISE EXCEPTION TYPE zcx_saplink
+      EXPORTING
+        textid = zcx_saplink=&gt;error_message
+        msg    = _msg_err.
+
+  ENDIF.
+
+
+  name = _packet.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD deleteobject.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Berthe Joseph
+*      joseph.berthe@gmail.com
+
+
+  TYPES: BEGIN OF totrhead,
+        packet TYPE sotr_head-paket,
+  END OF totrhead.
+
+  DATA _concept     TYPE sotr_head-concept.
+  DATA _objtype     TYPE string.
+  DATA _header      TYPE sotr_head.
+  DATA _entry_keys  TYPE TABLE OF sotr_text.
+  DATA _entry       TYPE TABLE OF sotr_text.
+  DATA _otr_keys    TYPE TABLE OF sotr_key.
+  DATA _paket       TYPE totrhead.
+
+  FIELD-SYMBOLS: &lt;fs_otr_key&gt; TYPE sotr_key.
+
+  _paket-packet = objname.
+
+  CALL FUNCTION &apos;SOTR_GET_KEYS_FOR_PACKAGE&apos;
+    EXPORTING
+      paket          = _paket-packet
+    IMPORTING
+      sotr_keys      = _otr_keys
+    EXCEPTIONS
+      no_entry_found = 1
+      OTHERS         = 2.
+
+  IF sy-subrc &lt;&gt; 0.
+    RAISE EXCEPTION TYPE zcx_saplink
+      EXPORTING
+        textid = zcx_saplink=&gt;error_message
+        msg    = `OTR : Package not found`.
+  ENDIF.
+
+  _objtype  = getobjecttype( ).
+
+  LOOP AT _otr_keys ASSIGNING &lt;fs_otr_key&gt;.
+    CLEAR: _header.
+    REFRESH: _entry.
+
+    CALL FUNCTION &apos;SOTR_DELETE_CONCEPT&apos;
+      EXPORTING
+        concept             = &lt;fs_otr_key&gt;-concept
+      EXCEPTIONS
+        no_authorization    = 1
+        no_entry_found      = 2
+        concept_used        = 3
+        no_master_language  = 4
+        no_source_system    = 5
+        no_tadir_entry      = 6
+        error_in_correction = 7
+        user_cancelled      = 8
+        text_not_found      = 9
+        invalid_package     = 10
+        text_not_changeable = 11
+        text_enqueued       = 12
+        no_correction       = 13
+        parameter_error     = 14.
+
+    DATA _msg_err     TYPE string.
+    CLEAR _msg_err.
+
+    CASE sy-subrc.
+      WHEN 14.
+        _msg_err = &apos;OTR (Del) : No TADIR found.&apos;.
+      WHEN 7.
+        _msg_err = &apos;OTR (Del) : Error in correction.&apos;.
+      WHEN 8.
+        _msg_err = &apos;OTR (Del) : ser Cancelled.&apos;.
+      WHEN 10.
+        _msg_err = &apos;OTR (Del) : Invalid package.&apos;.
+      WHEN 14.
+        _msg_err = &apos;OTR (Del) : ext no t changeable.&apos;.
+      WHEN 12.
+        _msg_err = &apos;OTR (Del) : Txt Enqueued.&apos;.
+      WHEN 13.
+        _msg_err = &apos;OTR (Del) : No Correction&apos;.
+      WHEN 14.
+        _msg_err = &apos;OTR (Del) : Parameter error.&apos;.
+      WHEN 9.
+      WHEN OTHERS.
+    ENDCASE.
+
+    IF _msg_err IS NOT INITIAL.
+      CONCATENATE _msg_err &lt;fs_otr_key&gt;-concept INTO _msg_err SEPARATED BY space.
+
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          textid = zcx_saplink=&gt;error_message
+          msg    = _msg_err.
+    ENDIF.
+
+
+  ENDLOOP.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>method GETOBJECTTYPE.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Berthe Joseph
+*      joseph.berthe@gmail.com
+
+  objecttype = &apos;SOTR&apos;.  &quot;Table Contents
+
+endmethod.</source>
+ </method>
+</CLAS>
