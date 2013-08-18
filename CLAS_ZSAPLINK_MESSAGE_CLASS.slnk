@@ -1,31 +1,5 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<CLAS CLSNAME="ZSAPLINK_MESSAGE_CLASS" VERSION="0" LANGU="E" DESCRIPT="SAPLink - Message Class plugin" UUID="E303D87F2322474E86FFC5032F38C7E1" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="JOHNP" CREATEDON="20061012" CHANGEDBY="JOHNP" CHANGEDON="20061012" CHGDANYON="00000000" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="620" CLSBCCAT="00" REFCLSNAME="ZSAPLINK">
- <publicSection>class ZSAPLINK_MESSAGE_CLASS definition
-  public
-  inheriting from ZSAPLINK
-  create public .
-
-*&quot;* public components of class ZSAPLINK_MESSAGE_CLASS
-*&quot;* do not include other source files here!!!
-public section.
-
-  methods CHECKEXISTS
-    redefinition .
-  methods CREATEIXMLDOCFROMOBJECT
-    redefinition .
-  methods CREATEOBJECTFROMIXMLDOC
-    redefinition .</publicSection>
- <protectedSection>*&quot;* protected components of class ZSAPLINK_MESSAGE_CLASS
-*&quot;* do not include other source files here!!!
-protected section.
-
-  methods GETOBJECTTYPE
-    redefinition .
-  methods DELETEOBJECT
-    redefinition .</protectedSection>
- <privateSection>*&quot;* private components of class ZSAPLINK_MESSAGE_CLASS
-*&quot;* do not include other source files here!!!
-private section.</privateSection>
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="ZSAPLINK_MESSAGE_CLASS" VERSION="1" LANGU="E" DESCRIPT="SAPLink - Message Class plugin" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
  <localImplementation>*&quot;* local class implementation for public class
 *&quot;* use this source file for the implementation part of
 *&quot;* local helper classes</localImplementation>
@@ -34,14 +8,14 @@ private section.</privateSection>
 *&quot;* implementation or private method&apos;s signature</localTypes>
  <localMacros>*&quot;* use this source file for any macro definitions you need
 *&quot;* in the implementation part of the class</localMacros>
- <inheritance CLSNAME="ZSAPLINK_MESSAGE_CLASS" REFCLSNAME="ZSAPLINK" VERSION="0" STATE="1" AUTHOR="JOHNP" CREATEDON="20061012" CHANGEDBY="JOHNP" CHANGEDON="20061012">
-  <redefinition CLSNAME="ZSAPLINK_MESSAGE_CLASS" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="CHECKEXISTS"/>
-  <redefinition CLSNAME="ZSAPLINK_MESSAGE_CLASS" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="CREATEIXMLDOCFROMOBJECT"/>
-  <redefinition CLSNAME="ZSAPLINK_MESSAGE_CLASS" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="CREATEOBJECTFROMIXMLDOC"/>
-  <redefinition CLSNAME="ZSAPLINK_MESSAGE_CLASS" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="DELETEOBJECT"/>
-  <redefinition CLSNAME="ZSAPLINK_MESSAGE_CLASS" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="GETOBJECTTYPE"/>
+ <inheritance CLSNAME="ZSAPLINK_MESSAGE_CLASS" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1">
+  <redefinition CLSNAME="ZSAPLINK_MESSAGE_CLASS" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS"/>
+  <redefinition CLSNAME="ZSAPLINK_MESSAGE_CLASS" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT"/>
+  <redefinition CLSNAME="ZSAPLINK_MESSAGE_CLASS" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC"/>
+  <redefinition CLSNAME="ZSAPLINK_MESSAGE_CLASS" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT"/>
+  <redefinition CLSNAME="ZSAPLINK_MESSAGE_CLASS" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE"/>
  </inheritance>
- <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -82,7 +56,7 @@ METHOD checkexists .
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -165,13 +139,15 @@ METHOD createixmldocfromobject .
   SELECT *
    INTO TABLE lt_t100
    FROM t100
-   WHERE arbgb = lv_msgid.
+   WHERE arbgb = lv_msgid
+   ORDER BY sprsl msgnr.
 
 *--- get text for t100a
   SELECT  *
    INTO TABLE lt_t100t
    FROM t100t
-   WHERE arbgb = lv_msgid.
+   WHERE arbgb = lv_msgid
+   ORDER BY sprsl.
 
 *-- Create parent node
   lv_objtype = getobjecttype( ).
@@ -202,7 +178,7 @@ METHOD createixmldocfromobject .
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -400,7 +376,7 @@ METHOD createobjectfromixmldoc .
   name = objname.
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -425,7 +401,7 @@ method DELETEOBJECT .
 *      patterjo@gmail.com
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
