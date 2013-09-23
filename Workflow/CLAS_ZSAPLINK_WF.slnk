@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="ZSAPLINK_WF" VERSION="1" LANGU="E" DESCRIPT="Generic SAPLING plugin for Workflow objects" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <attribute CLSNAME="ZSAPLINK_WF" CMPNAME="C_SWF_PERS_CLASS" VERSION="1" LANGU="E" DESCRIPT="Reference type" EXPOSURE="2" STATE="1" EDITORDER="0 " ATTDECLTYP="2" ATTVALUE="&apos;CL_SWF_CNT_HRS_PERSISTENCE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="CLASSNAME" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_WF" CMPNAME="GO_CONTAINER" VERSION="1" LANGU="E" DESCRIPT="Container - Implementation of a &apos;Collection&apos;" EXPOSURE="1" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="IF_SWF_CNT_CONTAINER" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_WF" CMPNAME="GS_OBJECT" VERSION="1" LANGU="E" DESCRIPT="Index for Standard Objects" EXPOSURE="1" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="HRSOBJECT" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZSAPLINK_WF" CMPNAME="G_MSG" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <inheritance CLSNAME="ZSAPLINK_WF" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1">
+  <redefinition CLSNAME="ZSAPLINK_WF" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS" EXPOSURE="2"/>
+  <redefinition CLSNAME="ZSAPLINK_WF" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT" EXPOSURE="2"/>
+  <redefinition CLSNAME="ZSAPLINK_WF" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC" EXPOSURE="2"/>
+  <redefinition CLSNAME="ZSAPLINK_WF" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT" EXPOSURE="1"/>
+  <redefinition CLSNAME="ZSAPLINK_WF" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE" EXPOSURE="1"/>
+ </inheritance>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="AFTER_SAVE" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="AFTER_SAVE" SCONAME="I_XMLDOC" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_DOCUMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_DOCUMENT"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="AFTER_SAVE" SCONAME="I_DEVCLASS" VERSION="1" LANGU="E" DESCRIPT="Package" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DEVCLASS" PARVALUE="&apos;$TMP&apos;"/>
+  <exception CLSNAME="ZSAPLINK_WF" CMPNAME="AFTER_SAVE" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 "/>
+  <source>method AFTER_SAVE.
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="APPEND_STRUCTURE_NODE" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="APPEND_STRUCTURE_NODE" SCONAME="I_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="APPEND_STRUCTURE_NODE" SCONAME="I_NAME" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="APPEND_STRUCTURE_NODE" SCONAME="IS_STRUCT" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="APPEND_STRUCTURE_NODE" SCONAME="R_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>METHOD APPEND_STRUCTURE_NODE.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  CHECK i_node IS BOUND.
+
+  r_node = xmldoc-&gt;create_element( i_name ).
+  i_node-&gt;append_child( r_node ).
+
+  setattributesfromstructure( node = r_node
+                              structure = is_struct ).
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="APPEND_TABLE_NODE" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="APPEND_TABLE_NODE" SCONAME="I_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="APPEND_TABLE_NODE" SCONAME="I_NAME" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="APPEND_TABLE_NODE" SCONAME="IT" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY TABLE"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="APPEND_TABLE_NODE" SCONAME="R_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>METHOD APPEND_TABLE_NODE.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  FIELD-SYMBOLS: &lt;wa&gt; TYPE any.
+
+  DATA: item TYPE REF TO if_ixml_element,
+        attr TYPE REF TO if_ixml_attribute.
+
+  CHECK i_node IS BOUND AND lines( it ) &gt; 0.
+
+  r_node = xmldoc-&gt;create_element( i_name ).
+  i_node-&gt;append_child( r_node ).
+
+  LOOP AT it ASSIGNING &lt;wa&gt;.
+    r_node-&gt;append_child( append_structure_node( i_node    = r_node
+                                                 i_name    = &apos;item&apos;
+                                                 is_struct = &lt;wa&gt; ) ).
+  ENDLOOP.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="BEFORE_SAVE" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="BEFORE_SAVE" SCONAME="I_XMLDOC" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_DOCUMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_DOCUMENT"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="BEFORE_SAVE" SCONAME="I_DEVCLASS" VERSION="1" LANGU="E" DESCRIPT="Package" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DEVCLASS" PARVALUE="&apos;$TMP&apos;"/>
+  <source>method BEFORE_SAVE.
+endmethod.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD CHECKEXISTS.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  DATA: ls_object TYPE hrsobject.
+
+  ls_object-otype = get_otype( ).
+  ls_object-objid = get_objid( ).
+
+  CALL FUNCTION &apos;RH_CHECK_HRS_OBJECT_EXISTS&apos;
+    EXPORTING
+      act_otype        = ls_object-otype
+      act_objid        = ls_object-objid
+    EXCEPTIONS
+      object_not_found = 1
+      OTHERS           = 2.
+
+  IF sy-subrc &lt;&gt; 0.
+    CLEAR exists.
+  ELSE.
+    exists = abap_true.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD createixmldocfromobject.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  DATA: ls_object TYPE hrsobject,
+        ls_objec TYPE objec,
+        l_tabname TYPE tabname,
+        l_tabname_str TYPE string,
+        lt_infty TYPE TABLE OF t787i-infty,
+
+        ls_hrs1203 TYPE hrs1203,
+        ls_hrs1216 TYPE hrscompdev,
+
+        lo_container TYPE REF TO if_swf_cnt_container,
+        lo_cnt_xml TYPE REF TO if_ixml_document,
+
+        l_root_node TYPE REF TO if_ixml_element,
+
+        lrt_infty_data TYPE REF TO data.
+
+  DATA: task_por TYPE sibflpor.
+
+  FIELD-SYMBOLS: &lt;lt_infty&gt; TYPE STANDARD TABLE,
+                 &lt;infty&gt; TYPE t787i-infty.
+
+  ls_objec-otype = ls_object-otype = get_otype( ).
+  ls_objec-objid = ls_object-objid = get_objid( ).
+
+  l_root_node = xmldoc-&gt;create_element( getobjecttype( ) ).
+
+  SELECT DISTINCT infty FROM  t787i INTO TABLE lt_infty
+         WHERE  otype  = ls_object-otype.
+
+  DELETE lt_infty WHERE table_line = &apos;1210&apos; OR
+                        table_line = &apos;1211&apos; OR
+                        table_line = &apos;1216&apos; OR
+                        table_line = &apos;1001&apos;.
+
+  l_tabname(3) = &apos;HRS&apos;.
+  LOOP AT lt_infty ASSIGNING &lt;infty&gt;.
+
+    l_tabname+3 = &lt;infty&gt;.
+
+    UNASSIGN &lt;lt_infty&gt;.
+
+    CREATE DATA lrt_infty_data TYPE STANDARD TABLE OF (l_tabname).
+    ASSIGN lrt_infty_data-&gt;* TO &lt;lt_infty&gt;.
+
+    CASE &lt;infty&gt;.
+      WHEN &apos;1000&apos;.
+        CALL FUNCTION &apos;RH_READ_HRS1000&apos;
+          EXPORTING
+            act_otype     = ls_object-otype
+            act_objid     = ls_object-objid
+          TABLES
+            act_hrs1000   = &lt;lt_infty&gt;
+          EXCEPTIONS
+            no_data_found = 1
+            OTHERS        = 2.
+
+        IF sy-subrc &lt;&gt; 0.
+        ENDIF.
+
+      WHEN &apos;1002&apos;.
+        CALL FUNCTION &apos;RH_READ_HRS1002&apos;
+          EXPORTING
+            act_otype     = ls_object-otype
+            act_objid     = ls_object-objid
+          TABLES
+            act_hrs1002   = &lt;lt_infty&gt;
+          EXCEPTIONS
+            no_data_found = 1
+            OTHERS        = 2.
+
+        IF sy-subrc &lt;&gt; 0.
+        ENDIF.
+
+      WHEN &apos;1200&apos;.
+        CALL FUNCTION &apos;RH_READ_HRS1200&apos;
+          EXPORTING
+            act_otype        = ls_object-otype
+            act_objid        = ls_object-objid
+            rel_object_check = space
+          TABLES
+            act_hrs1200      = &lt;lt_infty&gt;
+          EXCEPTIONS
+            no_data_found    = 1
+            OTHERS           = 2.
+
+        IF sy-subrc &lt;&gt; 0.
+* Implement suitable error handling here
+        ENDIF.
+
+      WHEN &apos;1201&apos;.
+        DATA: ls_hrs1201 TYPE hrs1201.
+        CALL FUNCTION &apos;RH_READ_HRS1201&apos;
+          EXPORTING
+            act_otype     = ls_object-otype
+            act_objid     = ls_object-objid
+          IMPORTING
+            act_hrs1201   = ls_hrs1201
+          EXCEPTIONS
+            no_data_found = 1
+            OTHERS        = 2.
+
+        IF sy-subrc = 0.
+          APPEND ls_hrs1201 TO &lt;lt_infty&gt;.
+        ENDIF.
+
+      WHEN &apos;1202&apos;.
+        CALL FUNCTION &apos;RH_READ_HRS1202&apos;
+          EXPORTING
+            act_otype     = ls_object-otype
+            act_objid     = ls_object-objid
+          TABLES
+            act_hrs1202   = &lt;lt_infty&gt;
+          EXCEPTIONS
+            no_data_found = 1
+            OTHERS        = 2.
+
+        IF sy-subrc &lt;&gt; 0.
+        ENDIF.
+
+      WHEN &apos;1203&apos;.
+        CALL FUNCTION &apos;RH_READ_HRS1203&apos;
+          EXPORTING
+            act_otype   = ls_object-otype
+            act_objid   = ls_object-objid
+          IMPORTING
+            act_hrs1203 = ls_hrs1203
+          EXCEPTIONS
+            OTHERS      = 2.
+
+        IF sy-subrc = 0.
+          APPEND ls_hrs1203 TO &lt;lt_infty&gt;.
+        ENDIF.
+
+      WHEN &apos;1205&apos;.
+        CALL FUNCTION &apos;RH_READ_HRS1205&apos;
+          EXPORTING
+            act_otype     = ls_object-otype
+            act_objid     = ls_object-objid
+          TABLES
+            act_hrs1205   = &lt;lt_infty&gt;
+          EXCEPTIONS
+            no_data_found = 1
+            OTHERS        = 2.
+
+        IF sy-subrc &lt;&gt; 0.
+        ENDIF.
+
+      WHEN &apos;1206&apos;.
+        CALL FUNCTION &apos;RH_READ_HRS1206&apos;
+          EXPORTING
+            act_otype     = ls_object-otype
+            act_objid     = ls_object-objid
+          TABLES
+            act_hrs1206   = &lt;lt_infty&gt;
+          EXCEPTIONS
+            no_data_found = 1
+            OTHERS        = 2.
+
+        IF sy-subrc &lt;&gt; 0.
+          &quot; Implement suitable error handling here
+        ENDIF.
+
+      WHEN &apos;1212&apos;.
+        CALL FUNCTION &apos;RH_READ_HRS1212&apos;
+          EXPORTING
+            act_otype     = ls_object-otype
+            act_objid     = ls_object-objid
+          TABLES
+            act_hrs1212   = &lt;lt_infty&gt;
+          EXCEPTIONS
+            no_data_found = 1
+            OTHERS        = 2.
+
+        IF sy-subrc &lt;&gt; 0.
+          &quot; Implement suitable error handling here
+        ENDIF.
+
+      WHEN &apos;1213&apos;.
+        CALL FUNCTION &apos;RH_READ_HRS1213&apos;
+          EXPORTING
+            act_otype     = ls_object-otype
+            act_objid     = ls_object-objid
+          TABLES
+            act_hrs1213   = &lt;lt_infty&gt;
+          EXCEPTIONS
+            no_data_found = 1
+            OTHERS        = 2.
+
+        IF sy-subrc &lt;&gt; 0.
+          &quot;* Implement suitable error handling here
+        ENDIF.
+
+      WHEN &apos;1214&apos;.
+        CALL FUNCTION &apos;RH_READ_HRS1214&apos;
+          EXPORTING
+            act_otype     = ls_object-otype
+            act_objid     = ls_object-objid
+          TABLES
+            act_hrs1214   = &lt;lt_infty&gt;
+          EXCEPTIONS
+            no_data_found = 1
+            OTHERS        = 2.
+
+        IF sy-subrc &lt;&gt; 0.
+          &quot;* Implement suitable error handling here
+        ENDIF.
+
+      WHEN OTHERS.
+        CONTINUE.
+    ENDCASE.
+
+    l_tabname_str = l_tabname.
+    me-&gt;append_table_node( i_node = l_root_node
+                           i_name = l_tabname_str
+                           it     = &lt;lt_infty&gt; ).
+
+  ENDLOOP.
+
+  lo_container = me-&gt;get_wf_cnt_instance( ).
+  lo_container-&gt;to_xml( EXPORTING include_texts = &apos;X&apos;
+                                  include_extension_elements = &apos;X&apos;
+                                  include_initial_values = &apos;X&apos;
+                                  include_null_values = &apos;X&apos;
+                                  include_typenames = &apos;X&apos;
+                        IMPORTING xml_dom = lo_cnt_xml ).
+
+  l_root_node-&gt;append_child( lo_cnt_xml-&gt;get_root_element( ) ).
+
+  xmldoc-&gt;append_child( fill_root_node( i_node = l_root_node
+                                        is_object = ls_object ) ).
+
+  ixmldocument  = xmldoc.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD createobjectfromixmldoc.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  DATA: ls_object TYPE hrsobject,
+        ls_objec TYPE objec,
+        l_tabname TYPE tabname,
+        l_hrs_tabname TYPE tabname,
+        l_tabname_str TYPE string,
+        lt_infty TYPE TABLE OF t787i-infty,
+
+        l_subroutine TYPE tabname,
+        init_subrc TYPE sy-subrc,
+        data_stored TYPE flag,
+        l_fcode TYPE t77fc-fcode,
+
+        l_object_guid32 TYPE guid_32,
+
+        can_save TYPE abap_bool,
+
+        l_langu TYPE sy-langu,
+
+        l_root_node TYPE REF TO if_ixml_element,
+
+        lrt_hrs_infty_data TYPE REF TO data,
+        lrt_infty_data TYPE REF TO data.
+
+  DATA: l_cnt_node TYPE REF TO if_ixml_element,
+        lo_container TYPE REF TO if_swf_cnt_container,
+        lo_cnt_xml TYPE REF TO if_ixml_document,
+        l_subdoc TYPE REF TO if_ixml_document,
+        l_ref_ixml TYPE REF TO if_ixml,
+        ex TYPE REF TO cx_root.
+
+  DATA: lt_i1000  TYPE TABLE OF hrs1000,
+        ls_hrs1000 TYPE hrs1000,
+
+        lt_i1002  TYPE TABLE OF hrs1002,
+        lt_i1200  TYPE TABLE OF hrs1200,
+        lt_i1201  TYPE TABLE OF hrs1201,
+
+        lt_i1202  TYPE TABLE OF hrs1202,
+        ls_i1202  TYPE hrs1202,
+
+        lt_i1203  TYPE TABLE OF hrs1203,
+        ls_i1203  TYPE hrs1203,
+
+        lt_i1205  TYPE TABLE OF hrs1205,
+        lt_i1206  TYPE TABLE OF hrs1206,
+        lt_i1212  TYPE TABLE OF hrs1212,
+        lt_i1213  TYPE TABLE OF hrs1213,
+        lt_i1214  TYPE TABLE OF hrs1214,
+
+        l_loc_tab_name TYPE tabname.
+
+  DATA: task_por TYPE sibflpor.
+
+  FIELD-SYMBOLS: &lt;lt_hrs_infty&gt; TYPE STANDARD TABLE,
+                 &lt;infty&gt; TYPE t787i-infty.
+
+  ls_objec-otype = ls_object-otype = get_otype( ).
+  ls_objec-objid = ls_object-objid = get_objid( ).
+
+  xmldoc = ixmldocument.
+
+  SELECT DISTINCT infty FROM  t787i INTO TABLE lt_infty
+         WHERE  otype  = ls_object-otype.
+
+  DELETE lt_infty WHERE table_line = &apos;1210&apos; OR &quot;old container
+                        table_line = &apos;1211&apos; OR &quot;old container
+                        table_line = &apos;1205&apos; OR &quot;WF definition version
+                        table_line = &apos;1216&apos; OR
+                        table_line = &apos;1001&apos;.
+
+  l_tabname(3) = &apos;HRS&apos;.
+  l_hrs_tabname(4) = &apos;LT_I&apos;.
+  LOOP AT lt_infty ASSIGNING &lt;infty&gt;.
+
+    l_tabname+3 = &lt;infty&gt;.
+    l_hrs_tabname+4 = &lt;infty&gt;.
+
+    UNASSIGN: &lt;lt_hrs_infty&gt;.
+    ASSIGN (l_hrs_tabname) TO &lt;lt_hrs_infty&gt;.
+    CHECK &lt;lt_hrs_infty&gt; IS ASSIGNED.
+
+    l_tabname_str = l_tabname.
+    me-&gt;get_table_from_node( EXPORTING i_name = l_tabname_str
+                             CHANGING  ct     = &lt;lt_hrs_infty&gt; ).
+
+  ENDLOOP.
+
+  IF checkexists( ) = abap_false.
+    CALL FUNCTION &apos;RH_HRSOBJECT_CORR_INSERT&apos;
+      EXPORTING
+        act_otype    = ls_object-otype
+        act_objid    = ls_object-objid
+        act_mode     = &apos; &apos;
+        act_devclass = devclass
+      IMPORTING
+        act_maint    = can_save
+      EXCEPTIONS
+        OTHERS       = 4.
+
+    IF sy-subrc NE 0.
+
+      MESSAGE ID sy-msgid TYPE &apos;E&apos; NUMBER sy-msgno
+              WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4 INTO g_msg.
+
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          msg = g_msg.
+
+    ENDIF.
+
+  ENDIF.
+
+  READ TABLE lt_i1000 INTO ls_hrs1000 WITH KEY langu = sy-langu.
+  IF sy-subrc = 0.
+    DELETE lt_i1000 INDEX sy-tabix.
+    INSERT ls_hrs1000 INTO lt_i1000 INDEX 1.
+  ENDIF.
+
+  CALL FUNCTION &apos;RH_HRSOBJECT_SAVE_FROM_EXPORT&apos;
+    EXPORTING
+      act_hrs_otype           = ls_object-otype
+      act_hrs_objid           = ls_object-objid
+      act_langu               = sy-langu
+      update_database         = abap_false
+    TABLES
+      i1000                   = lt_i1000
+      i1002                   = lt_i1002
+      i1200                   = lt_i1200
+      i1201                   = lt_i1201
+      i1205                   = lt_i1205
+      i1206                   = lt_i1206
+      i1212                   = lt_i1212
+      i1213                   = lt_i1213
+      i1214                   = lt_i1214
+    EXCEPTIONS
+      maintenance_not_allowed = 1
+      no_corr_number          = 2
+      error                   = 3
+      OTHERS                  = 4.
+
+  IF sy-subrc &lt;&gt; 0.
+    MESSAGE ID sy-msgid TYPE &apos;E&apos; NUMBER sy-msgno
+            WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4 INTO g_msg.
+
+    RAISE EXCEPTION TYPE zcx_saplink
+      EXPORTING
+        msg = g_msg.
+
+* Implement suitable error handling here
+  ENDIF.
+
+  IF lines( lt_i1202 ) &gt; 0.
+    UNASSIGN: &lt;lt_hrs_infty&gt;.
+    ASSIGN (&apos;(SAPLRHWS)USE_HRS1202[]&apos;) TO &lt;lt_hrs_infty&gt;.
+    IF &lt;lt_hrs_infty&gt; IS ASSIGNED.
+      PERFORM upd_buf_hrs1202 IN PROGRAM saplrhws
+                  USING
+                      ls_object-otype
+                      ls_object-objid
+                      sy-langu
+                      ls_i1202
+                      &apos;I&apos;.
+    ENDIF.
+  ENDIF.
+
+  IF lines( lt_i1203 ) &gt; 0.
+    READ TABLE lt_i1203 INTO ls_i1203 INDEX 1.
+    PERFORM upd_buf_hrs1203 IN PROGRAM saplrhws
+                USING
+                    ls_object-otype
+                    ls_object-objid
+                    sy-langu
+                    ls_i1203
+                    &apos;I&apos;.
+  ENDIF.
+
+  me-&gt;before_save( i_xmldoc = ixmldocument
+                   i_devclass = devclass ).
+
+  l_cnt_node = xmldoc-&gt;find_from_name( name = &apos;CONTAINER&apos; ).
+  IF l_cnt_node IS BOUND.
+    TRY .
+
+        lo_container = me-&gt;get_wf_cnt_instance( ).
+
+        l_ref_ixml = cl_ixml=&gt;create( ).
+        l_subdoc = l_ref_ixml-&gt;create_document( ).
+        l_subdoc-&gt;append_child( l_cnt_node ).
+
+        lo_container-&gt;import_from_xml( xml_dom = l_subdoc ).
+
+        l_object_guid32 = ls_object.
+        lo_container-&gt;set_guid( guid_32 = l_object_guid32 ).
+
+        lo_container-&gt;save_to_database( ).
+
+      CATCH cx_swf_cnt_invalid_por INTO ex.
+        g_msg = &apos;Error when saving container&apos; &amp;&amp; ex-&gt;get_text( ).
+
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING
+            msg = g_msg.
+
+    ENDTRY.
+  ENDIF.
+
+  CALL FUNCTION &apos;RH_STORE_HRS_DATA&apos;. &quot;It calls COMMIT
+
+  me-&gt;after_save( i_xmldoc = ixmldocument
+                  i_devclass = devclass ).
+
+  name = get_object_description( ).
+
+  CONCATENATE name ls_object INTO name SEPARATED BY space.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="CREATE_WF_CNT_INSTANCE" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="CREATE_WF_CNT_INSTANCE" SCONAME="R_INSTANCE" VERSION="1" LANGU="E" DESCRIPT="Container - Implementation of a &apos;Collection&apos;" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_SWF_CNT_CONTAINER"/>
+  <source>METHOD CREATE_WF_CNT_INSTANCE.
+  DATA: task_por TYPE sibflpor,
+        l_hr_task TYPE swd_step_t,
+        ls_object TYPE hrsobject.
+
+
+  ls_object-otype = get_otype( ).
+  ls_object-objid = get_objid( ).
+  l_hr_task = ls_object.
+
+  TRY.
+
+      CALL METHOD cl_swf_cnt_factory=&gt;create_rh_task_container
+        EXPORTING
+          im_task_id               = l_hr_task
+          im_persistence_classname = c_swf_pers_class
+        IMPORTING
+          ex_task_container        = r_instance.
+
+    CATCH cx_swf_utl_obj_create_failed.
+    CATCH cx_swf_utl_no_plan_variant.
+    CATCH cx_swf_utl_task_not_found.
+    CATCH cx_swf_utl_obj_invalid_ref.
+
+  ENDTRY.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD DELETEOBJECT.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="FILL_ROOT_NODE" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="FILL_ROOT_NODE" SCONAME="I_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="FILL_ROOT_NODE" SCONAME="IS_OBJECT" VERSION="1" LANGU="E" DESCRIPT="Index for Standard Objects" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="HRSOBJECT"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="FILL_ROOT_NODE" SCONAME="R_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_IXML_ELEMENT"/>
+  <source>METHOD FILL_ROOT_NODE.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  DATA: ls_taskid TYPE rhobjects.
+
+  ls_taskid = is_object.
+  setattributesfromstructure( node = i_node structure = ls_taskid ).
+
+  r_node = i_node.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD GETOBJECTTYPE.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  objecttype = &apos;PD&apos; &amp;&amp; get_otype( ).
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="GET_OBJECT_DESCRIPTION" VERSION="1" LANGU="E" DESCRIPT="Object description" EXPOSURE="1" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDABSTRCT="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="GET_OBJECT_DESCRIPTION" SCONAME="R_VALUE" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="GET_OBJID" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="GET_OBJID" SCONAME="R_OBJID" VERSION="1" LANGU="E" DESCRIPT="Object ID of Standard Object" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="HRSOBJECT-OBJID"/>
+  <source>METHOD GET_OBJID.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  IF objname(2) = get_otype( ).
+    r_objid = objname+2.
+  ELSE.
+    r_objid = objname.
+  ENDIF.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="GET_OTYPE" VERSION="1" LANGU="E" DESCRIPT="get OTYPE for particular HRS object" EXPOSURE="1" STATE="1" EDITORDER="6 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDABSTRCT="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="GET_OTYPE" SCONAME="R_OTYPE" VERSION="1" LANGU="E" DESCRIPT="Standard Object Type" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="HRSOBJECT-OTYPE"/>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="GET_STRUCTURE_FROM_NODE" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="7 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="GET_STRUCTURE_FROM_NODE" SCONAME="I_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT" PAROPTIONL="X"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="GET_STRUCTURE_FROM_NODE" SCONAME="I_NAME" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="GET_STRUCTURE_FROM_NODE" SCONAME="CS_STRUCT" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+  <source>METHOD GET_STRUCTURE_FROM_NODE.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  DATA: lo_node	TYPE REF TO if_ixml_element.
+
+  IF i_node IS BOUND.
+    lo_node = i_node.
+  ELSE.
+    lo_node = xmldoc-&gt;get_root_element( ).
+  ENDIF.
+
+  lo_node = lo_node-&gt;find_from_name( name = i_name ).
+
+  CHECK lo_node IS BOUND.
+
+  getstructurefromattributes( EXPORTING node            = lo_node
+                              CHANGING  structure       = cs_struct ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="GET_TABLE_FROM_NODE" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="8 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="GET_TABLE_FROM_NODE" SCONAME="I_NODE" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_ELEMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_ELEMENT" PAROPTIONL="X"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="GET_TABLE_FROM_NODE" SCONAME="I_NAME" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="GET_TABLE_FROM_NODE" SCONAME="CT" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="STANDARD TABLE"/>
+  <source>METHOD GET_TABLE_FROM_NODE.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  DATA: lo_node	TYPE REF TO if_ixml_element,
+        lo_item TYPE REF TO if_ixml_node,
+        l_name TYPE string,
+        l_value TYPE string,
+        lo_attrs TYPE REF TO if_ixml_named_node_map,
+        lo_attr TYPE REF TO if_ixml_node,
+        lo_iterator TYPE REF TO if_ixml_node_iterator,
+        lo_attr_iterator TYPE REF TO if_ixml_node_iterator,
+        lo_filter TYPE REF TO if_ixml_node_filter.
+
+  FIELD-SYMBOLS: &lt;wa&gt; TYPE any,
+                 &lt;f&gt; TYPE any.
+
+  IF i_node IS BOUND.
+    lo_node = i_node.
+  ELSE.
+    lo_node = xmldoc-&gt;get_root_element( ).
+  ENDIF.
+
+  CHECK lo_node IS BOUND.
+  lo_node = lo_node-&gt;find_from_name( name = i_name ).
+
+  CHECK lo_node IS BOUND.
+  lo_iterator = lo_node-&gt;create_iterator_filtered( lo_node-&gt;create_filter_name( &apos;item&apos; ) ).
+
+  DO.
+    lo_item = lo_iterator-&gt;get_next( ).
+    IF lo_item IS NOT BOUND.
+      EXIT.
+    ENDIF.
+
+    l_name = lo_item-&gt;get_name( ).
+    CHECK l_name = &apos;item&apos;.
+
+    lo_attrs = lo_item-&gt;get_attributes( ).
+    CHECK lo_attrs IS BOUND.
+
+    lo_attr_iterator = lo_attrs-&gt;create_iterator( ).
+    UNASSIGN &lt;wa&gt;.
+
+    DO.
+      lo_attr = lo_attr_iterator-&gt;get_next( ).
+      IF lo_attr IS NOT BOUND.
+        EXIT.
+      ENDIF.
+
+      IF &lt;wa&gt; IS NOT ASSIGNED.
+        APPEND INITIAL LINE TO ct ASSIGNING &lt;wa&gt;.
+      ENDIF.
+
+      l_name = lo_attr-&gt;get_name( ).
+      l_value = lo_attr-&gt;get_value( ).
+
+      UNASSIGN &lt;f&gt;.
+      ASSIGN COMPONENT l_name OF STRUCTURE &lt;wa&gt; TO &lt;f&gt;.
+
+      CHECK &lt;f&gt; IS ASSIGNED.
+      &lt;f&gt; = l_value.
+    ENDDO.
+
+  ENDDO.
+
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="GET_WF_CNT_INSTANCE" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_WF" CMPNAME="GET_WF_CNT_INSTANCE" SCONAME="R_INSTANCE" VERSION="1" LANGU="E" DESCRIPT="Container - Implementation of a &apos;Collection&apos;" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_SWF_CNT_CONTAINER"/>
+  <source>METHOD GET_WF_CNT_INSTANCE.
+  DATA: task_por TYPE sibflpor,
+        l_hr_task TYPE swd_step_t,
+        ls_object TYPE hrsobject.
+
+
+  IF go_container IS NOT BOUND.
+    ls_object-otype = get_otype( ).
+    ls_object-objid = get_objid( ).
+    l_hr_task = ls_object.
+
+* try to read the container from OO persistence
+    TRY.
+
+      task_por-typeid = c_swf_pers_class.
+      task_por-instid = ls_object.
+
+      CALL METHOD cl_swf_cnt_factory=&gt;find_by_lpor
+        EXPORTING
+          lpor     = task_por
+        RECEIVING
+          instance = go_container.
+
+    ENDTRY.
+
+    IF go_container IS NOT BOUND.
+* object has no persistent container yet
+
+      go_container = me-&gt;create_wf_cnt_instance( ).
+
+* get the texts of the container elements
+      CALL METHOD go_container-&gt;refresh_element_texts.
+
+    ENDIF.
+  ENDIF.
+
+  r_instance = go_container.
+ENDMETHOD.</source>
+ </method>
+</CLAS>

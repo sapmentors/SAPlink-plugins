@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="ZSAPLINK_WF_TEMPLATE" VERSION="1" LANGU="E" DESCRIPT="SAPLINK Workflow template plugin" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK_WF">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <attribute CLSNAME="ZSAPLINK_WF_TEMPLATE" CMPNAME="C_DEF_NODE_NAME" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="2" ATTVALUE="&apos;wf_definition&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <inheritance CLSNAME="ZSAPLINK_WF_TEMPLATE" REFCLSNAME="ZSAPLINK_WF" VERSION="1" STATE="1">
+  <redefinition CLSNAME="ZSAPLINK_WF_TEMPLATE" REFCLSNAME="ZSAPLINK_WF" VERSION="1" MTDNAME="AFTER_SAVE" EXPOSURE="1"/>
+  <redefinition CLSNAME="ZSAPLINK_WF_TEMPLATE" REFCLSNAME="ZSAPLINK_WF" VERSION="1" MTDNAME="FILL_ROOT_NODE" EXPOSURE="1"/>
+  <redefinition CLSNAME="ZSAPLINK_WF_TEMPLATE" REFCLSNAME="ZSAPLINK_WF" VERSION="1" MTDNAME="GET_OBJECT_DESCRIPTION" EXPOSURE="1"/>
+  <redefinition CLSNAME="ZSAPLINK_WF_TEMPLATE" REFCLSNAME="ZSAPLINK_WF" VERSION="1" MTDNAME="GET_OTYPE" EXPOSURE="1"/>
+ </inheritance>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="AFTER_SAVE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD after_save.
+
+  DATA: ls_wfdkey TYPE swd_wfdkey,
+        ls_object TYPE hrsobject,
+
+        msg TYPE string,
+        name TYPE string,
+        len TYPE i,
+        ind TYPE i,
+
+        l_okcode TYPE swd_data-okcode,
+        l_return TYPE swd_return,
+
+        lt_hrs1000 TYPE TABLE OF hrs1000,
+
+        l_task TYPE  swd_step_t,
+        ls_head TYPE swd_ahead,
+
+        lo_wfd_xml TYPE REF TO cl_xml_document_base,
+        lo_wfd_import TYPE REF TO if_swf_pdef_import,
+        lo_node TYPE REF TO if_ixml_node,
+        lo_node_next TYPE REF TO if_ixml_node,
+        lo_subdoc TYPE REF TO if_ixml_document,
+        lo_ixml TYPE REF TO if_ixml.
+
+  FIELD-SYMBOLS: &lt;hrs1000&gt; TYPE hrs1000.
+  ls_object-otype = get_otype( ).
+  ls_object-objid = get_objid( ).
+
+  l_task = ls_object.
+  CALL FUNCTION &apos;SWD_WORKFLOW_CREATE&apos;
+    EXPORTING
+      im_task = l_task
+    EXCEPTIONS
+      OTHERS  = 0.
+
+  lo_node = i_xmldoc-&gt;find_from_name( c_def_node_name ).
+  WHILE lo_node IS BOUND.
+    name = lo_node-&gt;get_name( ).
+    lo_node_next = lo_node-&gt;get_next( ).
+
+    IF name = c_def_node_name.
+      IF lo_ixml IS NOT BOUND.
+        lo_ixml = cl_ixml=&gt;create( ).
+      ENDIF.
+
+      lo_subdoc = lo_ixml-&gt;create_document( ).
+      lo_subdoc-&gt;append_child( lo_node ).
+
+      CREATE OBJECT lo_wfd_xml
+        EXPORTING
+          document = lo_subdoc.
+
+      l_okcode = &apos;NVRS&apos;. &quot;new viewrion
+      PERFORM ssc_wd_store IN PROGRAM saplswdd
+                  CHANGING
+                     l_okcode
+                     l_return.
+
+      IF lo_wfd_import IS NOT BOUND.
+        CREATE OBJECT lo_wfd_import TYPE cl_wfd_convert_ixml_to_def.
+      ENDIF.
+
+      lo_wfd_import-&gt;convert( xml_document  = lo_wfd_xml language = sy-langu ).
+    ENDIF.
+
+    lo_node = lo_node_next.
+  ENDWHILE.
+
+  CALL FUNCTION &apos;SWD_WORKFLOW_STORE&apos;
+    EXPORTING
+      im_force_gen = abap_true
+    IMPORTING
+      ex_wfdkey    = ls_wfdkey
+    EXCEPTIONS
+      OTHERS       = 4.
+
+  IF sy-subrc &lt;&gt; 0.
+    RAISE EXCEPTION TYPE zcx_saplink
+      EXPORTING
+        textid = zcx_saplink=&gt;error_message
+        msg    = &apos;Error when saving Workflow definition &apos; &amp;&amp; l_task.
+  ENDIF.
+
+  COMMIT WORK.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="FILL_ROOT_NODE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD fill_root_node.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  DATA: ls_wfdkey TYPE swd_wfdkey,
+
+        lo_wfd_xml TYPE REF TO cl_xml_document_base,
+        lo_wfd_export TYPE REF TO if_swf_pdef_export,
+        lt_versions TYPE TABLE OF swd_versns,
+
+        lo_node TYPE REF TO if_ixml_element.
+
+  FIELD-SYMBOLS: &lt;version&gt; TYPE swd_versns.
+
+  super-&gt;fill_root_node( i_node = i_node
+                         is_object = is_object ).
+
+  CALL FUNCTION &apos;SWD_GET_VERSIONS_OF_WORKFLOW&apos;
+    EXPORTING
+      im_task          = is_object
+      im_exetyp        = &apos;S&apos;
+    IMPORTING
+      ex_active_wfdkey = ls_wfdkey
+    TABLES
+      ex_versions      = lt_versions.
+
+  CREATE OBJECT lo_wfd_export TYPE cl_wfd_convert_def_to_ixml.
+
+  SORT lt_versions BY version.
+  LOOP AT lt_versions ASSIGNING &lt;version&gt;.
+
+    ls_wfdkey-version = &lt;version&gt;-version.
+    lo_wfd_xml = lo_wfd_export-&gt;convert( load_from_db = abap_true
+                                         language = sy-langu
+                                         wfd_key = ls_wfdkey ).
+    lo_node = me-&gt;append_structure_node( i_node = i_node
+                                         i_name    = c_def_node_name
+                                         is_struct = ls_wfdkey ).
+
+    lo_node-&gt;append_child( lo_wfd_xml-&gt;get_first_node( ) ).
+    i_node-&gt;append_child( lo_node ).
+  ENDLOOP.
+
+  r_node = i_node.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="GET_OBJECT_DESCRIPTION" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD get_object_description.
+  r_value = &apos;Workflow template&apos;.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="GET_OTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD GET_OTYPE.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  r_otype = &apos;WS&apos;.
+ENDMETHOD.</source>
+ </method>
+</CLAS>

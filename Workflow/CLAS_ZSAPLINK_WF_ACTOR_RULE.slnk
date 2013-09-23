@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="ZSAPLINK_WF_ACTOR_RULE" VERSION="1" LANGU="E" DESCRIPT="SAPLINK Agent determination rule plugin" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK_WF">
+ <types CLSNAME="ZSAPLINK_WF_ACTOR_RULE" CMPNAME="TS_RULE_ATTR" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="1 " TYPTYPE="4" SRCROW1="11 " SRCCOLUMN1="4 " SRCROW2="24 " SRCCOLUMN2="29 " TYPESRC_LENG="657 " TYPESRC="BEGIN OF ts_rule_attr,
+             act_short  TYPE  hrs1000-short,
+             act_stext  TYPE  hrs1000-stext,
+             execute_function TYPE  hrs1203-fname,
+             execute_wegid  TYPE  hrs1203-wegid,
+             execute_scenario TYPE  hrs1203-attrscn,
+             execute_enforce  TYPE  hrs1203-enforce,
+             sap_org_obj_based  TYPE  hrs1203-org_flag,
+             sap_org_objtype  TYPE  hrs1203-objtype,
+             responsible_flag TYPE  flag,
+             personal_flag  TYPE  hrs1203-personal,
+             prioseq_flag TYPE  hrs1203-prioseqn,
+             roletype TYPE  hrroletype,
+           END OF ts_rule_attr
+"/>
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <textPool>
+  <language SPRAS="E">
+   <textElement ID="I" KEY="001" ENTRY="rule_attributes" LENGTH="15 "/>
+   <textElement ID="I" KEY="002" ENTRY="rule_container" LENGTH="14 "/>
+  </language>
+ </textPool>
+ <inheritance CLSNAME="ZSAPLINK_WF_ACTOR_RULE" REFCLSNAME="ZSAPLINK_WF" VERSION="1" STATE="1">
+  <redefinition CLSNAME="ZSAPLINK_WF_ACTOR_RULE" REFCLSNAME="ZSAPLINK_WF" VERSION="1" MTDNAME="CREATE_WF_CNT_INSTANCE" EXPOSURE="1"/>
+  <redefinition CLSNAME="ZSAPLINK_WF_ACTOR_RULE" REFCLSNAME="ZSAPLINK_WF" VERSION="1" MTDNAME="FILL_ROOT_NODE" EXPOSURE="1"/>
+  <redefinition CLSNAME="ZSAPLINK_WF_ACTOR_RULE" REFCLSNAME="ZSAPLINK_WF" VERSION="1" MTDNAME="GET_OBJECT_DESCRIPTION" EXPOSURE="1"/>
+  <redefinition CLSNAME="ZSAPLINK_WF_ACTOR_RULE" REFCLSNAME="ZSAPLINK_WF" VERSION="1" MTDNAME="GET_OTYPE" EXPOSURE="1"/>
+ </inheritance>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="CREATE_WF_CNT_INSTANCE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD create_wf_cnt_instance.
+*CALL METHOD SUPER-&gt;CREATE_WF_CNT_INSTANCE
+*  RECEIVING
+*    R_INSTANCE =
+*    .
+  DATA: task_por TYPE sibflpor,
+        l_hr_task TYPE swd_step_t,
+        ls_object TYPE hrsobject.
+
+
+  ls_object-otype = get_otype( ).
+  ls_object-objid = get_objid( ).
+  l_hr_task = ls_object.
+
+  TRY.
+
+      CALL METHOD cl_swf_cnt_factory=&gt;create_role_container
+        EXPORTING
+          im_role_id               = l_hr_task
+          im_persistence_classname = c_swf_pers_class
+        IMPORTING
+          ex_role_container        = r_instance.
+
+    CATCH cx_swf_utl_obj_create_failed.
+    CATCH cx_swf_utl_no_plan_variant.
+    CATCH cx_swf_utl_task_not_found.
+    CATCH cx_swf_utl_obj_invalid_ref.
+
+  ENDTRY.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="FILL_ROOT_NODE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD FILL_ROOT_NODE.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  DATA: ls_attr TYPE ts_rule_attr,
+        lt_cont	TYPE TABLE OF swcontdef.
+
+  DATA: node TYPE REF TO if_ixml_element.
+
+  r_node = super-&gt;fill_root_node( i_node    = i_node
+                                  is_object = is_object ).
+
+  CALL FUNCTION &apos;RH_GET_ACTOR_ATTRIBUTES&apos;
+    EXPORTING
+      act_otype         = is_object-otype
+      act_objid         = is_object-objid
+      read_container    = abap_true
+      authority_check   = abap_false
+    IMPORTING
+      act_short         = ls_attr-act_short
+      act_stext         = ls_attr-act_stext
+      execute_function  = ls_attr-execute_function
+      execute_wegid     = ls_attr-execute_wegid
+      execute_scenario  = ls_attr-execute_scenario
+      execute_enforce   = ls_attr-execute_enforce
+      sap_org_obj_based = ls_attr-sap_org_obj_based
+      sap_org_objtype   = ls_attr-sap_org_objtype
+      responsible_flag  = ls_attr-responsible_flag
+      personal_flag     = ls_attr-personal_flag
+      prioseq_flag      = ls_attr-prioseq_flag
+      roletype          = ls_attr-roletype
+    TABLES
+      act_cont_def      = lt_cont
+    EXCEPTIONS
+      OTHERS            = 2.
+
+  IF sy-subrc &lt;&gt; 0.
+* Implement suitable error handling here
+  ENDIF.
+
+  append_structure_node( i_node    = i_node
+                         i_name    = &apos;rule_attributes&apos;
+                         is_struct = ls_attr ).
+
+  append_table_node( i_node = i_node
+                     i_name = &apos;rule_container&apos;
+                     it     = lt_cont ).
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="GET_OBJECT_DESCRIPTION" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD get_object_description.
+  r_value = &apos;Agent determination rule&apos;.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_WF" CMPNAME="GET_OTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD GET_OTYPE.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
+
+*      Plugin created by:
+*      Sergey Korolev
+*      slkorolev@gmail.com
+
+  r_otype = &apos;AC&apos;.
+ENDMETHOD.</source>
+ </method>
+</CLAS>
