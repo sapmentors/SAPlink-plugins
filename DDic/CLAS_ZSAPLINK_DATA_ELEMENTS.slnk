@@ -1,32 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CLAS CLSNAME="ZSAPLINK_DATA_ELEMENTS" VERSION="0" LANGU="E" DESCRIPT="SAPlink - Data Dictionary Data Elements" UUID="45268E6C1D9500D602000000A7E42BA1" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="USEWH90" CREATEDON="20061008" CHANGEDON="00000000" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="640" CLSBCCAT="00" REFCLSNAME="ZSAPLINK">
- <publicSection>class ZSAPLINK_DATA_ELEMENTS definition
-  public
-  inheriting from ZSAPLINK
-  final
-  create public .
-
-*&quot;* public components of class ZSAPLINK_DATA_ELEMENTS
-*&quot;* do not include other source files here!!!
-public section.
-
-  methods CHECKEXISTS
-    redefinition .
-  methods CREATEIXMLDOCFROMOBJECT
-    redefinition .
-  methods CREATEOBJECTFROMIXMLDOC
-    redefinition .</publicSection>
- <protectedSection>*&quot;* protected components of class ZSAPLINK_DATA_ELEMENTS
-*&quot;* do not include other source files here!!!
-protected section.
-
-  methods DELETEOBJECT
-    redefinition .
-  methods GETOBJECTTYPE
-    redefinition .</protectedSection>
- <privateSection>*&quot;* private components of class ZSAPLINK_DATA_ELEMENTS
-*&quot;* do not include other source files here!!!
-private section.</privateSection>
+<CLAS CLSNAME="ZSAPLINK_DATA_ELEMENTS" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Data Dictionary Data Elements" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
  <localImplementation>*&quot;* local class implementation for public class
 *&quot;* use this source file for the implementation part of
 *&quot;* local helper classes</localImplementation>
@@ -35,14 +8,15 @@ private section.</privateSection>
 *&quot;* implementation or private method&apos;s signature</localTypes>
  <localMacros>*&quot;* use this source file for any macro definitions you need
 *&quot;* in the implementation part of the class</localMacros>
- <inheritance CLSNAME="ZSAPLINK_DATA_ELEMENTS" REFCLSNAME="ZSAPLINK" VERSION="0" STATE="1" AUTHOR="USEWH90" CREATEDON="20061008" CHANGEDON="00000000">
-  <redefinition CLSNAME="ZSAPLINK_DATA_ELEMENTS" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="CHECKEXISTS"/>
-  <redefinition CLSNAME="ZSAPLINK_DATA_ELEMENTS" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="CREATEIXMLDOCFROMOBJECT"/>
-  <redefinition CLSNAME="ZSAPLINK_DATA_ELEMENTS" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="CREATEOBJECTFROMIXMLDOC"/>
-  <redefinition CLSNAME="ZSAPLINK_DATA_ELEMENTS" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="DELETEOBJECT"/>
-  <redefinition CLSNAME="ZSAPLINK_DATA_ELEMENTS" REFCLSNAME="ZSAPLINK" VERSION="0" MTDNAME="GETOBJECTTYPE"/>
+ <attribute CLSNAME="ZSAPLINK_DATA_ELEMENTS" CMPNAME="C_MULTILANGUAGESUPPORT" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="2" ATTVALUE="&apos;MultiLanguageSupport&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <inheritance CLSNAME="ZSAPLINK_DATA_ELEMENTS" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1">
+  <redefinition CLSNAME="ZSAPLINK_DATA_ELEMENTS" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS"/>
+  <redefinition CLSNAME="ZSAPLINK_DATA_ELEMENTS" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT"/>
+  <redefinition CLSNAME="ZSAPLINK_DATA_ELEMENTS" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC"/>
+  <redefinition CLSNAME="ZSAPLINK_DATA_ELEMENTS" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT"/>
+  <redefinition CLSNAME="ZSAPLINK_DATA_ELEMENTS" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE"/>
  </inheritance>
- <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -86,7 +60,7 @@ METHOD CHECKEXISTS.
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEIXMLDOCFROMOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -111,50 +85,130 @@ METHOD createixmldocfromobject.
 *      Thomas Jung
 *      thomas.jung1@gmail.com
 
-  DATA: gotstate TYPE ddgotstate,
-        dd04v_wa TYPE dd04v,
-        tpara_wa TYPE tpara.
+**      Stefan Schmöcker - July 2014
+**      Changed to support multilinguitiy
 
-*xml nodes
-  DATA rootnode   TYPE REF TO if_ixml_element.
-  DATA tpara_node TYPE REF TO if_ixml_element.
-  DATA rc         TYPE sysubrc.
-  DATA _dtelname  TYPE ddobjname.
-  _dtelname = objname.
 
-  CALL FUNCTION &apos;DDIF_DTEL_GET&apos;
-    EXPORTING
-      name          = _dtelname
-      langu         = sy-langu
-    IMPORTING
-      gotstate      = gotstate
-      dd04v_wa      = dd04v_wa
-      tpara_wa      = tpara_wa
-    EXCEPTIONS
-      illegal_input = 1
-      OTHERS        = 2.
+  DATA: lt_ddlanguage TYPE STANDARD TABLE OF ddlanguage WITH NON-UNIQUE DEFAULT KEY,
+        lo_rootnode   TYPE REF TO if_ixml_element,
+        lo_langunode  TYPE REF TO if_ixml_element,
+        lo_tparanode  TYPE REF TO if_ixml_element,
+        lo_dd04vnode  TYPE REF TO if_ixml_element,
+        lv_objecttype TYPE string,
+        lv_value      TYPE string,
+        lv_ddobjname  TYPE ddobjname,
+        ls_dd04v      TYPE dd04v.
 
-  IF sy-subrc &lt;&gt; 0 OR dd04v_wa-rollname IS INITIAL.
-    RAISE EXCEPTION TYPE zcx_saplink
-      EXPORTING textid = zcx_saplink=&gt;not_found.
-  ENDIF.
+  FIELD-SYMBOLS: &lt;lv_ddlanguage&gt; LIKE LINE OF lt_ddlanguage.
 
-* Create parent node
-  DATA _objtype TYPE string.
-  _objtype = getobjecttype( ).
-  rootnode = xmldoc-&gt;create_element( _objtype ).
-  setattributesfromstructure( node = rootnode structure = dd04v_wa ).
+*--------------------------------------------------------------------*
+* First determine all languages that we have to take into account
+* This translation could have taken place
+*       for the domain description  ( DD01T )
+*       or for the fix-values       ( DD07T )
+* Get a list of all languages
+*--------------------------------------------------------------------*
+  SELECT DISTINCT ddlanguage
+    INTO TABLE lt_ddlanguage
+    FROM dd04t
+    WHERE rollname = me-&gt;objname.
 
-  tpara_node = xmldoc-&gt;create_element( &apos;tpara&apos; ).
-  setattributesfromstructure( node = tpara_node structure = tpara_wa ).
-  rc = rootnode-&gt;append_child( tpara_node ).
+*--------------------------------------------------------------------*
+* Build rootnode
+*--------------------------------------------------------------------*
+  lv_objecttype = getobjecttype( ).
+  lo_rootnode   = xmldoc-&gt;create_element( lv_objecttype ).
+  lo_rootnode-&gt;set_attribute(  name  = &apos;ROLLNAME&apos;
+                               value = me-&gt;objname ).
+  lo_rootnode-&gt;set_attribute( name  = c_multilanguagesupport
+                              value = &apos;X&apos; ).
 
-*\--------------------------------------------------------------------/
-  rc = xmldoc-&gt;append_child( rootnode ).
+*--------------------------------------------------------------------*
+* For each language add a language-node,
+* and then add the relevant data from DD04
+*--------------------------------------------------------------------*
+  lv_ddobjname = me-&gt;objname.
+  LOOP AT lt_ddlanguage ASSIGNING &lt;lv_ddlanguage&gt;.
+
+    lo_langunode = xmldoc-&gt;create_element( &apos;DDLANGUAGE&apos; ).
+    lv_value     = &lt;lv_ddlanguage&gt;.
+    lo_langunode-&gt;set_attribute(  name  = &apos;LANGU&apos;
+                                  value = lv_value ).
+
+    CLEAR: ls_dd04v.
+    CALL FUNCTION &apos;DDIF_DTEL_GET&apos;
+      EXPORTING
+        name          = lv_ddobjname
+        langu         = &lt;lv_ddlanguage&gt;
+      IMPORTING
+        dd04v_wa      = ls_dd04v
+      EXCEPTIONS
+        illegal_input = 1
+        OTHERS        = 2.
+    IF sy-subrc &lt;&gt; 0 OR ls_dd04v-rollname IS INITIAL.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING textid = zcx_saplink=&gt;not_found.
+    ENDIF.
+
+    lo_dd04vnode = xmldoc-&gt;create_element( &apos;DD04V&apos; ).
+    setattributesfromstructure( node      = lo_dd04vnode
+                                structure = ls_dd04v ).
+    lo_langunode-&gt;append_child( lo_dd04vnode ).
+
+
+    lo_rootnode-&gt;append_child( lo_langunode ).
+
+  ENDLOOP.
+
+  xmldoc-&gt;append_child( lo_rootnode ).
   ixmldocument = xmldoc.
+
+
+*
+*  DATA: gotstate TYPE ddgotstate,
+*        dd04v_wa TYPE dd04v,
+*        tpara_wa TYPE tpara.
+*
+**xml nodes
+*  DATA rootnode   TYPE REF TO if_ixml_element.
+*  DATA tpara_node TYPE REF TO if_ixml_element.
+*  DATA rc         TYPE sysubrc.
+*  DATA _dtelname  TYPE ddobjname.
+*  _dtelname = objname.
+*
+*  CALL FUNCTION &apos;DDIF_DTEL_GET&apos;
+*    EXPORTING
+*      name          = _dtelname
+*      langu         = sy-langu
+*    IMPORTING
+*      gotstate      = gotstate
+*      dd04v_wa      = dd04v_wa
+*      tpara_wa      = tpara_wa
+*    EXCEPTIONS
+*      illegal_input = 1
+*      OTHERS        = 2.
+*
+*  IF sy-subrc &lt;&gt; 0 OR dd04v_wa-rollname IS INITIAL.
+*    RAISE EXCEPTION TYPE zcx_saplink
+*      EXPORTING textid = zcx_saplink=&gt;not_found.
+*  ENDIF.
+*
+** Create parent node
+*  DATA _objtype TYPE string.
+*  _objtype = getobjecttype( ).
+*  rootnode = xmldoc-&gt;create_element( _objtype ).
+*  setattributesfromstructure( node = rootnode structure = dd04v_wa ).
+*
+*  tpara_node = xmldoc-&gt;create_element( &apos;tpara&apos; ).
+*  setattributesfromstructure( node = tpara_node structure = tpara_wa ).
+*  rc = rootnode-&gt;append_child( tpara_node ).
+*
+**\--------------------------------------------------------------------/
+*  rc = xmldoc-&gt;append_child( rootnode ).
+*  ixmldocument = xmldoc.
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="CREATEOBJECTFROMIXMLDOC" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -174,6 +228,264 @@ ENDMETHOD.</source>
 *|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
 *\---------------------------------------------------------------------/
 METHOD createobjectfromixmldoc.
+
+*      Plugin created by:
+*      Thomas Jung
+*      thomas.jung1@gmail.com
+
+*      Stefan Schmöcker - July 2014
+*      Changed to support multilinguitiy
+
+  DATA: gotstate TYPE ddgotstate,
+        dd04v_wa TYPE dd04v,
+        tpara_wa TYPE tpara.
+
+*xml nodes
+  DATA rootnode    TYPE REF TO if_ixml_element.
+  DATA tpara_node  TYPE REF TO if_ixml_element.
+  DATA node        TYPE REF TO if_ixml_element.
+  DATA filter      TYPE REF TO if_ixml_node_filter.
+  DATA iterator    TYPE REF TO if_ixml_node_iterator.
+  DATA rc          TYPE sysubrc.
+  DATA _dtelname   TYPE ddobjname.
+  DATA _devclass   TYPE devclass.
+  DATA checkexists TYPE flag.
+  DATA _objtype    TYPE string.
+
+  _devclass = devclass.
+  _objtype = getobjecttype( ).
+
+  xmldoc = ixmldocument.
+  rootnode = xmldoc-&gt;find_from_name( _objtype ).
+
+
+* begin of insertion Multilinguality - check if nugget/slinkee was exported w/o support of multilinguality
+  DATA: lv_multilanguagesupport TYPE flag.
+  lv_multilanguagesupport = rootnode-&gt;get_attribute( name = c_multilanguagesupport ).
+  IF lv_multilanguagesupport IS INITIAL.  &quot; Not found or not set --&gt; use old version of this class
+    name = createobjectfromixmldoc_nolang(  ixmldocument =  ixmldocument
+                                            devclass     =  devclass
+                                            overwrite    =  overwrite    ).
+    RETURN.
+  ENDIF.
+* end of insertion Multilinguality - check if nugget/slinkee was exported w/o support of multilinguality
+
+  CALL METHOD getstructurefromattributes
+    EXPORTING
+      node      = rootnode
+    CHANGING
+      structure = dd04v_wa.
+
+  objname = dd04v_wa-rollname.
+
+  checkexists = checkexists( ).
+  IF checkexists IS NOT INITIAL.
+    IF overwrite IS INITIAL.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING textid = zcx_saplink=&gt;existing.
+    ELSE.
+*     delete object for new install
+      deleteobject( ).
+    ENDIF.
+  ENDIF.
+
+* retrieve data element details
+  FREE: filter, iterator, node.
+  filter = xmldoc-&gt;create_filter_name( &apos;tpara&apos; ).
+  iterator = xmldoc-&gt;create_iterator_filtered( filter ).
+  node ?= iterator-&gt;get_next( ).
+
+  IF node IS NOT INITIAL.
+    CALL METHOD getstructurefromattributes
+      EXPORTING
+        node      = node
+      CHANGING
+        structure = tpara_wa.
+  ENDIF.
+
+  DATA : l_pgmid         TYPE tadir-pgmid,
+           l_object      TYPE tadir-object,
+           l_obj_name    TYPE tadir-obj_name,
+           l_dd_objname  TYPE ddobjname,
+           l_srcsystem   TYPE tadir-srcsystem,
+           l_author      TYPE tadir-author,
+           l_devclass    TYPE tadir-devclass,
+           l_masterlang  TYPE tadir-masterlang.
+
+
+  l_pgmid      = &apos;R3TR&apos;.
+  l_object     = _objtype.
+  l_obj_name   = objname.
+  l_dd_objname = objname.
+  l_srcsystem  = sy-sysid.
+  l_author     = sy-uname.
+  l_devclass   = _devclass.
+  l_masterlang = sy-langu.
+
+  DATA: itadir TYPE tadir.
+  itadir-pgmid      = l_pgmid.
+  itadir-object     = l_object.
+  itadir-obj_name   = l_obj_name.
+  itadir-srcsystem  = l_srcsystem.
+  itadir-author     = l_author.
+  itadir-devclass   = l_devclass.
+  itadir-masterlang = l_masterlang.
+  MODIFY tadir FROM itadir.
+
+  CALL FUNCTION &apos;TR_TADIR_INTERFACE&apos;
+    EXPORTING
+      wi_test_modus                  = &apos; &apos;
+      wi_delete_tadir_entry          = &apos;X&apos;
+      wi_tadir_pgmid                 = l_pgmid
+      wi_tadir_object                = l_object
+      wi_tadir_obj_name              = l_obj_name
+      wi_tadir_srcsystem             = l_srcsystem
+      wi_tadir_author                = l_author
+      wi_tadir_devclass              = l_devclass
+      wi_tadir_masterlang            = l_masterlang
+      iv_set_edtflag                 = &apos;&apos;
+    EXCEPTIONS
+      tadir_entry_not_existing       = 1
+      tadir_entry_ill_type           = 2
+      no_systemname                  = 3
+      no_systemtype                  = 4
+      original_system_conflict       = 5
+      object_reserved_for_devclass   = 6
+      object_exists_global           = 7
+      object_exists_local            = 8
+      object_is_distributed          = 9
+      obj_specification_not_unique   = 10
+      no_authorization_to_delete     = 11
+      devclass_not_existing          = 12
+      simultanious_set_remove_repair = 13
+      order_missing                  = 14
+      no_modification_of_head_syst   = 15
+      pgmid_object_not_allowed       = 16
+      masterlanguage_not_specified   = 17
+      devclass_not_specified         = 18
+      specify_owner_unique           = 19
+      loc_priv_objs_no_repair        = 20
+      gtadir_not_reached             = 21
+      object_locked_for_order        = 22
+      change_of_class_not_allowed    = 23
+      no_change_from_sap_to_tmp      = 24
+      OTHERS                         = 25.
+  IF sy-subrc NE 0.
+    CASE sy-subrc.
+      WHEN 1 OR 9 OR 7 OR 8. &quot;OK! - Doesn&apos;t exist yet
+      WHEN 11 OR 23 OR 24.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING textid = zcx_saplink=&gt;not_authorized.
+      WHEN 22.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING textid = zcx_saplink=&gt;locked.
+      WHEN OTHERS.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING textid = zcx_saplink=&gt;system_error.
+    ENDCASE.
+  ENDIF.
+
+* begin of deletion Multilinguality - moved into loop
+*  CALL FUNCTION &apos;DDIF_DTEL_PUT&apos;
+*    EXPORTING
+*      name              = l_dd_objname
+*      dd04v_wa          = dd04v_wa
+*    EXCEPTIONS
+*      dtel_not_found    = 1
+*      name_inconsistent = 2
+*      dtel_inconsistent = 3
+*      put_failure       = 4
+*      put_refused       = 5
+*      OTHERS            = 6.
+*
+*  IF sy-subrc &lt;&gt; 0.
+*    RAISE EXCEPTION TYPE zcx_saplink
+*      EXPORTING textid = zcx_saplink=&gt;system_error.
+*  ENDIF.
+* begin of deletion Multilinguality -  moved into loop
+* begin of insertion Multilinguality - loop at languages and insert them all
+  DATA: lo_langunode  TYPE REF TO if_ixml_element,
+        lo_dd04vnode  TYPE REF TO if_ixml_element,
+        ls_dd04v      TYPE dd04v.
+
+  lo_langunode ?= rootnode-&gt;find_from_name( &apos;DDLANGUAGE&apos; ).
+  WHILE lo_langunode IS BOUND.  &quot; No need to extract anything from languagenode since language is duplicated in DD01V and DD07V
+
+    CLEAR: ls_dd04v.
+    FREE:  lo_dd04vnode.
+
+* DD04V
+    lo_dd04vnode ?= lo_langunode-&gt;find_from_name( &apos;DD04V&apos; ).
+    IF lo_dd04vnode IS BOUND.
+      CALL METHOD getstructurefromattributes
+        EXPORTING
+          node      = lo_dd04vnode
+        CHANGING
+          structure = ls_dd04v.
+
+      CALL FUNCTION &apos;DDIF_DTEL_PUT&apos;
+        EXPORTING
+          name              = l_dd_objname
+          dd04v_wa          = ls_dd04v
+        EXCEPTIONS
+          dtel_not_found    = 1
+          name_inconsistent = 2
+          dtel_inconsistent = 3
+          put_failure       = 4
+          put_refused       = 5
+          OTHERS            = 6.
+
+      IF sy-subrc &lt;&gt; 0.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING textid = zcx_saplink=&gt;system_error.
+      ENDIF.
+    ENDIF.
+
+    lo_langunode ?= lo_langunode-&gt;get_next( ).
+
+  ENDWHILE.
+
+* end of insertion Multilinguality - loop at languages and insert them all
+
+  DATA: trobjtype  TYPE trobjtype,
+        trobj_name TYPE trobj_name.
+  trobjtype  = l_object.
+  trobj_name = l_obj_name.
+  CALL FUNCTION &apos;RS_INSERT_INTO_WORKING_AREA&apos;
+    EXPORTING
+      object            = trobjtype
+      obj_name          = trobj_name
+    EXCEPTIONS
+      wrong_object_name = 1.
+
+  name = objname.
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZSAPLINK_DATA_ELEMENTS" CMPNAME="CREATEOBJECTFROMIXMLDOC_NOLANG" VERSION="1" LANGU="E" DESCRIPT="Old nugget/slinkee w/o multilanguagesupport" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZSAPLINK_DATA_ELEMENTS" CMPNAME="CREATEOBJECTFROMIXMLDOC_NOLANG" SCONAME="IXMLDOCUMENT" VERSION="1" LANGU="E" DESCRIPT="IF_IXML_DOCUMENT" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_IXML_DOCUMENT"/>
+  <parameter CLSNAME="ZSAPLINK_DATA_ELEMENTS" CMPNAME="CREATEOBJECTFROMIXMLDOC_NOLANG" SCONAME="DEVCLASS" VERSION="1" LANGU="E" DESCRIPT="Development class/package" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DEVCLASS" PARVALUE="&apos;$TMP&apos;"/>
+  <parameter CLSNAME="ZSAPLINK_DATA_ELEMENTS" CMPNAME="CREATEOBJECTFROMIXMLDOC_NOLANG" SCONAME="OVERWRITE" VERSION="1" LANGU="E" DESCRIPT="Overwrite original objects" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="FLAG" PAROPTIONL="X"/>
+  <parameter CLSNAME="ZSAPLINK_DATA_ELEMENTS" CMPNAME="CREATEOBJECTFROMIXMLDOC_NOLANG" SCONAME="NAME" VERSION="1" LANGU="E" DESCRIPT="Installed object name" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <exception CLSNAME="ZSAPLINK_DATA_ELEMENTS" CMPNAME="CREATEOBJECTFROMIXMLDOC_NOLANG" SCONAME="ZCX_SAPLINK" VERSION="1" LANGU="E" DESCRIPT="SAPlink exception class" MTDTYPE="0" EDITORDER="1 "/>
+  <source>method CREATEOBJECTFROMIXMLDOC_NOLANG.
+*/---------------------------------------------------------------------\
+*|   This file is part of SAPlink.                                     |
+*|                                                                     |
+*|   SAPlink is free software; you can redistribute it and/or modify   |
+*|   it under the terms of the GNU General Public License as published |
+*|   by the Free Software Foundation; either version 2 of the License, |
+*|   or (at your option) any later version.                            |
+*|                                                                     |
+*|   SAPlink is distributed in the hope that it will be useful,        |
+*|   but WITHOUT ANY WARRANTY; without even the implied warranty of    |
+*|   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     |
+*|   GNU General Public License for more details.                      |
+*|                                                                     |
+*|   You should have received a copy of the GNU General Public License |
+*|   along with SAPlink; if not, write to the                          |
+*|   Free Software Foundation, Inc.,                                   |
+*|   51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA          |
+*\---------------------------------------------------------------------/
 
 *      Plugin created by:
 *      Thomas Jung
@@ -345,9 +657,9 @@ METHOD createobjectfromixmldoc.
       wrong_object_name = 1.
 
   name = objName.
-ENDMETHOD.</source>
+endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="DELETEOBJECT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |
@@ -374,7 +686,7 @@ method DELETEOBJECT.
 
 endmethod.</source>
  </method>
- <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " CREATEDON="00000000" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZSAPLINK" CMPNAME="GETOBJECTTYPE" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>*/---------------------------------------------------------------------\
 *|   This file is part of SAPlink.                                     |
 *|                                                                     |

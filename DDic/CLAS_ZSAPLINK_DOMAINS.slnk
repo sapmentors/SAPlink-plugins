@@ -428,13 +428,9 @@ METHOD createobjectfromixmldoc.
   DATA: lo_langunode  TYPE REF TO if_ixml_element,
         lo_dd01vnode  TYPE REF TO if_ixml_element,
         lo_dd07vnode  TYPE REF TO if_ixml_element,
-*        lv_objecttype TYPE string,
-*        lv_value      TYPE string,
-*        lv_ddobjname  TYPE ddobjname,
         ls_dd01v      TYPE dd01v,
         lt_dd07v      TYPE STANDARD TABLE OF dd07v WITH NON-UNIQUE DEFAULT KEY.
-  FIELD-SYMBOLS: &quot;&lt;lv_ddlanguage&gt; LIKE LINE OF lt_ddlanguage,
-                 &lt;ls_dd07v&gt;      LIKE LINE OF lt_dd07v.
+  FIELD-SYMBOLS: &lt;ls_dd07v&gt;      LIKE LINE OF lt_dd07v.
 
   lo_langunode ?= rootnode-&gt;find_from_name( &apos;DDLANGUAGE&apos; ).
   WHILE lo_langunode IS BOUND.  &quot; No need to extract anything from languagenode since language is duplicated in DD01V and DD07V
@@ -446,45 +442,47 @@ METHOD createobjectfromixmldoc.
 
 * DD01V
     lo_dd01vnode ?= lo_langunode-&gt;find_from_name( &apos;DD01V&apos; ).
-    CHECK lo_dd01vnode IS BOUND.
-    CALL METHOD getstructurefromattributes
-      EXPORTING
-        node      = lo_dd01vnode
-      CHANGING
-        structure = ls_dd01v.
-
-* DD07V
-    lo_dd07vnode ?= lo_langunode-&gt;find_from_name( &apos;DD07V&apos; ).
-    WHILE lo_dd07vnode IS BOUND.
-      APPEND INITIAL LINE TO lt_dd07v ASSIGNING &lt;ls_dd07v&gt;.
+    IF lo_dd01vnode IS BOUND.
       CALL METHOD getstructurefromattributes
         EXPORTING
-          node      = lo_dd07vnode
+          node      = lo_dd01vnode
         CHANGING
-          structure = &lt;ls_dd07v&gt;.
-      lo_dd07vnode ?= lo_dd07vnode-&gt;get_next( ).
-    ENDWHILE.
+          structure = ls_dd01v.
+
+* DD07V
+      lo_dd07vnode ?= lo_langunode-&gt;find_from_name( &apos;DD07V&apos; ).
+      WHILE lo_dd07vnode IS BOUND.
+        APPEND INITIAL LINE TO lt_dd07v ASSIGNING &lt;ls_dd07v&gt;.
+        CALL METHOD getstructurefromattributes
+          EXPORTING
+            node      = lo_dd07vnode
+          CHANGING
+            structure = &lt;ls_dd07v&gt;.
+        lo_dd07vnode ?= lo_dd07vnode-&gt;get_next( ).
+      ENDWHILE.
 
 
-    CALL FUNCTION &apos;DDIF_DOMA_PUT&apos;
-      EXPORTING
-        name              = l_dd_objname
-        dd01v_wa          = ls_dd01v
-      TABLES
-        dd07v_tab         = lt_dd07v
-      EXCEPTIONS
-        doma_not_found    = 1
-        name_inconsistent = 2
-        doma_inconsistent = 3
-        put_failure       = 4
-        put_refused       = 5
-        OTHERS            = 6.
-    IF sy-subrc &lt;&gt; 0.
-      RAISE EXCEPTION TYPE zcx_saplink
-        EXPORTING textid = zcx_saplink=&gt;system_error.
+      CALL FUNCTION &apos;DDIF_DOMA_PUT&apos;
+        EXPORTING
+          name              = l_dd_objname
+          dd01v_wa          = ls_dd01v
+        TABLES
+          dd07v_tab         = lt_dd07v
+        EXCEPTIONS
+          doma_not_found    = 1
+          name_inconsistent = 2
+          doma_inconsistent = 3
+          put_failure       = 4
+          put_refused       = 5
+          OTHERS            = 6.
+      IF sy-subrc &lt;&gt; 0.
+        RAISE EXCEPTION TYPE zcx_saplink
+          EXPORTING textid = zcx_saplink=&gt;system_error.
+      ENDIF.
     ENDIF.
 
     lo_langunode ?= lo_langunode-&gt;get_next( ).
+
 
   ENDWHILE.
 * end of insertion Multilinguality - loop at languages and insert them all
