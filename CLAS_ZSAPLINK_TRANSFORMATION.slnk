@@ -145,6 +145,7 @@ METHOD createobjectfromixmldoc .
 
 * 1. get attributes
   getstructurefromattributes( EXPORTING node = lo_rootnode CHANGING structure = ls_attributes ).
+  ls_attributes-devclass = devclass.
 
 * set XSLT transformation name
   objname = ls_attributes-xsltdesc.
