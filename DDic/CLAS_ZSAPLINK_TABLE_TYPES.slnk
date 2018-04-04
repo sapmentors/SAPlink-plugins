@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CLAS CLSNAME="ZSAPLINK_TABLE_TYPES" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Data Dictionary  - Table Types" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="ZSAPLINK">
+<CLAS CLSNAME="ZSAPLINK_TABLE_TYPES" VERSION="1" LANGU="E" DESCRIPT="SAPlink - Data Dictionary  - Table Types" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " ZSAPLINK_PLUGIN_MAJOR_VERSION="0 " ZSAPLINK_PLUGIN_MINOR_VERSION="1 " ZSAPLINK_PLUGIN_BUILD_VERSION="0 " ZSAPLINK_PLUGIN_INFO1="ZSAPLINK_CLASS is part of the main ZSAPLINK project --&gt; This plugin found there instead of ZSAPLINK_PLUGINS projects" ZSAPLINK_PLUGIN_INFO2="SAPLINK homepage: https://www.assembla.com/spaces/saplink/wiki" ZSAPLINK_PLUGIN_INFO3="Download from https://www.assembla.com/code/saplink/subversion/nodes" ZSAPLINK_PLUGIN_INFO4="and navigate to:  trunk -&gt; core -&gt; ZSAPLINK -&gt; CLAS -&gt; ZSAPLINK_CLASS.slnk" REFCLSNAME="ZSAPLINK">
  <localImplementation>*&quot;* local class implementation for public class
 *&quot;* use this source file for the implementation part of
 *&quot;* local helper classes</localImplementation>
@@ -9,11 +9,11 @@
  <localMacros>*&quot;* use this source file for any macro definitions you need
 *&quot;* in the implementation part of the class</localMacros>
  <inheritance CLSNAME="ZSAPLINK_TABLE_TYPES" REFCLSNAME="ZSAPLINK" VERSION="1" STATE="1">
-  <redefinition CLSNAME="ZSAPLINK_TABLE_TYPES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS" EXPOSURE="2"/>
-  <redefinition CLSNAME="ZSAPLINK_TABLE_TYPES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT" EXPOSURE="2"/>
-  <redefinition CLSNAME="ZSAPLINK_TABLE_TYPES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC" EXPOSURE="2"/>
-  <redefinition CLSNAME="ZSAPLINK_TABLE_TYPES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT" EXPOSURE="1"/>
-  <redefinition CLSNAME="ZSAPLINK_TABLE_TYPES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE" EXPOSURE="1"/>
+  <redefinition CLSNAME="ZSAPLINK_TABLE_TYPES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CHECKEXISTS" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZSAPLINK_TABLE_TYPES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEIXMLDOCFROMOBJECT" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZSAPLINK_TABLE_TYPES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="CREATEOBJECTFROMIXMLDOC" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZSAPLINK_TABLE_TYPES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="DELETEOBJECT" EXPOSURE="0"/>
+  <redefinition CLSNAME="ZSAPLINK_TABLE_TYPES" REFCLSNAME="ZSAPLINK" VERSION="1" MTDNAME="GETOBJECTTYPE" EXPOSURE="0"/>
  </inheritance>
  <method CLSNAME="ZSAPLINK" CMPNAME="CHECKEXISTS" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>*/---------------------------------------------------------------------\
@@ -85,9 +85,6 @@ METHOD createixmldocfromobject.
         dd40v_wa   TYPE dd40v,
         lt_dd42v   TYPE STANDARD TABLE OF dd42v WITH NON-UNIQUE DEFAULT KEY,
         ls_dd42v   LIKE LINE OF lt_dd42v,
-        lt_dd43v   TYPE STANDARD TABLE OF dd43v WITH NON-UNIQUE DEFAULT KEY,
-        ls_dd43v   LIKE LINE OF lt_dd43v,
-
         _objtype   TYPE string,
 
 *xml nodes
@@ -95,24 +92,56 @@ METHOD createixmldocfromobject.
         dd42v_node TYPE REF TO if_ixml_element,
         dd43v_node TYPE REF TO if_ixml_element,
         rc         TYPE sysubrc,
-        _ttypname  TYPE ddobjname.
+        _ttypname  TYPE ddobjname,
+        lrs_dd43V  TYPE REF TO data,
+        lrt_dd43v  TYPE REF TO data.
 
+  FIELD-SYMBOLS: &lt;fs_dd43v&gt; TYPE ANY,
+                 &lt;ft_dd43v&gt; TYPE STANDARD TABLE.
 
   _ttypname  = objname.
 
-  CALL FUNCTION &apos;DDIF_TTYP_GET&apos;
-    EXPORTING
-      name          = _ttypname
-      langu         = sy-langu
-    IMPORTING
-      gotstate      = gotstate
-      dd40v_wa      = dd40v_wa
-    TABLES
-      dd42v_tab     = lt_dd42v
-      dd43v_tab     = lt_dd43v
-    EXCEPTIONS
-      illegal_input = 1
-      OTHERS        = 2.
+* Check DD43V exist in current version
+  SELECT COUNT(*) FROM dd02l WHERE TABNAME eq &apos;DD43V&apos;.
+  IF sy-dbcnt gt 0.
+   CREATE DATA lrs_dd43V type (&apos;DD43V&apos;).
+    IF sy-subrc is initial.
+      ASSIGN lrs_dd43V-&gt;* to &lt;fs_dd43v&gt;.
+      CREATE DATA lrt_dd43v type table of (&apos;DD43V&apos;).
+      ASSIGN lrt_dd43v-&gt;* to &lt;ft_dd43v&gt;.
+    ENDIF.
+  ENDIF.
+
+  IF &lt;ft_dd43v&gt; IS ASSIGNED.
+      CALL FUNCTION &apos;DDIF_TTYP_GET&apos;
+        EXPORTING
+          name          = _ttypname
+          langu         = sy-langu
+        IMPORTING
+          gotstate      = gotstate
+          dd40v_wa      = dd40v_wa
+        TABLES
+          dd42v_tab     = lt_dd42v
+          dd43v_tab     = &lt;ft_dd43v&gt;
+        EXCEPTIONS
+          illegal_input = 1
+          OTHERS        = 2.
+  ELSE.
+      CALL FUNCTION &apos;DDIF_TTYP_GET&apos;
+        EXPORTING
+          name          = _ttypname
+          langu         = sy-langu
+        IMPORTING
+          gotstate      = gotstate
+          dd40v_wa      = dd40v_wa
+        TABLES
+          dd42v_tab     = lt_dd42v
+        EXCEPTIONS
+          illegal_input = 1
+          OTHERS        = 2.
+  ENDIF.
+
+
   IF sy-subrc &lt;&gt; 0 OR dd40v_wa-typename IS INITIAL.
     RAISE EXCEPTION TYPE zcx_saplink
       EXPORTING
@@ -130,11 +159,13 @@ METHOD createixmldocfromobject.
     rc = rootnode-&gt;append_child( dd42v_node ).
   ENDLOOP.
 
-  LOOP AT lt_dd43v INTO ls_dd43v.
-    dd43v_node = xmldoc-&gt;create_element( &apos;dd43v&apos; ).
-    setattributesfromstructure( node = dd43v_node structure = ls_dd43v ).
-    rc = rootnode-&gt;append_child( dd43v_node ).
-  ENDLOOP.
+  IF &lt;ft_dd43v&gt; IS ASSIGNED.
+    LOOP AT &lt;ft_dd43v&gt; INTO &lt;fs_dd43v&gt;.
+      dd43v_node = xmldoc-&gt;create_element( &apos;dd43v&apos; ).
+      setattributesfromstructure( node = dd43v_node structure = &lt;fs_dd43v&gt; ).
+      rc = rootnode-&gt;append_child( dd43v_node ).
+    ENDLOOP.
+  ENDIF.
 
 *\--------------------------------------------------------------------/
   rc = xmldoc-&gt;append_child( rootnode ).
@@ -170,8 +201,6 @@ METHOD createobjectfromixmldoc.
         dd40v_wa     TYPE dd40v,
         lt_dd42v     TYPE STANDARD TABLE OF dd42v WITH NON-UNIQUE DEFAULT KEY,
         ls_dd42v     LIKE LINE OF lt_dd42v,
-        lt_dd43v     TYPE STANDARD TABLE OF dd43v WITH NON-UNIQUE DEFAULT KEY,
-        ls_dd43v     LIKE LINE OF lt_dd43v,
 
 *xml nodes
         rootnode     TYPE REF TO if_ixml_element,
@@ -193,8 +222,12 @@ METHOD createobjectfromixmldoc.
         l_srcsystem  TYPE tadir-srcsystem,
         l_author     TYPE tadir-author,
         l_devclass   TYPE tadir-devclass,
-        l_masterlang TYPE tadir-masterlang.
+        l_masterlang TYPE tadir-masterlang,
+        lrs_dd43V  TYPE REF TO data,
+        lrt_dd43v  TYPE REF TO data.
 
+  FIELD-SYMBOLS: &lt;fs_dd43v&gt; TYPE ANY,
+                 &lt;ft_dd43v&gt; TYPE STANDARD TABLE.
 
   _devclass   = devclass.
   _objtype = getobjecttype( ).
@@ -244,17 +277,28 @@ METHOD createobjectfromixmldoc.
   iterator = xmldoc-&gt;create_iterator_filtered( filter ).
   node ?= iterator-&gt;get_next( ).
 
-  WHILE node IS NOT INITIAL.
-    CLEAR dd43v_node.
-    CALL METHOD getstructurefromattributes
-      EXPORTING
-        node      = node
-      CHANGING
-        structure = ls_dd43v.
-    APPEND ls_dd43v TO lt_dd43v.
-    node ?= iterator-&gt;get_next( ).
-  ENDWHILE.
+* Check DD43V exist in current version
+  SELECT COUNT(*) FROM dd02l WHERE TABNAME eq &apos;DD43V&apos;.
+  IF sy-dbcnt gt 0.
+    CREATE DATA lrs_dd43V type (&apos;DD43V&apos;).
+    IF sy-subrc is initial.
+      ASSIGN lrs_dd43V-&gt;* to &lt;fs_dd43v&gt;.
+      CREATE DATA lrt_dd43v type table of (&apos;DD43V&apos;).
+      ASSIGN lrt_dd43v-&gt;* to &lt;ft_dd43v&gt;.
 
+        WHILE node IS NOT INITIAL.
+        CLEAR dd43v_node.
+        CALL METHOD getstructurefromattributes
+          EXPORTING
+            node      = node
+          CHANGING
+            structure = &lt;fs_dd43v&gt;.
+        APPEND &lt;fs_dd43v&gt; TO &lt;ft_dd43v&gt;.
+        node ?= iterator-&gt;get_next( ).
+      ENDWHILE.
+
+    ENDIF.
+  ENDIF.
 
   l_pgmid      = &apos;R3TR&apos;.
   l_object     = _objtype.
@@ -331,26 +375,46 @@ METHOD createobjectfromixmldoc.
     ENDCASE.
   ENDIF.
 
-  CALL FUNCTION &apos;DDIF_TTYP_PUT&apos;
-    EXPORTING
-      name              = l_dd_objname
-      dd40v_wa          = dd40v_wa
-    TABLES
-      dd42v_tab         = lt_dd42v
-      dd43v_tab         = lt_dd43v
-    EXCEPTIONS
-      ttyp_not_found    = 1
-      name_inconsistent = 2
-      ttyp_inconsistent = 3
-      put_failure       = 4
-      put_refused       = 5
-      OTHERS            = 6.
-  IF sy-subrc &lt;&gt; 0.
-    RAISE EXCEPTION TYPE zcx_saplink
+  IF &lt;ft_dd43v&gt; IS ASSIGNED.
+    CALL FUNCTION &apos;DDIF_TTYP_PUT&apos;
       EXPORTING
-        textid = zcx_saplink=&gt;system_error.
+        name              = l_dd_objname
+        dd40v_wa          = dd40v_wa
+      TABLES
+        dd42v_tab         = lt_dd42v
+        dd43v_tab         = &lt;ft_dd43v&gt;
+      EXCEPTIONS
+        ttyp_not_found    = 1
+        name_inconsistent = 2
+        ttyp_inconsistent = 3
+        put_failure       = 4
+        put_refused       = 5
+        OTHERS            = 6.
+    IF sy-subrc &lt;&gt; 0.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          textid = zcx_saplink=&gt;system_error.
+    ENDIF.
+  ELSE.
+    CALL FUNCTION &apos;DDIF_TTYP_PUT&apos;
+        EXPORTING
+          name              = l_dd_objname
+          dd40v_wa          = dd40v_wa
+        TABLES
+          dd42v_tab         = lt_dd42v
+        EXCEPTIONS
+          ttyp_not_found    = 1
+          name_inconsistent = 2
+          ttyp_inconsistent = 3
+          put_failure       = 4
+          put_refused       = 5
+          OTHERS            = 6.
+    IF sy-subrc &lt;&gt; 0.
+      RAISE EXCEPTION TYPE zcx_saplink
+        EXPORTING
+          textid = zcx_saplink=&gt;system_error.
+    ENDIF.
   ENDIF.
-
 
 
   DATA: trobjtype  TYPE trobjtype,
